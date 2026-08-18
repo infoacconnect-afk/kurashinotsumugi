@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家づくり見える化プラン｜くらしのつむぎ</title>
+<meta name="description" content="住宅会社を選ぶ前に"住まいの姿"を見る。参考配置図・平面プラン・外観パース・簡易資金計画をお作りするサービスです。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.hero-mieruka { background: linear-gradient(180deg, #F7EFDF 0%, #FBF7F0 100%); }
+
+.for-whom-sec { background: #fff; padding: 100px 0; }
+.for-whom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 56px auto 0;
+}
+.for-whom-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 28px;
+  background: var(--ivory);
+  border-radius: 20px;
+  border-left: 4px solid var(--orange);
+}
+.for-whom-item .check {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.for-whom-item p { font-size: 15px; color: var(--text); line-height: 1.7; }
+@media (max-width: 700px) { .for-whom-grid { grid-template-columns: 1fr; } }
+
+.plan-detail {
+  background: var(--ivory);
+  padding: 100px 0;
+}
+.plan-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 24px;
+  align-items: center;
+  transition: all .3s var(--ease);
+  border: 1px solid var(--line-soft);
+}
+.plan-item:hover { box-shadow: var(--shadow-md); }
+.plan-item .plan-visual {
+  background: var(--beige);
+  border-radius: 16px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.plan-item .plan-visual svg { width: 80%; height: 80%; }
+.plan-item .plan-num {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 14px;
+  color: var(--orange-deep);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+.plan-item h3 { font-size: 22px; color: var(--brown-deep); margin-bottom: 12px; }
+.plan-item p { font-size: 15px; color: var(--text-soft); line-height: 2; }
+@media (max-width: 700px) {
+  .plan-item { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
+  .plan-item .plan-visual { max-width: 220px; margin: 0 auto; }
+}
+
+.option-sec { background: #fff; padding: 100px 0; }
+.option-card {
+  max-width: 720px;
+  margin: 56px auto 0;
+  background: linear-gradient(135deg, #FBF7F0 0%, #F7EFDF 100%);
+  border-radius: 24px;
+  padding: 44px;
+  text-align: center;
+  border: 1px solid var(--beige-deep);
+}
+.option-card .op-label {
+  display: inline-block;
+  background: var(--green-deep);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.option-card h3 { font-size: 24px; color: var(--brown-deep); margin-bottom: 12px; }
+.option-card p { font-size: 15px; color: var(--text-soft); line-height: 2; margin-bottom: 20px; }
+.option-card .op-note { font-size: 13px; color: var(--text-mute); }
+
+.price-sec {
+  background: linear-gradient(135deg, #F5E8D0 0%, #F7EFDF 100%);
+  padding: 100px 0;
+  text-align: center;
+}
+.price-block {
+  display: inline-block;
+  background: #fff;
+  border-radius: 32px;
+  padding: 56px 80px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--orange-soft);
+  margin-top: 40px;
+}
+.price-block .price-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--brown-deep);
+  font-size: 18px;
+  margin-bottom: 20px;
+  letter-spacing: 0.08em;
+}
+.price-block .price-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.price-block .price-num {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--orange-deep);
+  line-height: 1;
+}
+.price-block .price-unit {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 24px;
+  color: var(--brown-deep);
+  font-weight: 500;
+}
+.price-block .price-tax { font-size: 15px; color: var(--text-mute); }
+.price-block .price-sub { font-size: 14px; color: var(--text-soft); margin-top: 12px; }
+
+.notice-sec {
+  background: var(--ivory);
+  padding: 100px 0;
+}
+.notice-card {
+  max-width: 780px;
+  margin: 56px auto 0;
+  background: #fff;
+  border-radius: 24px;
+  padding: 44px;
+  border-left: 4px solid var(--green);
+}
+.notice-card h3 { font-size: 20px; color: var(--brown-deep); margin-bottom: 20px; display:flex;align-items:center;gap:10px;}
+.notice-card ul { list-style: none; padding: 0; margin: 0; }
+.notice-card li {
+  padding: 14px 0 14px 24px;
+  border-bottom: 1px dashed var(--line);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--text);
+  position: relative;
+}
+.notice-card li:last-child { border-bottom: 0; }
+.notice-card li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 22px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+</style>
+</head>
+<body data-page="mieruka">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span><a href="korekara.html">これからのすまい</a><span class="sep">›</span>家づくり見える化プラン
+  </div>
+</div>
+
+<section class="page-hero hero-mieruka">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow fade-up" style="color:var(--orange-deep)">SPECIAL PLAN</div>
+    <h1 class="fade-up d1">家づくり見える化プラン</h1>
+    <p class="lead fade-up d2">住宅会社を選ぶ前に、"住まいの姿"を見る。<br>提携設計事務所と、あなたの家づくりを"具体的なかたち"にしてみませんか。</p>
+  </div>
+</section>
+
+<section class="for-whom-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FOR WHOM</div>
+      <h2 class="section-title fade-up d1">こんな方におすすめです</h2>
+    </div>
+    <div class="for-whom-grid">
+      <div class="for-whom-item fade-up d1"><div class="check">✓</div><p>候補の土地に、実際どんな家が建つのかを見てみたい</p></div>
+      <div class="for-whom-item fade-up d1"><div class="check">✓</div><p>会社を決める前に、参考プランを1つ持っておきたい</p></div>
+      <div class="for-whom-item fade-up d2"><div class="check">✓</div><p>資金計画とプランをセットで整理したい</p></div>
+      <div class="for-whom-item fade-up d2"><div class="check">✓</div><p>営業ではなく、第三者の視点でプランを見たい</p></div>
+      <div class="for-whom-item fade-up d3"><div class="check">✓</div><p>複数の住宅会社を比較する共通のたたき台がほしい</p></div>
+      <div class="for-whom-item fade-up d3"><div class="check">✓</div><p>家族で話し合うためのイメージ資料がほしい</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="plan-detail">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">BASIC SET</div>
+      <h2 class="section-title fade-up d1">基本セット4項目</h2>
+      <p class="section-lead center fade-up d2">プランナーが提携設計事務所と連携し、以下の4点をお作りします。</p>
+    </div>
+
+    <div class="plan-item fade-up">
+      <div class="plan-visual">
+        <svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><path d="M20 45 L80 45 M45 20 L45 80" stroke="#8B6F4E" stroke-width="1"/><rect x="25" y="25" width="15" height="15" fill="#F5E8D0"/><rect x="50" y="50" width="25" height="25" fill="#E89B5B" opacity="0.4"/><circle cx="70" cy="30" r="8" fill="#9CAF88" opacity="0.5"/></svg>
+      </div>
+      <div>
+        <div class="plan-num">ITEM 01</div>
+        <h3>候補地に合わせた参考配置図</h3>
+        <p>候補となる敷地に、建物・駐車場・アプローチをどう配置するか。日当たり、風通し、隣地との距離を踏まえた"住まいのレイアウト"をお示しします。</p>
+      </div>
+    </div>
+
+    <div class="plan-item fade-up">
+      <div class="plan-visual">
+        <svg viewBox="0 0 100 100"><rect x="15" y="20" width="70" height="60" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><line x1="15" y1="50" x2="85" y2="50" stroke="#8B6F4E" stroke-width="1"/><line x1="50" y1="20" x2="50" y2="80" stroke="#8B6F4E" stroke-width="1"/><text x="30" y="42" font-size="8" fill="#8B6F4E">LDK</text><text x="60" y="42" font-size="6" fill="#8B6F4E">和室</text><text x="30" y="70" font-size="6" fill="#8B6F4E">寝室</text><text x="60" y="70" font-size="6" fill="#8B6F4E">水回り</text></svg>
+      </div>
+      <div>
+        <div class="plan-num">ITEM 02</div>
+        <h3>参考平面プラン</h3>
+        <p>家族構成やご希望の暮らし方をもとに、部屋の配置や動線を検討した参考プランをお作りします。「こういう暮らしができそう」というイメージを具体化できます。</p>
+      </div>
+    </div>
+
+    <div class="plan-item fade-up">
+      <div class="plan-visual">
+        <svg viewBox="0 0 100 100"><path d="M15 55 L50 25 L85 55 L85 85 L15 85 Z" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><path d="M10 55 L50 22 L90 55" fill="#B85C3E" stroke="#8B6F4E" stroke-width="1.5"/><rect x="40" y="55" width="20" height="20" fill="#E89B5B"/><rect x="22" y="65" width="10" height="15" fill="#F5E8D0" stroke="#8B6F4E" stroke-width="0.8"/><rect x="68" y="65" width="10" height="15" fill="#F5E8D0" stroke="#8B6F4E" stroke-width="0.8"/></svg>
+      </div>
+      <div>
+        <div class="plan-num">ITEM 03</div>
+        <h3>外観パース</h3>
+        <p>正面から見たときの、家の"顔"のイメージ図。屋根の形、外壁の色味、窓の配置など、雰囲気が伝わるパースをご用意します。</p>
+      </div>
+    </div>
+
+    <div class="plan-item fade-up">
+      <div class="plan-visual">
+        <svg viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" fill="#fff" stroke="#8B6F4E" stroke-width="1.5" rx="4"/><rect x="22" y="22" width="56" height="8" fill="#E89B5B" opacity="0.4"/><line x1="22" y1="40" x2="78" y2="40" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="50" x2="60" y2="50" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="60" x2="68" y2="60" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="70" x2="55" y2="70" stroke="#8B6F4E" stroke-width="0.8"/><rect x="60" y="72" width="18" height="6" fill="#9CAF88" opacity="0.6"/></svg>
+      </div>
+      <div>
+        <div class="plan-num">ITEM 04</div>
+        <h3>プラン連動型 簡易資金計画表</h3>
+        <p>参考プランに紐づいた"建物本体・付帯工事・諸費用・土地"の目安を一覧化。ローンの月々返済までシミュレーションします。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="option-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">OPTION</div>
+      <h2 class="section-title fade-up d1">追加オプション</h2>
+    </div>
+    <div class="option-card fade-up">
+      <div class="op-label">OPTION</div>
+      <h3>内観パース</h3>
+      <p>リビングやキッチンなど、暮らしのシーンを室内から見たパース。より具体的に暮らしをイメージしたい方に。</p>
+      <p class="op-note">※内観パースは追加オプションでご用意します。詳しくはご相談時にご案内します。</p>
+    </div>
+  </div>
+</section>
+
+<section class="price-sec">
+  <div class="container">
+    <div class="section-eyebrow fade-up">PRICE</div>
+    <h2 class="section-title fade-up d1" style="margin-top:16px">価格</h2>
+    <div class="price-block fade-up d2">
+      <div class="price-title">基本セット（ITEM 01〜04）</div>
+      <div class="price-main">
+        <span class="price-num">22,000</span>
+        <span class="price-unit">円</span>
+      </div>
+      <div class="price-tax">（税込）</div>
+      <div class="price-sub">お申し込みから納品まで、およそ3〜4週間</div>
+    </div>
+  </div>
+</section>
+
+<section class="flow-sec" style="background:#fff">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FLOW</div>
+      <h2 class="section-title fade-up d1">ご利用の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up d1"><div class="flow-num">1</div><h4>お申し込み</h4><p>フォームからお申し込みください</p></div>
+      <div class="flow-step fade-up d2"><div class="flow-num">2</div><h4>ヒアリング</h4><p>ご希望や候補地の詳細を伺います</p></div>
+      <div class="flow-step fade-up d3"><div class="flow-num">3</div><h4>作成期間</h4><p>設計事務所と連携し3〜4週間で作成</p></div>
+      <div class="flow-step fade-up d4"><div class="flow-num">4</div><h4>ご説明・お渡し</h4><p>資料をご説明しながらお渡しします</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="notice-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">NOTICE</div>
+      <h2 class="section-title fade-up d1">ご利用にあたって</h2>
+      <p class="section-lead center fade-up d2">安心してご利用いただくために、以下のことをご了承ください。</p>
+    </div>
+    <div class="notice-card fade-up">
+      <h3><span data-deco="leaf" style="display:flex"></span>ご確認ください</h3>
+      <ul>
+        <li>本プランは、家づくりのイメージづくりや比較のたたき台としてお使いいただくものです。正式な設計図書や確認申請図面ではありません。</li>
+        <li>実際にご契約される建築会社の設計士による、あらためての確認・図面作成が必要になります。</li>
+        <li>簡易資金計画表は、標準的な仕様をもとにした目安の金額です。詳細な見積もりは、建築会社での正式なお見積もりをご確認ください。</li>
+        <li>ご希望に合わせた修正のご対応は、内容と回数を事前にご相談させていただきます。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FAQ</div>
+      <h2 class="section-title fade-up d1">よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">この資料を使って、他の住宅会社に見積もり依頼できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">はい、可能です。むしろ複数社を比較検討する共通のたたき台として、多くの方にご活用いただいています。ただし、その会社の建築仕様に合わせて改めての設計・積算が必要になります。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">土地がまだ決まっていなくても申し込めますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">複数の候補地でご検討中の場合は、まずはメインの候補地を1つお決めいただいてのお申し込みとなります。土地選び自体のご相談は「これからのすまい」の無料相談でも承っています。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">プランは何パターンつくってもらえますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">基本セットでは1パターンをお作りします。修正・別案のご相談は個別に対応いたしますので、まずはお気軽にお問い合わせください。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">申し込み後、キャンセルはできますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">作業開始前であればキャンセル可能です。作業開始後のキャンセルについては、進捗に応じて対応させていただきます。詳しくはお申し込み時にご案内します。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">家づくり見える化プランを、お申し込みいただけます。</h2>
+      <p class="cta-sub fade-up d1">ご不明な点は、お気軽にご相談ください。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="contact.html" class="btn btn-primary btn-large">📩 お申し込み・お問い合わせ</a>
+        <a href="tel:0000000000" class="tel-btn">
+          <span class="tel-label">📞 お電話でのご相談</span>
+          <span class="tel-num">048-782-5920</span>
+          <span class="tel-hours">平日 9:00 - 18:00</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+</body>
+</html>

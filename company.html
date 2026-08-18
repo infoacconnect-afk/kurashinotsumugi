@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会社概要｜くらしのつむぎ</title>
+<meta name="description" content="くらしのつむぎを運営するAc・Connect株式会社の会社概要・代表挨拶・沿革・アクセス。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.hero-company { background: linear-gradient(180deg, #FBF7F0 0%, #F5E8D0 100%); }
+
+.message-sec { background: #fff; padding: 100px 0; }
+.message-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 56px;
+  max-width: 980px;
+  margin: 0 auto;
+  align-items: start;
+}
+.ceo-photo {
+  background: linear-gradient(135deg, #F3ECE0 0%, #EEF2E5 100%);
+  border-radius: 24px;
+  aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brown-soft);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  border: 1px dashed var(--brown-soft);
+  font-size: 13px;
+  position: relative;
+}
+.ceo-photo::after {
+  content: '代表写真';
+  position: absolute;
+  bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-mute);
+}
+.ceo-photo svg { width: 60%; opacity: 0.4; }
+.message-body h2 {
+  font-size: clamp(24px, 3.2vw, 32px);
+  color: var(--brown-deep);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.message-body p {
+  font-size: 16px;
+  line-height: 2.1;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.ceo-name {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+.ceo-name .role { font-size: 13px; color: var(--text-mute); margin-bottom: 4px; }
+.ceo-name .name { font-size: 20px; color: var(--brown-deep); }
+@media (max-width: 700px) {
+  .message-inner { grid-template-columns: 1fr; }
+  .ceo-photo { max-width: 240px; margin: 0 auto; }
+}
+
+.info-sec { background: var(--ivory); padding: 100px 0; }
+.info-table {
+  max-width: 820px;
+  margin: 56px auto 0;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+}
+.info-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 22px 32px;
+  border-bottom: 1px solid var(--line-soft);
+  align-items: baseline;
+}
+.info-row:last-child { border-bottom: 0; }
+.info-row dt {
+  font-size: 14px;
+  color: var(--brown-deep);
+  font-weight: 600;
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+.info-row dd {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.9;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .info-row { grid-template-columns: 1fr; gap: 6px; padding: 20px; }
+}
+
+.history-sec { background: #fff; padding: 100px 0; }
+.timeline {
+  max-width: 720px;
+  margin: 56px auto 0;
+  position: relative;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--orange) 0%, var(--green) 100%);
+  opacity: 0.4;
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 32px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -34px; top: 10px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px var(--orange-soft);
+}
+.timeline-year {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 18px;
+  color: var(--orange-deep);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.timeline-item p { font-size: 15px; line-height: 1.9; color: var(--text); }
+
+.access-sec { background: var(--ivory); padding: 100px 0; }
+.access-card {
+  max-width: 820px;
+  margin: 56px auto 0;
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+}
+.map-placeholder {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #EEF2E5 0%, #F3ECE0 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brown-soft);
+  position: relative;
+}
+.map-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(#9CAF8830 1px, transparent 1px),
+    linear-gradient(90deg, #9CAF8830 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.map-pin {
+  width: 50px; height: 50px;
+  background: var(--orange);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+.map-pin::after {
+  content: '';
+  width: 14px; height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+.access-info { padding: 32px; }
+.access-info h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 12px; }
+.access-info p { font-size: 15px; color: var(--text); line-height: 2; }
+</style>
+</head>
+<body data-page="company">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span>会社概要
+  </div>
+</div>
+
+<section class="page-hero hero-company">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow fade-up">COMPANY</div>
+    <h1 class="fade-up d1">会社概要</h1>
+    <p class="lead fade-up d2">Ac・Connect株式会社は、住まいに関わるすべての時間に、<br>やさしく寄り添うことを大切にしています。</p>
+  </div>
+</section>
+
+<section class="message-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">MESSAGE</div>
+      <h2 class="section-title fade-up d1">代表挨拶</h2>
+    </div>
+    <div class="message-inner">
+      <div class="ceo-photo fade-up">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="38" r="18" fill="currentColor"/><path d="M20 90 Q20 65 50 65 Q80 65 80 90" fill="currentColor"/></svg>
+      </div>
+      <div class="message-body fade-up d1">
+        <h2>「売る」ためではなく<br>「いっしょに考える」ために。</h2>
+        <p>私たちAc・Connect株式会社は、家づくり、空き家、相続と、住まいのさまざまな時間に寄り添ってきました。その中で気づいたのは、多くのお客さまが「相談したいのに、営業されるのが少しこわい」と感じていらっしゃるということです。</p>
+        <p>ご相談は、契約のための入口ではありません。ご家族のこれまでと、これからの暮らしを、いっしょに考える時間だと考えています。だから私たちは、押し売りをしません。急かしません。「今は動かない方が良い」という結論も、大切なご提案のひとつです。</p>
+        <p>「くらしのつむぎ」は、そうした姿勢を形にしたブランドです。これから家を建てる方、家を継いだ方、空き家を抱えている方。どんな段階のご相談も、いつでもお待ちしています。</p>
+        <div class="ceo-name">
+          <div class="role">Ac・Connect株式会社 代表取締役</div>
+          <div class="name">〇〇 〇〇</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">CORPORATE</div>
+      <h2 class="section-title fade-up d1">企業情報</h2>
+    </div>
+    <dl class="info-table fade-up">
+      <div class="info-row"><dt>会社名</dt><dd>Ac・Connect株式会社</dd></div>
+      <div class="info-row"><dt>設立</dt><dd>2020年〇月</dd></div>
+      <div class="info-row"><dt>代表者</dt><dd>代表取締役 〇〇 〇〇</dd></div>
+      <div class="info-row"><dt>資本金</dt><dd>〇〇〇万円</dd></div>
+      <div class="info-row"><dt>所在地</dt><dd>〒331-0814<br>埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階</dd></div>
+      <div class="info-row"><dt>電話番号</dt><dd>048-782-5920</dd></div>
+      <div class="info-row"><dt>営業時間</dt><dd>平日 9:00 – 18:00（土日祝、事前予約制）</dd></div>
+      <div class="info-row"><dt>事業内容</dt><dd>住まいの総合相談・仲介・活用支援<br>「くらしのつむぎ」ブランド運営<br>不動産の売買、賃貸、管理、リノベーション支援ほか</dd></div>
+      <div class="info-row"><dt>免許・登録</dt><dd>宅地建物取引業免許 〇〇県知事(1)第〇〇〇〇号</dd></div>
+      <div class="info-row"><dt>提携先</dt><dd>提携設計事務所／司法書士／税理士／地域工務店 ほか</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="history-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">HISTORY</div>
+      <h2 class="section-title fade-up d1">沿革</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item fade-up d1">
+        <div class="timeline-year">2020年</div>
+        <p>Ac・Connect株式会社 設立。住まいに関する総合相談窓口として事業を開始。</p>
+      </div>
+      <div class="timeline-item fade-up d2">
+        <div class="timeline-year">2022年</div>
+        <p>空き家活用のサービスを本格展開。地域の設計事務所・工務店とのネットワークを拡大。</p>
+      </div>
+      <div class="timeline-item fade-up d3">
+        <div class="timeline-year">2023年</div>
+        <p>「家づくり見える化プラン」の提供を開始。営業を介さずにプランと資金計画を"見える化"。</p>
+      </div>
+      <div class="timeline-item fade-up d4">
+        <div class="timeline-year">2024年</div>
+        <p>「住資産再生ラボ」を開設。住まいに関する学びのコンテンツを継続的に発信。</p>
+      </div>
+      <div class="timeline-item fade-up d5">
+        <div class="timeline-year">2026年</div>
+        <p>総合ブランド「くらしのつむぎ」をリニューアル。これからと、それからの住まいをつなぐ窓口として再スタート。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="access-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">ACCESS</div>
+      <h2 class="section-title fade-up d1">アクセス</h2>
+    </div>
+    <div class="access-card fade-up">
+      <div class="map-placeholder">
+        <div class="map-pin"></div>
+      </div>
+      <div class="access-info">
+        <h3>くらしのつむぎ 本社</h3>
+        <p>
+          〒331-0814<br>
+          埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階<br>
+          【最寄駅】東武アーバンパークライン「北大宮駅」徒歩約8分<br>
+          【営業時間】平日 9:00 – 18:00（土日祝、事前予約制）
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">まずは、お話を聞かせてください。</h2>
+      <p class="cta-sub fade-up d1">相談は無料。急かすことはありません。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="contact.html" class="btn btn-primary btn-large">📩 お問い合わせフォームへ</a>
+        <a href="tel:0000000000" class="tel-btn">
+          <span class="tel-label">📞 お電話でのご相談</span>
+          <span class="tel-num">048-782-5920</span>
+          <span class="tel-hours">平日 9:00 - 18:00</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+</body>
+</html>

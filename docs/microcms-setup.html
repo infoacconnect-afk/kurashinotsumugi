@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>microCMS 導入・運用手順書｜住資産再生ラボ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brown: #8B6F4E;
+  --brown-deep: #6B5238;
+  --green: #9CAF88;
+  --green-deep: #7A9068;
+  --orange: #E89B5B;
+  --orange-deep: #D07E3E;
+  --ivory: #FBF7F0;
+  --beige: #F3ECE0;
+  --text: #3D3227;
+  --text-soft: #6B5D50;
+  --text-mute: #9A8E80;
+  --line: #E8DDC8;
+  --code-bg: #2E2620;
+  --code-text: #F0E7D5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
+  background: linear-gradient(180deg, #FBF7F0 0%, #FFFFFF 200px);
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+  color: var(--brown-deep);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* ---------- Document layout ---------- */
+.doc-hero {
+  background: linear-gradient(135deg, #F5E8D0 0%, #EEF2E5 100%);
+  padding: 80px 40px 100px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.doc-hero .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--green-deep);
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 6px 20px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 999px;
+}
+.doc-hero h1 {
+  font-size: clamp(30px, 4vw, 44px);
+  color: var(--brown-deep);
+  margin-bottom: 20px;
+}
+.doc-hero p {
+  font-size: 17px;
+  color: var(--text-soft);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 2;
+}
+.doc-hero .meta {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--brown);
+  display: inline-block;
+  min-width: 300px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.doc-layout {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 40px 120px;
+}
+
+/* ---------- TOC ---------- */
+.toc {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 60px;
+  border: 1px solid var(--line);
+}
+.toc h2 {
+  font-size: 16px;
+  color: var(--brown-deep);
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+}
+.toc ol {
+  padding-left: 24px;
+  margin: 0;
+  list-style-type: decimal;
+}
+.toc li { padding: 6px 0; font-size: 15px; }
+.toc a {
+  color: var(--brown-deep);
+  text-decoration: none;
+  transition: color .2s;
+}
+.toc a:hover { color: var(--orange-deep); text-decoration: underline; }
+
+/* ---------- Step blocks ---------- */
+.step {
+  margin-bottom: 80px;
+  scroll-margin-top: 40px;
+}
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--orange);
+}
+.step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(232,155,91,0.3);
+}
+.step-head h2 {
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--brown-deep);
+}
+.step-head .step-sub {
+  font-size: 13px;
+  color: var(--text-mute);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+/* ---------- Content styles ---------- */
+h3 {
+  font-size: 20px;
+  margin: 40px 0 16px;
+  padding-left: 16px;
+  border-left: 5px solid var(--green);
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+h4 {
+  font-size: 17px;
+  margin: 24px 0 12px;
+  color: var(--brown-deep);
+}
+
+p { margin: 16px 0; line-height: 2.1; }
+
+strong {
+  color: var(--brown-deep);
+  font-weight: 700;
+  background: linear-gradient(transparent 65%, rgba(232,155,91,0.28) 65%);
+  padding: 0 2px;
+}
+em {
+  font-style: normal;
+  color: var(--orange-deep);
+  font-weight: 600;
+}
+a {
+  color: var(--orange-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: var(--orange-deep); }
+
+/* ---------- Field spec table ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 24px 0;
+  box-shadow: 0 4px 16px rgba(139,111,78,0.08);
+  font-size: 14px;
+}
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+th {
+  background: var(--beige);
+  color: var(--brown-deep);
+  font-weight: 600;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  white-space: nowrap;
+}
+td { background: #fff; line-height: 1.8; }
+td code { font-size: 12px; }
+tr:last-child td { border-bottom: 0; }
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.tag-required { background: var(--orange); color: #fff; }
+.tag-optional { background: var(--line); color: var(--text-soft); }
+.tag-auto { background: var(--green-soft, #C4D2B4); color: var(--green-deep); }
+
+/* ---------- Code blocks ---------- */
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 20px 24px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 24px 0;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  letter-spacing: 0;
+}
+code {
+  background: var(--beige);
+  color: var(--brown-deep);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  font-size: 13px;
+}
+pre code {
+  background: transparent;
+  color: var(--code-text);
+  padding: 0;
+  font-size: inherit;
+}
+
+/* ---------- Callouts ---------- */
+.callout {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF0DC 100%);
+  border-radius: 16px;
+  padding: 24px 28px;
+  border: 1px solid var(--orange);
+  margin: 24px 0;
+}
+.callout.warning {
+  background: linear-gradient(135deg, #FDECEC 0%, #FBE2E2 100%);
+  border-color: #D97070;
+}
+.callout.tip {
+  background: linear-gradient(135deg, #EEF2E5 0%, #DDE7CE 100%);
+  border-color: var(--green);
+}
+.callout-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--brown-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.callout p { margin: 0; }
+.callout p + p { margin-top: 10px; }
+
+/* ---------- Checklist ---------- */
+.checklist {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  margin: 24px 0;
+  list-style: none;
+  padding-left: 28px;
+}
+.checklist li {
+  position: relative;
+  padding: 10px 0 10px 32px;
+  border-bottom: 1px dashed var(--line);
+  font-size: 15px;
+}
+.checklist li:last-child { border-bottom: 0; }
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 16px;
+  width: 20px; height: 20px;
+  border: 2px solid var(--brown);
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* ---------- Category list ---------- */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.category-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+}
+.category-item code {
+  font-size: 12px;
+  color: var(--orange-deep);
+  background: var(--ivory);
+}
+.category-item .cat-name {
+  display: block;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 15px;
+  color: var(--brown-deep);
+  margin-top: 6px;
+}
+
+/* ---------- Numbered guide ---------- */
+.guide-list {
+  counter-reset: guide-count;
+  padding: 0;
+  list-style: none;
+  margin: 24px 0;
+}
+.guide-list > li {
+  counter-increment: guide-count;
+  position: relative;
+  padding: 20px 20px 20px 68px;
+  background: var(--ivory);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--orange);
+}
+.guide-list > li::before {
+  content: counter(guide-count);
+  position: absolute;
+  left: 20px; top: 20px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+.guide-list > li h4 { margin-top: 0; }
+.guide-list > li p:last-child { margin-bottom: 0; }
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .doc-hero { background: none; padding: 40px 20px; page-break-after: avoid; }
+  .step { page-break-inside: avoid; }
+  pre { page-break-inside: avoid; font-size: 10pt; }
+  .toc { page-break-after: always; }
+}
+</style>
+</head>
+<body>
+
+<header class="doc-hero">
+  <div class="eyebrow">DOCUMENT</div>
+  <h1>microCMS 導入・運用手順書</h1>
+  <p>「住資産再生ラボ」の記事を、社内の誰でも安心して更新できるように。<br>microCMSのセットアップから、実際の記事投稿・自動デプロイまでを、順を追ってご案内します。</p>
+  <div class="meta">
+    対象サイト: くらしのつむぎ｜住資産再生ラボ<br>
+    バージョン 1.0｜2026年8月
+  </div>
+</header>
+
+<main class="doc-layout">
+
+<!-- ================ TOC ================ -->
+<nav class="toc">
+  <h2>📖 目次</h2>
+  <ol>
+    <li><a href="#step0">はじめに｜全体像</a></li>
+    <li><a href="#step1">STEP 1｜microCMSアカウント準備</a></li>
+    <li><a href="#step2">STEP 2｜APIの作成（articles スキーマ設計）</a></li>
+    <li><a href="#step3">STEP 3｜カテゴリの入力ルール</a></li>
+    <li><a href="#step4">STEP 4｜APIキーの発行</a></li>
+    <li><a href="#step5">STEP 5｜ホスティング側の設定（ビルド連携）</a></li>
+    <li><a href="#step6">STEP 6｜Webhook連携（記事公開の自動反映）</a></li>
+    <li><a href="#step7">STEP 7｜記事の書き方（執筆ガイド）</a></li>
+    <li><a href="#step8">STEP 8｜デイリー運用チェックリスト</a></li>
+    <li><a href="#faq">FAQ｜よくあるトラブルと対処</a></li>
+  </ol>
+</nav>
+
+<!-- ================ STEP 0 ================ -->
+<section class="step" id="step0">
+  <div class="step-head">
+    <div class="step-num">0</div>
+    <div>
+      <div class="step-sub">INTRO</div>
+      <h2>はじめに｜全体像</h2>
+    </div>
+  </div>
+
+  <p>「住資産再生ラボ」の記事は、以下の流れで運用します。</p>
+
+  <pre><code>┌──────────────────────┐
+│  microCMS管理画面（執筆） │
+│  ・記事作成                │
+│  ・下書き保存 / 公開       │
+└──────┬───────────────┘
+       │ 公開ボタンを押す
+       ▼
+┌──────────────────────┐
+│  Webhook トリガー          │
+│  (microCMSからNetlifyへ)   │
+└──────┬───────────────┘
+       │
+       ▼
+┌──────────────────────┐
+│  Netlify / Vercel でビルド │
+│  ・fetch-lab.mjs 実行     │
+│  ・articles.json 生成     │
+│  ・サイト再デプロイ        │
+└──────┬───────────────┘
+       │ 約2〜3分
+       ▼
+┌──────────────────────┐
+│  本番サイトに記事が反映     │
+│  くらしのつむぎ / 住資産...  │
+└──────────────────────┘</code></pre>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 ポイント</div>
+    <p>執筆者はmicroCMSの管理画面だけを触れば大丈夫です。<strong>コードやサーバー操作は必要ありません。</strong>「新規追加」→「タイトルと本文を書く」→「公開する」の3ステップで、記事が本番サイトに反映されます。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 1 ================ -->
+<section class="step" id="step1">
+  <div class="step-head">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-sub">SETUP</div>
+      <h2>microCMSアカウント準備</h2>
+    </div>
+  </div>
+
+  <h3>① アカウントを作る</h3>
+  <ol>
+    <li><a href="https://microcms.io/signup" target="_blank" rel="noopener">microCMSの新規登録ページ</a>からアカウントを作成</li>
+    <li>ログイン後、<strong>「サービスを作る」</strong>を選択</li>
+    <li>以下の情報でサービスを作成:</li>
+  </ol>
+
+  <table>
+    <tr><th>サービス名</th><td>くらしのつむぎ（任意で変更可）</td></tr>
+    <tr><th>サービスID</th><td><code>kurashi-tsumugi</code>（推奨。半角英数）<br>これがドメインの一部になります: <code>kurashi-tsumugi.microcms.io</code></td></tr>
+    <tr><th>プラン</th><td>Hobby（無料）から開始で問題ありません。記事数が増えたら Team プランを検討</td></tr>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">💡 プランの目安</div>
+    <p><strong>Hobby (無料)</strong>: 記事数10件・APIリクエスト1万回/月まで（お試しに最適）<br>
+    <strong>Team (¥4,900/月)</strong>: 記事数無制限・複数編集者・下書き共有機能あり（本格運用に）</p>
+  </div>
+</section>
+
+<!-- ================ STEP 2 ================ -->
+<section class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">2</div>
+    <div>
+      <div class="step-sub">SCHEMA</div>
+      <h2>APIの作成（articles スキーマ設計）</h2>
+    </div>
+  </div>
+
+  <p>サービスができたら、次に「API」を作ります。ここでいう API とは、記事を保存する箱のようなものです。</p>
+
+  <h3>① APIを新規作成</h3>
+  <ol>
+    <li>管理画面左メニュー → <strong>「＋APIを作成」</strong></li>
+    <li>以下のとおり設定:</li>
+  </ol>
+
+  <table>
+    <tr><th>API名</th><td>記事</td></tr>
+    <tr><th>エンドポイント</th><td><code>articles</code>（必ずこの名前）</td></tr>
+    <tr><th>APIの型</th><td><strong>リスト形式</strong>を選択</td></tr>
+  </table>
+
+  <h3>② APIスキーマ（フィールド）を作成</h3>
+  <p>下記12個のフィールドを、上から順番に追加してください。順番も揃えると管理画面が使いやすくなります。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:120px">フィールドID</th>
+        <th>表示名</th>
+        <th>種類</th>
+        <th>必須</th>
+        <th>説明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>title</code></td>
+        <td>タイトル</td>
+        <td>テキストフィールド</td>
+        <td><span class="tag tag-required">必須</span></td>
+        <td>記事タイトル。40文字以内が望ましい</td>
+      </tr>
+      <tr>
+        <td><code>slug</code></td>
+        <td>スラッグ (URL用ID)</td>
+        <td>テキストフィールド</td>
+        <td><span class="tag tag-required">必須</span></td>
+        <td>URLに使う半角英数字。例: <code>jikka-souzoku-5steps</code></td>
+      </tr>
+      <tr>
+        <td><code>category</code></td>
+        <td>カテゴリ</td>
+        <td>セレクトフィールド</td>
+        <td><span class="tag tag-required">必須</span></td>
+        <td>5つから1つ選択（次章参照）</td>
+      </tr>
+      <tr>
+        <td><code>excerpt</code></td>
+        <td>抜粋文</td>
+        <td>テキストエリア</td>
+        <td><span class="tag tag-required">必須</span></td>
+        <td>一覧に表示される導入文。80〜120文字が理想</td>
+      </tr>
+      <tr>
+        <td><code>body</code></td>
+        <td>本文</td>
+        <td>リッチエディタ</td>
+        <td><span class="tag tag-required">必須</span></td>
+        <td>記事本文。見出し(h2/h3)・段落・画像・引用・箇条書き・番号リスト・表を使えます</td>
+      </tr>
+      <tr>
+        <td><code>eyecatch</code></td>
+        <td>アイキャッチ画像</td>
+        <td>画像</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>記事ヘッダーの大きな画像。<strong>推奨サイズ: 1200×675px（16:9）</strong></td>
+      </tr>
+      <tr>
+        <td><code>eyecatchAlt</code></td>
+        <td>画像の代替テキスト</td>
+        <td>テキストフィールド</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>画像が読めない環境での説明文。SEOにも寄与</td>
+      </tr>
+      <tr>
+        <td><code>author</code></td>
+        <td>執筆者</td>
+        <td>テキストフィールド</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>デフォルト値: <code>くらしのつむぎ編集部</code></td>
+      </tr>
+      <tr>
+        <td><code>isPickup</code></td>
+        <td>ピックアップに表示する</td>
+        <td>真偽値（ブール）</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>ONにするとラボトップの上部で強調表示。<strong>常に1本のみONを推奨</strong></td>
+      </tr>
+      <tr>
+        <td><code>isPopular</code></td>
+        <td>人気記事に表示する</td>
+        <td>真偽値（ブール）</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>ONにすると「よく読まれている記事」に含まれる</td>
+      </tr>
+      <tr>
+        <td><code>views</code></td>
+        <td>閲覧数（手動）</td>
+        <td>数値</td>
+        <td><span class="tag tag-optional">任意</span></td>
+        <td>人気記事の並び順に使用。実測値でも概算でもOK</td>
+      </tr>
+      <tr>
+        <td><code>publishedAt</code></td>
+        <td>公開日時</td>
+        <td>—</td>
+        <td><span class="tag tag-auto">自動</span></td>
+        <td>microCMSが自動で管理（手動フィールド作成不要）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warning">
+    <div class="callout-title">⚠️ フィールドIDは正確に</div>
+    <p>フィールドID（左端のコード欄）は、<strong>表の値を一字一句そのまま</strong>入力してください。1文字でも違うと、サイト側でデータを認識できなくなります。表示名（真ん中）は日本語でOKです。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 3 ================ -->
+<section class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">3</div>
+    <div>
+      <div class="step-sub">CATEGORY</div>
+      <h2>カテゴリの入力ルール</h2>
+    </div>
+  </div>
+
+  <p><code>category</code> のセレクトフィールドには、<strong>次の5つの値だけ</strong>を選択肢として登録してください。<em>値（value）は必ず半角英数字</em>で、下記の通りにしてください。</p>
+
+  <div class="category-grid">
+    <div class="category-item">
+      <code>akiya</code>
+      <span class="cat-name">🌾 空き家情報</span>
+    </div>
+    <div class="category-item">
+      <code>souzoku</code>
+      <span class="cat-name">📜 相続・税金・管理・活用</span>
+    </div>
+    <div class="category-item">
+      <code>jirei</code>
+      <span class="cat-name">🏡 再生・活用事例</span>
+    </div>
+    <div class="category-item">
+      <code>torikumi</code>
+      <span class="cat-name">🌿 取組紹介</span>
+    </div>
+    <div class="category-item">
+      <code>kensaku</code>
+      <span class="cat-name">🔍 活用物件検索</span>
+    </div>
+  </div>
+
+  <h3>設定手順</h3>
+  <ol>
+    <li>APIスキーマ画面で <code>category</code> フィールドを編集</li>
+    <li>「選択肢の一覧」に、上記5つの<em>英字コード</em>を1行ずつ登録</li>
+    <li>「複数選択」は <strong>OFF</strong>（1記事1カテゴリ）</li>
+    <li>デフォルト値: <code>akiya</code></li>
+  </ol>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 なぜ英字なのか</div>
+    <p>サイト側で「カテゴリ名の表示」と「絞り込みロジック」を切り分けるためです。将来「カテゴリ名を少し変えたい」場合、サイト側の設定ファイルを変えるだけで、既存記事のデータを触らずに更新できるようになります。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 4 ================ -->
+<section class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">4</div>
+    <div>
+      <div class="step-sub">API KEY</div>
+      <h2>APIキーの発行</h2>
+    </div>
+  </div>
+
+  <p>ここで <strong>APIキー</strong>（データを取得するための鍵）を発行します。このキーは、<em>ブラウザには一切公開されません</em>。ホスティングサービス側だけに保管します。</p>
+
+  <ol>
+    <li>管理画面 → <strong>「サービス設定」→「APIキー管理」</strong></li>
+    <li>「APIキーを作成」ボタン</li>
+    <li>以下の権限だけをONにする:
+      <ul>
+        <li>✅ <strong>GET</strong>（取得のみ）</li>
+        <li>❌ POST / PUT / PATCH / DELETE（すべてOFF）</li>
+      </ul>
+    </li>
+    <li>キー名: <code>build-server</code>（識別用の名前）</li>
+    <li>発行されたキーを<strong>安全な場所に保管</strong>（例: パスワード管理ツール）</li>
+  </ol>
+
+  <div class="callout warning">
+    <div class="callout-title">🔒 APIキーの取り扱い（超重要）</div>
+    <p>APIキーは、<strong>絶対にコードに直接書かない</strong>でください。GitHub、Slack、メール本文などにも貼らないでください。</p>
+    <p>キーが漏れると、記事の情報を第三者に読まれる可能性があります。</p>
+    <p>もしキーが漏れた場合は、すぐにmicroCMSで<strong>該当キーを削除→新規発行</strong>してください。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 5 ================ -->
+<section class="step" id="step5">
+  <div class="step-head">
+    <div class="step-num">5</div>
+    <div>
+      <div class="step-sub">DEPLOY</div>
+      <h2>ホスティング側の設定（ビルド連携）</h2>
+    </div>
+  </div>
+
+  <p>ここではくらしのつむぎサイトが <strong>Netlify</strong> にホスティングされている前提で説明します。Vercel / Cloudflare Pages でもほぼ同じ手順です。</p>
+
+  <h3>① Netlify にサイトを接続</h3>
+  <p>すでに接続済みの場合はスキップしてください。未接続の場合は、GitHubリポジトリを Netlify に紐づけます。</p>
+
+  <h3>② 環境変数を設定</h3>
+  <ol>
+    <li>Netlify管理画面 → 該当サイト → <strong>Site settings → Environment variables</strong></li>
+    <li>以下の2つを追加:</li>
+  </ol>
+
+  <table>
+    <tr><th>キー</th><th>値</th></tr>
+    <tr>
+      <td><code>MICROCMS_SERVICE_DOMAIN</code></td>
+      <td>microCMSのサービスID（例: <code>kurashi-tsumugi</code>）</td>
+    </tr>
+    <tr>
+      <td><code>MICROCMS_API_KEY</code></td>
+      <td>STEP 4 で発行したGET用APIキー</td>
+    </tr>
+  </table>
+
+  <h3>③ ビルドコマンドを設定</h3>
+  <p><strong>Site settings → Build & deploy → Build settings</strong> で、Build command を以下に変更:</p>
+  <pre><code>node build/fetch-lab.mjs</code></pre>
+  <p>Publish directory は既存のまま（プロジェクトのルート、または <code>.</code> ）です。</p>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 ビルド後の確認</div>
+    <p>デプロイ後、<code>https://your-site.netlify.app/data/articles.json</code> にアクセスして、記事データが読めれば成功です。（本番URLに置き換えてください）</p>
+  </div>
+</section>
+
+<!-- ================ STEP 6 ================ -->
+<section class="step" id="step6">
+  <div class="step-head">
+    <div class="step-num">6</div>
+    <div>
+      <div class="step-sub">WEBHOOK</div>
+      <h2>Webhook連携（記事公開の自動反映）</h2>
+    </div>
+  </div>
+
+  <p>Webhookを設定すると、<em>microCMSで記事を公開した瞬間に</em>、自動的にNetlifyがサイトを再ビルドしてくれます。手作業は不要です。</p>
+
+  <h3>① Netlify側で「ビルドフック」を発行</h3>
+  <ol>
+    <li>Netlify → Site settings → <strong>Build & deploy → Build hooks</strong></li>
+    <li>「Add build hook」でフックを作成
+      <ul>
+        <li>Name: <code>microcms-publish</code></li>
+        <li>Branch to build: <code>main</code>（本番ブランチ）</li>
+      </ul>
+    </li>
+    <li>発行された URL（<code>https://api.netlify.com/build_hooks/xxxxxxxx</code>）をコピー</li>
+  </ol>
+
+  <h3>② microCMS側にWebhookを設定</h3>
+  <ol>
+    <li>microCMS → APIの管理画面 → <strong>API設定 → Webhook</strong></li>
+    <li>「Netlify」を選択（Netlify向けのプリセットあり）</li>
+    <li>先ほどコピーしたURLを貼り付け</li>
+    <li>トリガー: <strong>「コンテンツの公開時」</strong>と<strong>「コンテンツの再公開時」</strong>にチェック</li>
+    <li>保存</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">⏱ 反映までの目安</div>
+    <p>公開ボタンを押してから、本番サイトに反映されるまで<strong>約2〜3分</strong>です。</p>
+    <p>反映を確認するには、Netlifyの「Deploys」ページでビルドが「Published」になったかを見るのが確実です。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 7 ================ -->
+<section class="step" id="step7">
+  <div class="step-head">
+    <div class="step-num">7</div>
+    <div>
+      <div class="step-sub">WRITING</div>
+      <h2>記事の書き方（執筆ガイド）</h2>
+    </div>
+  </div>
+
+  <h3>基本の入力手順</h3>
+  <ol class="guide-list">
+    <li>
+      <h4>「＋新規追加」から記事を作成</h4>
+      <p>microCMSダッシュボード → articles → 右上「＋新規追加」</p>
+    </li>
+    <li>
+      <h4>タイトルとスラッグを決める</h4>
+      <p>スラッグは、記事内容を英語で簡潔に。例:<br>
+      「実家を相続したら…」→ <code>jikka-souzoku-guide</code><br>
+      「空き家の固定資産税」→ <code>akiya-kotei-shisan-zei</code></p>
+    </li>
+    <li>
+      <h4>カテゴリを選ぶ</h4>
+      <p>5つのカテゴリから、記事の内容にいちばん近いものを1つ選択。</p>
+    </li>
+    <li>
+      <h4>抜粋文を書く</h4>
+      <p>一覧ページで表示される導入文。80〜120文字を目安に、記事の魅力が伝わる短い文章を。</p>
+    </li>
+    <li>
+      <h4>本文を書く</h4>
+      <p>リッチエディタで自由に。次章の「書き方のコツ」を参考にしてください。</p>
+    </li>
+    <li>
+      <h4>アイキャッチ画像を設定</h4>
+      <p>1200×675px の画像を推奨。トリミングの目安は「16:9」。</p>
+    </li>
+    <li>
+      <h4>プレビューで確認</h4>
+      <p>「プレビュー」ボタンで公開前の表示を確認できます。</p>
+    </li>
+    <li>
+      <h4>「公開」ボタンを押す</h4>
+      <p>2〜3分後、本番サイトに反映されます。</p>
+    </li>
+  </ol>
+
+  <h3>本文の書き方のコツ</h3>
+  <ul class="checklist">
+    <li><strong>H2見出しで章を区切る</strong>：目次が自動生成されるので、読者が迷子になりません</li>
+    <li><strong>1つの段落は3〜4行まで</strong>：スマホでも読みやすくなります</li>
+    <li><strong>専門用語は言い換えを添える</strong>：例：「相続税(=引き継いだ財産にかかる税金)」</li>
+    <li><strong>「〜です」「〜ます」のやさしい調子</strong>：くらしのつむぎのトーンを大切に</li>
+    <li><strong>結論を急がない</strong>：「売却が正解」など断定を避け、選択肢を並べる</li>
+    <li><strong>読み手に寄り添う</strong>：「〇〇でお困りではありませんか？」「ご家族で話し合う際は…」</li>
+  </ul>
+
+  <h3>使える書式（リッチエディタ）</h3>
+  <table>
+    <tr><th>書式</th><th>使い所</th></tr>
+    <tr><td>見出し2</td><td>章タイトル（目次に載る）</td></tr>
+    <tr><td>見出し3</td><td>章の中の小見出し</td></tr>
+    <tr><td>太字（strong）</td><td>強調したい単語・キーフレーズ</td></tr>
+    <tr><td>斜体（em）</td><td>やわらかい強調・思いを込めたい部分</td></tr>
+    <tr><td>引用</td><td>お客様の声、印象的な一文</td></tr>
+    <tr><td>箇条書き</td><td>選択肢や特徴の並列</td></tr>
+    <tr><td>番号リスト</td><td>ステップや順序のあるもの</td></tr>
+    <tr><td>表</td><td>比較・料金・スケジュールなど</td></tr>
+    <tr><td>画像</td><td>本文の途中に挿入可（キャプションも付けられます）</td></tr>
+    <tr><td>リンク</td><td>他の記事、サービスページへ</td></tr>
+  </table>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 トーンオブボイス（大切な指針）</div>
+    <p><strong>くらしのつむぎの記事は、"営業"ではなく"寄り添い"の言葉で書きます。</strong></p>
+    <p>❌ 「今すぐ売却がおすすめです」「限定キャンペーン」<br>
+    ⭕️ 「まずは、ゆっくり考えてみませんか」「ご家族の状況によって、いくつかの選択肢があります」</p>
+  </div>
+</section>
+
+<!-- ================ STEP 8 ================ -->
+<section class="step" id="step8">
+  <div class="step-head">
+    <div class="step-num">8</div>
+    <div>
+      <div class="step-sub">CHECKLIST</div>
+      <h2>デイリー運用チェックリスト</h2>
+    </div>
+  </div>
+
+  <p>公開ボタンを押す前に、以下をご確認ください。慣れるまでは印刷して手元に置いておくのがおすすめです。</p>
+
+  <h3>投稿前チェック</h3>
+  <ul class="checklist">
+    <li>タイトルは40文字以内で、内容が伝わるか</li>
+    <li>スラッグ（URL用ID）は半角英数字か・意味が伝わるか</li>
+    <li>カテゴリは適切か（迷ったら「相続・税金・管理・活用」でOK）</li>
+    <li>抜粋文は80〜120文字か・記事を読みたくなる文か</li>
+    <li>アイキャッチ画像は16:9で、内容と合っているか</li>
+    <li>本文中の見出しは、H2から始まっているか（H1は使わない）</li>
+    <li>誤字脱字はないか（プレビューで音読するとバグを見つけやすい）</li>
+    <li>他ページへのリンクは正しく貼れているか</li>
+    <li>「執筆者」欄は入っているか</li>
+    <li>この記事をピックアップにする場合、<em>今表示中の別のピックアップ</em>をOFFにしたか</li>
+  </ul>
+
+  <h3>公開後チェック</h3>
+  <ul class="checklist">
+    <li>2〜3分後に本番サイトを開いて、記事が反映されているか</li>
+    <li>PCとスマホ両方で表示が崩れていないか</li>
+    <li>SNSでシェアするときは、記事URLをコピーして共有</li>
+  </ul>
+</section>
+
+<!-- ================ FAQ ================ -->
+<section class="step" id="faq">
+  <div class="step-head">
+    <div class="step-num">?</div>
+    <div>
+      <div class="step-sub">TROUBLESHOOT</div>
+      <h2>FAQ｜よくあるトラブルと対処</h2>
+    </div>
+  </div>
+
+  <h3>Q. 記事を公開したのに、サイトに反映されません</h3>
+  <p><strong>A.</strong> まずは<em>3分ほどお待ちください</em>。それでも反映されない場合:</p>
+  <ol>
+    <li>Netlify の「Deploys」画面でビルドが走っているか確認</li>
+    <li>ビルドが「Failed」になっていたら、ログを確認（APIキー切れが多いです）</li>
+    <li>Webhookが正しく発火しているか、microCMSのWebhookログを確認</li>
+  </ol>
+
+  <h3>Q. 「Unknown category」というエラーがビルドログに出ています</h3>
+  <p><strong>A.</strong> カテゴリのvalue（英字コード）が、STEP 3で定義した5つ以外になっている可能性があります。microCMSでその記事のカテゴリを確認して修正してください。</p>
+
+  <h3>Q. アイキャッチ画像を設定していない記事は、どう表示されますか？</h3>
+  <p><strong>A.</strong> サイト側で用意した4種類の装飾SVG（家/葉/コイン/ドキュメント）のいずれかが、記事のスラッグから自動選択されます。空欄でも画面が崩れることはありません。</p>
+
+  <h3>Q. カテゴリを追加したいのですが？</h3>
+  <p><strong>A.</strong> 2箇所の変更が必要です。</p>
+  <ol>
+    <li>microCMS: <code>category</code> フィールドの選択肢に新しい英字コードを追加</li>
+    <li>サイト: <code>build/fetch-lab.mjs</code> と <code>data/articles.json</code> の <code>CATEGORIES</code> 配列に、新カテゴリのオブジェクトを追加</li>
+  </ol>
+  <p>2番目は開発担当への依頼が必要です。カテゴリ追加のご希望がありましたら、くらしのつむぎの制作担当までご相談ください。</p>
+
+  <h3>Q. 過去の記事を修正したいです</h3>
+  <p><strong>A.</strong> microCMSの記事一覧から該当記事を開き、修正 → <strong>「再公開」</strong>ボタンで、上書き公開できます。Webhookで自動的にサイトも更新されます。</p>
+
+  <h3>Q. 記事を「非公開」にしたい</h3>
+  <p><strong>A.</strong> microCMSの記事画面右上「⋯」→「非公開にする」で、公開状態を解除できます。再度公開したくなったら「公開する」でOKです。</p>
+
+  <h3>Q. APIキーが誰かに知られてしまったかもしれません</h3>
+  <p><strong>A.</strong> すぐに以下を実行してください:</p>
+  <ol>
+    <li>microCMS → サービス設定 → APIキー管理 → 該当キーを<strong>削除</strong></li>
+    <li>「APIキーを作成」で<strong>新しいキーを発行</strong>（GET権限のみ）</li>
+    <li>Netlify の環境変数 <code>MICROCMS_API_KEY</code> を新しい値に更新</li>
+    <li>Netlify で「Trigger deploy」を実行して、新キーで再ビルド</li>
+  </ol>
+</section>
+
+<!-- ================ Closing ================ -->
+<section style="text-align:center; margin-top:80px; padding:60px 40px; background: linear-gradient(135deg, #FFF6E9 0%, #EEF2E5 100%); border-radius: 32px;">
+  <h2 style="font-size:24px; margin-bottom:16px;">🌱 記事を通じて、住まいを考える人にやさしく寄り添う</h2>
+  <p style="font-size:16px; color:var(--text-soft); line-height:2; max-width:640px; margin:0 auto;">
+    住資産再生ラボは、迷っている方に "答え" ではなく "選択肢" を届ける場所です。<br>
+    誰かの背中を少しだけ押せるような、そんな記事を、これからもいっしょに紡いでいきましょう。
+  </p>
+  <p style="margin-top:32px; font-family:'Zen Maru Gothic',sans-serif; color:var(--brown-deep); font-size:14px; letter-spacing:0.16em;">
+    ── くらしのつむぎ ──
+  </p>
+</section>
+
+</main>
+
+<footer style="background: #4E3E2F; color: #D9CDB6; padding: 40px; text-align: center; font-size: 12px; letter-spacing: 0.08em;">
+  <p style="margin:0;">microCMS 導入・運用手順書｜© Ac・Connect Co., Ltd.</p>
+  <p style="margin-top:8px; opacity:0.6;">Document version 1.0 ／ 2026年8月</p>
+</footer>
+
+</body>
+</html>

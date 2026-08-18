@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空き家負担ゼロ診断｜くらしのつむぎ</title>
+<meta name="description" content="約30秒の質問で、その家に合う選択肢と負担軽減策を診断。まずはお気軽に。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.hero-akiya {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #FFF6E9 0%, #F5E8D0 50%, #EEF2E5 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.hero-akiya::before,
+.hero-akiya::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-akiya::before {
+  left: -100px; top: 100px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(232,155,91,0.18), transparent 70%);
+}
+.hero-akiya::after {
+  right: -100px; bottom: 40px;
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, rgba(156,175,136,0.2), transparent 70%);
+}
+.hero-akiya .hero-inner-akiya {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.hero-akiya .lp-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero-akiya h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  color: var(--brown-deep);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.hero-akiya h1 .accent { color: var(--orange-deep); }
+.hero-akiya .lp-sub {
+  font-size: 18px;
+  color: var(--text-soft);
+  line-height: 2;
+  margin-bottom: 40px;
+}
+.hero-akiya .lp-features {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.hero-akiya .lp-feature {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--brown-deep); font-weight: 500;
+}
+.hero-akiya .lp-feature .check {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--green); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+}
+
+/* Simulator */
+.sim-sec {
+  background: var(--ivory);
+  padding: 100px 0;
+}
+.simulator {
+  max-width: 780px;
+  margin: 56px auto 0;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.sim-progress {
+  height: 6px;
+  background: var(--line-soft);
+  position: relative;
+  overflow: hidden;
+}
+.sim-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--orange-deep) 100%);
+  transition: width .5s var(--ease);
+  width: 20%;
+}
+.sim-body { padding: 48px 56px; }
+.sim-step-info {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text-mute);
+  letter-spacing: 0.08em;
+}
+.sim-step-info .current { color: var(--orange-deep); font-weight: 700; }
+.sim-question {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(22px, 3vw, 28px);
+  color: var(--brown-deep);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  letter-spacing: 0.04em;
+}
+.sim-options {
+  display: grid;
+  gap: 12px;
+}
+.sim-option {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px;
+  background: var(--ivory);
+  border-radius: 16px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all .3s var(--ease);
+  font-size: 16px;
+  text-align: left;
+  font-family: inherit;
+  color: var(--text);
+  width: 100%;
+}
+.sim-option:hover {
+  border-color: var(--orange-soft);
+  background: #FFF6E9;
+  transform: translateX(4px);
+}
+.sim-option.selected {
+  border-color: var(--orange);
+  background: #FFF6E9;
+}
+.sim-option .opt-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--brown-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--brown-deep);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.sim-option.selected .opt-num {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+}
+.sim-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line-soft);
+}
+.sim-back {
+  background: transparent;
+  border: 0;
+  color: var(--text-mute);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 12px 20px;
+}
+.sim-back:hover { color: var(--brown-deep); }
+.sim-back:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Result view */
+.sim-result { display: none; padding: 48px 56px; }
+.sim-result.active { display: block; }
+.sim-result .result-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.sim-result .result-emoji {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+.sim-result h3 {
+  font-size: clamp(24px, 3.4vw, 32px);
+  color: var(--brown-deep);
+  margin-bottom: 12px;
+}
+.sim-result .result-lead {
+  color: var(--text-soft);
+  line-height: 2;
+  font-size: 16px;
+}
+.result-suggestions {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF7F0 100%);
+  border-radius: 20px;
+  padding: 32px;
+  margin: 32px 0;
+}
+.result-suggestions h4 {
+  font-size: 16px;
+  color: var(--brown-deep);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.result-suggestions ul { list-style: none; padding: 0; margin: 0; }
+.result-suggestions li {
+  padding: 12px 0 12px 32px;
+  position: relative;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.8;
+}
+.result-suggestions li::before {
+  content: '✓';
+  position: absolute;
+  left: 0; top: 14px;
+  color: var(--orange-deep);
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.result-actions { text-align: center; margin-top: 32px; }
+
+@media (max-width: 640px) {
+  .sim-body, .sim-result { padding: 32px 24px; }
+}
+
+/* Discovered section */
+.discover-sec { background: #fff; padding: 100px 0; }
+.discover-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.discover-card { background: var(--ivory); border-radius: 20px; padding: 36px 28px; transition: all .3s var(--ease); }
+.discover-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.discover-card .d-icon { font-size: 36px; margin-bottom: 16px; }
+.discover-card h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 10px; }
+.discover-card p { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
+@media (max-width: 900px) { .discover-grid { grid-template-columns: 1fr; } }
+
+/* Merit */
+.merit-sec { background: var(--ivory); padding: 100px 0; }
+.merit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 56px; max-width: 900px; margin-left: auto; margin-right: auto; }
+.merit-card { background: #fff; border-radius: 20px; padding: 32px; display: flex; gap: 20px; align-items: flex-start; border: 1px solid var(--line-soft); }
+.merit-num {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 32px; color: var(--orange); line-height: 1;
+  flex-shrink: 0; font-weight: 700;
+}
+.merit-card h3 { font-size: 17px; color: var(--brown-deep); margin-bottom: 8px; }
+.merit-card p { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
+@media (max-width: 700px) { .merit-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="akiya-shindan">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span><a href="sorekara.html">それからのすまい</a><span class="sep">›</span>空き家負担ゼロ診断
+  </div>
+</div>
+
+<section class="hero-akiya">
+  <div class="hero-inner-akiya">
+    <div class="lp-badge fade-up">FREE｜約30秒</div>
+    <h1 class="fade-up d1">空き家の負担、<br><span class="accent">"ゼロ"に向けて</span>いっしょに考える。</h1>
+    <p class="lp-sub fade-up d2">
+      5つの質問に答えるだけで、あなたの家に合う選択肢と<br>
+      負担軽減のヒントが見えてきます。
+    </p>
+    <div class="lp-features fade-up d3">
+      <div class="lp-feature"><span class="check">✓</span>入力は約30秒</div>
+      <div class="lp-feature"><span class="check">✓</span>個人情報不要</div>
+      <div class="lp-feature"><span class="check">✓</span>完全無料</div>
+    </div>
+    <a href="#simulator" class="btn btn-primary btn-large fade-up d4">🩺 今すぐ診断をはじめる <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<section class="sim-sec" id="simulator">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">DIAGNOSIS</div>
+      <h2 class="section-title fade-up d1">30秒シミュレーター</h2>
+      <p class="section-lead center fade-up d2">気になる方の負担感でお答えください。診断は途中でやめても、記録は残りません。</p>
+    </div>
+
+    <div class="simulator fade-up">
+      <div class="sim-progress"><div class="sim-progress-bar" id="progressBar"></div></div>
+
+      <div class="sim-body" id="simBody">
+        <div class="sim-step-info">
+          <span>質問 <span class="current" id="stepNum">1</span> / 5</span>
+          <span id="stepName">所在地について</span>
+        </div>
+        <h3 class="sim-question" id="simQuestion">その家は、どちらにありますか？</h3>
+        <div class="sim-options" id="simOptions"></div>
+        <div class="sim-nav">
+          <button class="sim-back" id="simBack">← 戻る</button>
+          <span style="font-size:12px;color:var(--text-mute)">選んで次へ進みます</span>
+        </div>
+      </div>
+
+      <div class="sim-result" id="simResult">
+        <div class="result-header">
+          <div class="result-emoji">🌱</div>
+          <h3 id="resultTitle">診断結果</h3>
+          <p class="result-lead" id="resultLead"></p>
+        </div>
+        <div class="result-suggestions">
+          <h4><span data-deco="leaf" style="display:flex"></span>あなたに合いそうな選択肢</h4>
+          <ul id="resultSuggestions"></ul>
+        </div>
+        <div class="result-actions">
+          <a href="contact.html" class="btn btn-primary btn-large">📩 くわしく相談する</a>
+          <div style="margin-top:20px"><button class="sim-back" id="restart" style="color:var(--orange-deep)">診断をもう一度やってみる ↻</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="discover-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">DISCOVER</div>
+      <h2 class="section-title fade-up d1">診断でわかること</h2>
+    </div>
+    <div class="discover-grid">
+      <div class="discover-card fade-up d1">
+        <div class="d-icon">🔍</div>
+        <h3>その家に合う選択肢</h3>
+        <p>売却、借上げ、賃貸活用、管理…7つのサービスから、その家に合いそうな道筋をお示しします。</p>
+      </div>
+      <div class="discover-card fade-up d2">
+        <div class="d-icon">💰</div>
+        <h3>負担軽減のヒント</h3>
+        <p>維持費、税金、時間、心理的な負担。どの負担を、どうやって軽くできそうかの方向性が見えます。</p>
+      </div>
+      <div class="discover-card fade-up d3">
+        <div class="d-icon">🗺️</div>
+        <h3>次にとる一歩</h3>
+        <p>「診断だけでは何もはじまらない」ではなく、次にどんな相談をすればいいかまでご案内します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FLOW</div>
+      <h2 class="section-title fade-up d1">診断後の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up d1"><div class="flow-num">1</div><h4>30秒診断</h4><p>5つの質問にお答えください</p></div>
+      <div class="flow-step fade-up d2"><div class="flow-num">2</div><h4>結果を確認</h4><p>合いそうな選択肢が表示されます</p></div>
+      <div class="flow-step fade-up d3"><div class="flow-num">3</div><h4>気軽にご相談</h4><p>もっと詳しく知りたい方はご相談ください</p></div>
+      <div class="flow-step fade-up d4"><div class="flow-num">4</div><h4>ご提案</h4><p>状況に合わせたご提案を丁寧に</p></div>
+    </div>
+    <p class="flow-note fade-up">診断は結果が出て終わりではありません。ここからが本当のはじまりです。</p>
+  </div>
+</section>
+
+<section class="merit-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">MERITS</div>
+      <h2 class="section-title fade-up d1">4つのメリット</h2>
+    </div>
+    <div class="merit-grid">
+      <div class="merit-card fade-up d1">
+        <div class="merit-num">01</div>
+        <div><h3>個人情報を入力せずに試せる</h3><p>お名前や連絡先を入れることなく、まずは診断だけを試していただけます。</p></div>
+      </div>
+      <div class="merit-card fade-up d1">
+        <div class="merit-num">02</div>
+        <div><h3>選択肢が"見える化"される</h3><p>売却か管理かの二択ではなく、7つの選択肢から複数の道筋をご提案します。</p></div>
+      </div>
+      <div class="merit-card fade-up d2">
+        <div class="merit-num">03</div>
+        <div><h3>営業をかけません</h3><p>診断結果をご覧いただいた後、こちらから営業のお電話をかけることはありません。</p></div>
+      </div>
+      <div class="merit-card fade-up d2">
+        <div class="merit-num">04</div>
+        <div><h3>いつでもご相談へ</h3><p>「詳しく話を聞きたい」と思われたときに、初めてご連絡ください。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FAQ</div>
+      <h2 class="section-title fade-up d1">よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断結果は保存されますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断結果はブラウザ内で表示するのみで、サーバーに送信・保存されません。個人情報の入力も不要です。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">結果と実際の状況にズレはありませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断はあくまで方向性を示すものです。実際のご相談では、家の状態やご家族のご意向を詳しく伺い、その家に合った選択肢を丁寧にご提案します。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断後、必ず相談しないといけませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">いいえ、まったくそのようなことはありません。診断だけをお試しいただき、必要なタイミングでお問い合わせください。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">その家の"これから"、いっしょに考えませんか。</h2>
+      <p class="cta-sub fade-up d1">診断結果を見ながら、じっくりお話ししましょう。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="contact.html" class="btn btn-primary btn-large">📩 相談のお申し込み</a>
+        <a href="tel:0000000000" class="tel-btn">
+          <span class="tel-label">📞 お電話でのご相談</span>
+          <span class="tel-num">048-782-5920</span>
+          <span class="tel-hours">平日 9:00 - 18:00</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+<script>
+// ============ Simulator logic ============
+const questions = [
+  {
+    name: '所在地について',
+    q: 'その家は、どちらにありますか？',
+    options: [
+      { label: '首都圏（東京・神奈川・埼玉・千葉）', v: 'urban' },
+      { label: '関西圏（大阪・京都・兵庫・奈良）', v: 'urban' },
+      { label: '地方都市（各県の主要都市）', v: 'suburb' },
+      { label: '郊外・地方部', v: 'rural' },
+    ]
+  },
+  {
+    name: '建物の状態',
+    q: '建物の状態は、どのくらいですか？',
+    options: [
+      { label: '築浅／リフォーム済で、すぐに住める', v: 'good' },
+      { label: '古いが、住める状態は保っている', v: 'fair' },
+      { label: '手入れが必要／傷みが気になる', v: 'poor' },
+      { label: '正直、よくわからない', v: 'unknown' },
+    ]
+  },
+  {
+    name: '利用状況',
+    q: '今、家はどのように使われていますか？',
+    options: [
+      { label: '誰も住んでいない（空き家）', v: 'vacant' },
+      { label: 'ときどき帰省で利用している', v: 'sometimes' },
+      { label: '賃貸で貸している', v: 'rent' },
+      { label: '将来的に住むかもしれない', v: 'future' },
+    ]
+  },
+  {
+    name: '維持負担感',
+    q: '維持や管理の負担は、どのくらい感じていますか？',
+    options: [
+      { label: 'かなり負担に感じている', v: 'heavy' },
+      { label: 'すこし気になっている', v: 'medium' },
+      { label: 'あまり感じていない', v: 'light' },
+      { label: '負担かどうかもわからない', v: 'unknown' },
+    ]
+  },
+  {
+    name: '今後の希望',
+    q: 'その家、これからどうしていきたいですか？',
+    options: [
+      { label: '手放すことも含めて整理したい', v: 'sell' },
+      { label: 'できれば持ち続けたい', v: 'keep' },
+      { label: '誰かに使ってほしい', v: 'utilize' },
+      { label: 'まだ決められない', v: 'undecided' },
+    ]
+  },
+];
+
+let current = 0;
+let answers = {};
+
+const simQuestion = document.getElementById('simQuestion');
+const simOptions = document.getElementById('simOptions');
+const stepNum = document.getElementById('stepNum');
+const stepName = document.getElementById('stepName');
+const progressBar = document.getElementById('progressBar');
+const simBody = document.getElementById('simBody');
+const simResult = document.getElementById('simResult');
+const simBack = document.getElementById('simBack');
+
+function renderStep() {
+  const q = questions[current];
+  simQuestion.textContent = q.q;
+  stepNum.textContent = current + 1;
+  stepName.textContent = q.name;
+  progressBar.style.width = ((current + 1) / questions.length * 100) + '%';
+  simOptions.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sim-option';
+    if (answers[current] === i) btn.classList.add('selected');
+    btn.innerHTML = `<span class="opt-num">${String.fromCharCode(65 + i)}</span><span>${opt.label}</span>`;
+    btn.addEventListener('click', () => {
+      answers[current] = i;
+      setTimeout(() => {
+        if (current < questions.length - 1) {
+          current++;
+          renderStep();
+        } else {
+          showResult();
+        }
+      }, 260);
+      btn.classList.add('selected');
+    });
+    simOptions.appendChild(btn);
+  });
+  simBack.disabled = current === 0;
+}
+
+simBack.addEventListener('click', () => {
+  if (current > 0) { current--; renderStep(); }
+});
+
+function showResult() {
+  simBody.style.display = 'none';
+  simResult.classList.add('active');
+  progressBar.style.width = '100%';
+
+  // Analyze
+  const vals = questions.map((q,i) => q.options[answers[i]].v);
+  const [loc, cond, use, burden, future] = vals;
+
+  let emoji = '🌱', title = 'あなたに合う"これから"が見えてきました', lead = '', suggestions = [];
+
+  if (future === 'keep' && burden !== 'heavy') {
+    emoji = '🏠';
+    title = '"持ち続ける"を、もっとラクに';
+    lead = '大切な家を、負担少なく持ち続ける道が見えてきました。維持と活用の両立を、いっしょに考えてみませんか。';
+    suggestions = ['管理（定期巡回・通風）で家をきれいに保つ', '維持負担軽減の見直し（保険・光熱費・税金）', '将来の活用も見据えた計画づくり'];
+  } else if (future === 'utilize' || (use === 'vacant' && cond !== 'poor')) {
+    emoji = '🌿';
+    title = '"誰かに使ってもらう"道があります';
+    lead = 'その家に人が戻ってくる選択肢が見えてきました。売却しなくても、家を活かせる方法をご提案できます。';
+    suggestions = ['借上げ・転貸で入居者を迎える', '改修・賃貸活用の可能性を検討', '管理サービスで負担を軽くしながら準備'];
+  } else if (future === 'sell' || (burden === 'heavy' && cond === 'poor')) {
+    emoji = '📖';
+    title = '"整理"を、丁寧にお手伝い';
+    lead = '売却も含めた整理の方向で、選択肢が見えてきました。急がず、後悔のない道筋を、いっしょに整えていきましょう。';
+    suggestions = ['売却の見通しと相場感の整理', '解体・駐車場活用など次の活用', '相続手続き・家財整理のサポート'];
+  } else if (cond === 'poor' || cond === 'unknown') {
+    emoji = '🔧';
+    title = 'まずは"家の状態を知る"ところから';
+    lead = 'その家の"今"を丁寧に見ることから、これからが見えてきます。負担なく現状を把握する方法があります。';
+    suggestions = ['現地確認・簡易診断のご案内', '改修 or 解体の判断材料をご提供', '状況を見てから複数の選択肢を比較'];
+  } else {
+    emoji = '💬';
+    title = 'まずは、ゆっくりお話ししませんか';
+    lead = 'いろいろな選択肢が見えてきました。ひとつに絞る前に、それぞれの道の"良いところ・気をつけるところ"をお伝えします。';
+    suggestions = ['7つのサービスの中から候補をご提示', '維持・活用・売却の比較整理', 'ご家族での話し合いのサポート'];
+  }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultLead').textContent = lead;
+  const ul = document.getElementById('resultSuggestions');
+  ul.innerHTML = suggestions.map(s => `<li>${s}</li>`).join('');
+  simResult.scrollIntoView && (simResult.parentElement.scrollTop = simResult.parentElement.scrollTop);
+}
+
+document.getElementById('restart').addEventListener('click', () => {
+  current = 0;
+  answers = {};
+  simResult.classList.remove('active');
+  simBody.style.display = 'block';
+  renderStep();
+});
+
+renderStep();
+</script>
+</body>
+</html>

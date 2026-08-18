@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>これからのすまい｜くらしのつむぎ</title>
+<meta name="description" content="家づくりの"はじめの一歩"を、いっしょに。予算、ローン、土地、住宅会社選びまで、すべて無料でサポートします。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.hero-korekara { background: linear-gradient(180deg, #FBF7F0 0%, #F5E8D0 100%); }
+.worry-sec { background: #fff; padding: 100px 0; }
+.worry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+.worry-item {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 32px 28px;
+  border-left: 4px solid var(--orange);
+  transition: all .3s var(--ease);
+}
+.worry-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.worry-item .quote-mark {
+  font-size: 32px;
+  color: var(--orange);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.worry-item p { color: var(--text); line-height: 1.9; font-size: 15px; }
+@media (max-width: 800px) { .worry-grid { grid-template-columns: 1fr; } }
+
+.service-detail-sec { background: var(--ivory); padding: 100px 0; }
+.service-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+.service-detail-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  transition: all .4s var(--ease);
+  border: 1px solid var(--line-soft);
+}
+.service-detail-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.service-detail-card .sd-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.service-detail-card .sd-icon {
+  width: 64px; height: 64px;
+  border-radius: 20px;
+  background: var(--beige);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px;
+}
+.service-detail-card h3 { font-size: 20px; color: var(--brown-deep); }
+.service-detail-card p { font-size: 15px; color: var(--text-soft); line-height: 2; }
+@media (max-width: 700px) { .service-detail-grid { grid-template-columns: 1fr; } }
+
+.voice-sec { background: #fff; padding: 100px 0; }
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.voice-card {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 36px 28px;
+  position: relative;
+}
+.voice-card::before {
+  content: '"';
+  position: absolute;
+  top: 8px; left: 20px;
+  font-size: 80px;
+  color: var(--orange-soft);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  line-height: 1;
+}
+.voice-card .voice-text {
+  font-size: 15px;
+  line-height: 2;
+  color: var(--text);
+  margin: 32px 0 24px;
+  position: relative;
+  z-index: 2;
+}
+.voice-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+.voice-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green-deep);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+}
+.voice-info { font-size: 13px; color: var(--text-soft); }
+.voice-info strong { color: var(--brown-deep); display: block; margin-bottom: 2px; }
+@media (max-width: 900px) { .voice-grid { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; } }
+
+.mieruka-invite {
+  background: linear-gradient(135deg, #F7EFDF 0%, #F5E8D0 100%);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+.invite-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+  text-align: center;
+}
+.invite-inner h2 { font-size: clamp(28px, 4vw, 36px); color: var(--brown-deep); margin-bottom: 20px; }
+.invite-inner p { font-size: 16px; color: var(--text-soft); line-height: 2; margin-bottom: 40px; }
+</style>
+</head>
+<body data-page="korekara">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span>これからのすまい
+  </div>
+</div>
+
+<section class="page-hero hero-korekara">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow fade-up">FOR NEW HOME</div>
+    <h1 class="fade-up d1">これからのすまい</h1>
+    <p class="lead fade-up d2">家づくりの"はじめの一歩"を、いっしょに。<br>予算、ローン、土地、住宅会社選びまで、まずはご相談ください。</p>
+  </div>
+</section>
+
+<!-- Worries -->
+<section class="worry-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">WORRIES</div>
+      <h2 class="section-title fade-up d1">こんなお悩み、ありませんか？</h2>
+    </div>
+    <div class="worry-grid">
+      <div class="worry-item fade-up d1">
+        <div class="quote-mark">"</div>
+        <p>家を建てたい気持ちはあるけれど、まず何から始めればいいのかわからない。</p>
+      </div>
+      <div class="worry-item fade-up d2">
+        <div class="quote-mark">"</div>
+        <p>住宅会社の展示場を見て回ったけれど、営業されるのが少し苦手…。</p>
+      </div>
+      <div class="worry-item fade-up d3">
+        <div class="quote-mark">"</div>
+        <p>ローンの話が難しくて、うちに合った借り方がわからない。</p>
+      </div>
+      <div class="worry-item fade-up d1">
+        <div class="quote-mark">"</div>
+        <p>土地から探しているけれど、この候補地でいいのか判断できない。</p>
+      </div>
+      <div class="worry-item fade-up d2">
+        <div class="quote-mark">"</div>
+        <p>各社の見積もりを比べても、違いがよくわからない。</p>
+      </div>
+      <div class="worry-item fade-up d3">
+        <div class="quote-mark">"</div>
+        <p>相談したい。でも、契約を急かされるのはこわい。</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:56px;font-family:'Zen Maru Gothic',sans-serif;font-size:20px;color:var(--brown-deep)" class="fade-up">
+      くらしのつむぎが、そのお悩みに寄り添います。
+    </p>
+  </div>
+</section>
+
+<!-- 6 Free services -->
+<section class="service-detail-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FREE SERVICES</div>
+      <h2 class="section-title fade-up d1">無料でご相談いただける6つのこと</h2>
+      <p class="section-lead center fade-up d2">
+        どの項目も、すべて無料。何度でもご相談いただけます。
+      </p>
+    </div>
+    <div class="service-detail-grid">
+      <div class="service-detail-card fade-up d1">
+        <div class="sd-header"><div class="sd-icon">💰</div><h3>予算整理</h3></div>
+        <p>年収・貯蓄・ライフプランから、無理のない住まいの予算をいっしょに整理します。「いくらまで出せるか」ではなく「いくらまでなら安心か」を大切にします。</p>
+      </div>
+      <div class="service-detail-card fade-up d1">
+        <div class="sd-header"><div class="sd-icon">🏦</div><h3>住宅ローン相談</h3></div>
+        <p>変動と固定、フラット35、団信の違い。各社の金利や条件をわかりやすく比較。ご自身に合った借り方を、時間をかけていっしょに考えます。</p>
+      </div>
+      <div class="service-detail-card fade-up d2">
+        <div class="sd-header"><div class="sd-icon">📋</div><h3>希望条件・優先順位の整理</h3></div>
+        <p>「なんとなくの理想」を、具体的な条件へ。家族での話し合いのお手伝いや、優先順位づけのシートもご用意しています。</p>
+      </div>
+      <div class="service-detail-card fade-up d2">
+        <div class="sd-header"><div class="sd-icon">🗺️</div><h3>土地探し・候補地相談</h3></div>
+        <p>気になっている土地、迷っている候補地。日当たり、通学路、災害リスクまで、地図を広げていっしょに見ていきます。</p>
+      </div>
+      <div class="service-detail-card fade-up d3">
+        <div class="sd-header"><div class="sd-icon">⚖️</div><h3>住宅会社の比較整理</h3></div>
+        <p>大手ハウスメーカー、地域工務店、設計事務所…それぞれの特徴と違いを、フラットな立場でご説明します。</p>
+      </div>
+      <div class="service-detail-card fade-up d3">
+        <div class="sd-header"><div class="sd-icon">🤝</div><h3>住宅会社紹介</h3></div>
+        <p>ご希望を伺ったうえで、その方に合いそうな住宅会社をご紹介します。相性が合わないと感じたらいつでも切り替えていただけます。</p>
+      </div>
+    </div>
+    <p class="free-note fade-up" style="text-align:center;margin-top:56px;font-family:'Zen Maru Gothic',sans-serif;font-size:22px;color:var(--brown-deep)">
+      <span style="color:var(--orange-deep)">すべて無料で、何度でも。</span>
+    </p>
+  </div>
+</section>
+
+<!-- Flow -->
+<section class="flow-sec" style="background: var(--white);">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FLOW</div>
+      <h2 class="section-title fade-up d1">ご相談の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up d1">
+        <div class="flow-num">1</div><h4>お問い合わせ</h4><p>フォームまたはお電話で、お気軽にご連絡ください</p>
+      </div>
+      <div class="flow-step fade-up d2">
+        <div class="flow-num">2</div><h4>初回ヒアリング</h4><p>ご家族の状況やご希望をゆっくりお伺いします（60〜90分）</p>
+      </div>
+      <div class="flow-step fade-up d3">
+        <div class="flow-num">3</div><h4>情報整理・ご提案</h4><p>予算・条件・候補を整理してお渡しします</p>
+      </div>
+      <div class="flow-step fade-up d4">
+        <div class="flow-num">4</div><h4>継続サポート</h4><p>会社選び、契約時までいっしょに伴走します</p>
+      </div>
+    </div>
+    <p class="flow-note fade-up">ご相談は無料。ご家族全員でお越しいただいても大丈夫です。</p>
+  </div>
+</section>
+
+<!-- Voices -->
+<section class="voice-sec" style="background: var(--ivory);">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">VOICES</div>
+      <h2 class="section-title fade-up d1">お客様の声</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card fade-up d1">
+        <div class="voice-text">最初はハウスメーカー巡りに疲れていました。ここでは急かされることがなく、家族で話し合う時間をつくれたのが本当にありがたかったです。</div>
+        <div class="voice-meta">
+          <div class="voice-avatar">S</div>
+          <div class="voice-info"><strong>S様ご家族</strong>30代／注文住宅</div>
+        </div>
+      </div>
+      <div class="voice-card fade-up d2">
+        <div class="voice-text">ローンの説明が本当にわかりやすかった。銀行の資料を並べて、うちに合う借り方をいっしょに考えてくれました。</div>
+        <div class="voice-meta">
+          <div class="voice-avatar">T</div>
+          <div class="voice-info"><strong>T様</strong>40代／建売購入</div>
+        </div>
+      </div>
+      <div class="voice-card fade-up d3">
+        <div class="voice-text">見える化プランで、実際の家の姿を見てから会社選びができたのが大きかったです。イメージが具体的になりました。</div>
+        <div class="voice-meta">
+          <div class="voice-avatar">K</div>
+          <div class="voice-info"><strong>K様ご家族</strong>30代／注文住宅</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mieruka invite -->
+<section class="mieruka-invite">
+  <div class="invite-inner">
+    <div class="section-eyebrow fade-up" style="color:var(--orange-deep)">SPECIAL PLAN</div>
+    <h2 class="fade-up d1">さらに一歩、踏み込みたい方へ</h2>
+    <p class="fade-up d2">
+      「住宅会社を決める前に、我が家の姿を先に見てみたい」。<br>
+      そんな方に、家づくり見える化プランをご用意しています。<br>
+      提携設計事務所と連携して、参考プランと簡易資金計画をお作りします。
+    </p>
+    <a href="mieruka-plan.html" class="btn btn-primary btn-large fade-up d3">家づくり見える化プランを詳しく見る <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background: #fff">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FAQ</div>
+      <h2 class="section-title fade-up d1">よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">相談前に準備しておくものはありますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">特にご準備は不要です。手元にあれば、源泉徴収票やご家族の年収がわかるもの、気になっているエリアの情報などをお持ちください。何もなくても大丈夫です。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">紹介された住宅会社と契約しないといけませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">いいえ、まったくそのようなことはありません。ご紹介はあくまで選択肢のひとつ。相性が合わないと感じたらいつでも別の会社をご紹介したり、ご相談を止めることもできます。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">建てるか買うか、まだ決めていません</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">その段階でのご相談を、いちばん大切にしています。注文・建売・中古＋リフォームなど、選択肢を整理するところからいっしょに考えましょう。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">相談時間はどれくらいですか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">初回は60〜90分ほどが目安です。お時間の都合に合わせて、短くも長くも調整いたします。オンライン相談にも対応しています。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact form CTA -->
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">まずは、お話を聞かせてください。</h2>
+      <p class="cta-sub fade-up d1">相談は無料。急かすことはありません。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="contact.html" class="btn btn-primary btn-large">📩 お問い合わせフォームへ</a>
+        <a href="tel:0000000000" class="tel-btn">
+          <span class="tel-label">📞 お電話でのご相談</span>
+          <span class="tel-num">048-782-5920</span>
+          <span class="tel-hours">平日 9:00 - 18:00</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+</body>
+</html>

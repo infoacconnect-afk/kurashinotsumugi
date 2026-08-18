@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>それからのすまい｜くらしのつむぎ</title>
+<meta name="description" content="空き家・実家・相続後の住まいに、7つの選択肢。売却だけが答えではありません。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.hero-sorekara { background: linear-gradient(180deg, #EEF2E5 0%, #F7F9F2 100%); }
+
+.push-sec {
+  background: #fff;
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.push-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(28px, 4.5vw, 44px);
+  color: var(--brown-deep);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  margin-bottom: 32px;
+}
+.push-title .accent { color: var(--orange-deep); font-weight: 700; }
+.push-lead {
+  font-size: 17px;
+  color: var(--text-soft);
+  line-height: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.worry-empathy-sec {
+  background: var(--ivory);
+  padding: 100px 0;
+}
+.empathy-list {
+  max-width: 780px;
+  margin: 56px auto 0;
+}
+.empathy-item {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all .3s var(--ease);
+  border: 1px solid var(--line-soft);
+}
+.empathy-item:hover { transform: translateX(6px); box-shadow: var(--shadow-md); }
+.empathy-item .quote-mark {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 36px;
+  color: var(--green);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.empathy-item p { color: var(--text); line-height: 1.9; font-size: 15px; flex: 1; }
+
+.services-7-sec {
+  background: #fff;
+  padding: 100px 0;
+}
+.svc7-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.svc7-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px 32px;
+  border: 1px solid var(--line);
+  transition: all .4s var(--ease);
+  position: relative;
+}
+.svc7-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green);
+}
+.svc7-card .svc7-icon {
+  width: 60px; height: 60px;
+  border-radius: 18px;
+  background: var(--beige);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+.svc7-card h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 12px; line-height: 1.5; }
+.svc7-card p { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
+
+.svc7-card.featured {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF0DC 100%);
+  border: 2px solid var(--orange);
+  grid-column: span 1;
+  position: relative;
+}
+.svc7-card.featured .svc7-icon { background: var(--orange); color: #fff; }
+.svc7-card.featured .featured-badge {
+  position: absolute;
+  top: -10px; right: 16px;
+  background: var(--orange);
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+.svc7-card.featured .featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--orange-deep);
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 16px;
+}
+@media (max-width: 900px) { .svc7-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; } }
+
+.voice-sec { background: var(--ivory); padding: 100px 0; }
+.voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.voice-card { background: #fff; border-radius: 20px; padding: 36px 28px; position: relative; }
+.voice-card::before {
+  content: '"';
+  position: absolute; top: 8px; left: 20px;
+  font-size: 80px; color: var(--green-soft);
+  font-family: 'Zen Maru Gothic', sans-serif; line-height: 1;
+}
+.voice-text { font-size: 15px; line-height: 2; color: var(--text); margin: 32px 0 24px; position: relative; z-index: 2; }
+.voice-meta { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px dashed var(--line); }
+.voice-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--green-soft); display: flex; align-items: center; justify-content: center; color: var(--green-deep); font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; }
+.voice-info { font-size: 13px; color: var(--text-soft); }
+.voice-info strong { color: var(--brown-deep); display: block; margin-bottom: 2px; }
+@media (max-width: 900px) { .voice-grid { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; } }
+</style>
+</head>
+<body data-page="sorekara">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span>それからのすまい
+  </div>
+</div>
+
+<section class="page-hero hero-sorekara">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow fade-up">FOR AFTER LIFE</div>
+    <h1 class="fade-up d1">それからのすまい</h1>
+    <p class="lead fade-up d2">その家の、これからを、いっしょに考える。<br>空き家、実家、相続後の住まいに、寄り添う7つのサービスがあります。</p>
+  </div>
+</section>
+
+<section class="push-sec">
+  <div class="container-narrow">
+    <div class="fade-up">
+      <h2 class="push-title"><span class="accent">売却だけが、</span>答えではありません。</h2>
+    </div>
+    <p class="push-lead fade-up d2">
+      思い出のある家、迷いのある家。<br>
+      「売る」「持ち続ける」の二択ではなく、<br>
+      その家に合った"次の選択肢"を、いっしょに考えていきます。
+    </p>
+  </div>
+</section>
+
+<section class="worry-empathy-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">WORRIES</div>
+      <h2 class="section-title fade-up d1">こんなお気持ち、ありませんか？</h2>
+    </div>
+    <div class="empathy-list">
+      <div class="empathy-item fade-up d1">
+        <span class="quote-mark">"</span>
+        <p>実家が空き家になった。売るのはさびしいけれど、維持費も気になる…。</p>
+      </div>
+      <div class="empathy-item fade-up d1">
+        <span class="quote-mark">"</span>
+        <p>相続で受け継いだ家。何をどうすればいいのか、いちから教えてほしい。</p>
+      </div>
+      <div class="empathy-item fade-up d2">
+        <span class="quote-mark">"</span>
+        <p>遠方の実家。管理も片付けも大変で、放っておくのが不安。</p>
+      </div>
+      <div class="empathy-item fade-up d2">
+        <span class="quote-mark">"</span>
+        <p>いずれは自分たちが住みたい。でも、それまでどうしよう。</p>
+      </div>
+      <div class="empathy-item fade-up d3">
+        <span class="quote-mark">"</span>
+        <p>不動産会社に相談したら、すぐに売却の話ばかりで少し疲れた。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-7-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">7 SERVICES</div>
+      <h2 class="section-title fade-up d1">7つのサービス</h2>
+      <p class="section-lead center fade-up d2">その家の状況や、ご家族のお気持ちに合わせて、選んでいただけます。</p>
+    </div>
+    <div class="svc7-grid">
+      <a href="akiya-shindan.html" class="svc7-card featured fade-up d1" style="text-decoration:none">
+        <span class="featured-badge">POPULAR</span>
+        <div class="svc7-icon">🩺</div>
+        <h3>空き家負担ゼロ診断</h3>
+        <p>約30秒の簡単な質問で、その家に合う選択肢と負担軽減策を診断。まずはここから、はじめての方に。</p>
+        <span class="featured-cta">診断を試してみる <span class="arrow">→</span></span>
+      </a>
+      <div class="svc7-card fade-up d1">
+        <div class="svc7-icon">🏘️</div>
+        <h3>借上げ・転貸</h3>
+        <p>空き家を借上げ、必要な入居者にお貸しする仕組み。オーナーさまの手間なく、家に人の息づかいを。</p>
+      </div>
+      <div class="svc7-card fade-up d2">
+        <div class="svc7-icon">🧹</div>
+        <h3>管理</h3>
+        <p>定期巡回、通風、簡易清掃、庭木の確認まで。遠方の実家の管理を、代わって承ります。</p>
+      </div>
+      <div class="svc7-card fade-up d2">
+        <div class="svc7-icon">🔨</div>
+        <h3>改修・賃貸活用</h3>
+        <p>暮らしやすい形にリノベーションして、賃貸として活用。長い目で見た収支計画までご相談ください。</p>
+      </div>
+      <div class="svc7-card fade-up d3">
+        <div class="svc7-icon">🚗</div>
+        <h3>解体・駐車場活用</h3>
+        <p>建物の状態やご家族のご意向に合わせて、解体と月極駐車場等への転用もご提案します。</p>
+      </div>
+      <div class="svc7-card fade-up d3">
+        <div class="svc7-icon">💡</div>
+        <h3>維持負担軽減</h3>
+        <p>固定資産税、火災保険、光熱費など、家を持ち続ける負担を丁寧に整理し、軽減策をご提案。</p>
+      </div>
+      <div class="svc7-card fade-up d4">
+        <div class="svc7-icon">📖</div>
+        <h3>売却・相続後の整理</h3>
+        <p>売却も選択肢のひとつ。相続手続きや家財整理まで、専門家と連携してサポートします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="flow-sec" style="background: var(--ivory);">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FLOW</div>
+      <h2 class="section-title fade-up d1">ご相談の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up d1"><div class="flow-num">1</div><h4>お問い合わせ</h4><p>フォーム、お電話、診断からご連絡ください</p></div>
+      <div class="flow-step fade-up d2"><div class="flow-num">2</div><h4>状況ヒアリング</h4><p>家の状態、ご家族の状況、お気持ちを伺います</p></div>
+      <div class="flow-step fade-up d3"><div class="flow-num">3</div><h4>選択肢のご提案</h4><p>その家に合う選択肢をわかりやすく整理</p></div>
+      <div class="flow-step fade-up d4"><div class="flow-num">4</div><h4>継続サポート</h4><p>選んだ道を、伴走しながらいっしょに進めます</p></div>
+    </div>
+    <p class="flow-note fade-up">結論を急かすことはありません。時間をかけて、大切に考えていきましょう。</p>
+  </div>
+</section>
+
+<section class="voice-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">VOICES</div>
+      <h2 class="section-title fade-up d1">お客様の声</h2>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card fade-up d1">
+        <div class="voice-text">母の実家をどうすべきか、家族で3年悩んでいました。売る前提ではなく、選択肢を並べてもらえたのが本当にありがたかったです。</div>
+        <div class="voice-meta"><div class="voice-avatar">M</div><div class="voice-info"><strong>M様</strong>50代／相続</div></div>
+      </div>
+      <div class="voice-card fade-up d2">
+        <div class="voice-text">遠方に住んでいて管理が大変だった実家を、借上げで活用してもらえました。「誰かが住んでくれている」ことが、家族にとって嬉しい選択でした。</div>
+        <div class="voice-meta"><div class="voice-avatar">N</div><div class="voice-info"><strong>N様</strong>60代／借上げ活用</div></div>
+      </div>
+      <div class="voice-card fade-up d3">
+        <div class="voice-text">まず診断から入って、そのあと丁寧に話を聞いてもらえました。売却も含めて考え直せて、心が軽くなりました。</div>
+        <div class="voice-meta"><div class="voice-avatar">Y</div><div class="voice-info"><strong>Y様ご家族</strong>40代／診断→相談</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FAQ</div>
+      <h2 class="section-title fade-up d1">よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">売却はまだ考えていません。相談だけでもいいですか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">もちろんです。むしろ「どうするかまだ決めていない段階」でのご相談を、いちばん大切にしています。売却をおすすめすることはありません。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">遠方の空き家でも相談できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">エリアによって対応可否が異なる場合がございますので、まずはお気軽にお問い合わせください。オンライン相談も承っています。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">相続の手続きも相談できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">提携している司法書士・税理士と連携して、相続手続きのご相談も承ります。窓口はくらしのつむぎ、専門的な部分は各専門家、という体制です。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断は本当に無料ですか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">はい、空き家負担ゼロ診断は無料です。ご相談も無料。有料サービスをご利用いただく場合は、必ず事前にご案内します。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">まずは、お話を聞かせてください。</h2>
+      <p class="cta-sub fade-up d1">相談は無料。急かすことはありません。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="akiya-shindan.html" class="btn btn-primary btn-large">🩺 まずは30秒診断へ</a>
+        <a href="contact.html" class="btn btn-outline btn-large">📩 お問い合わせフォーム</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+</body>
+</html>

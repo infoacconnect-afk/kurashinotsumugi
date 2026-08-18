@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実家を相続したら、まず何から始める？やさしく整理する5つのステップ｜住資産再生ラボ</title>
+<meta name="description" content="実家を継いだあと、いちばん多いご相談は「何から始めればいいのかわからない」というもの。急がず、後悔しない3つのステップをご紹介します。">
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+/* ---------- Article Hero ---------- */
+.article-hero {
+  padding: 140px 0 60px;
+  background: linear-gradient(180deg, #FBF7F0 0%, #F5E8D0 100%);
+  position: relative;
+  overflow: hidden;
+}
+.article-hero-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+.article-cat-badge {
+  display: inline-block;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.article-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(26px, 4vw, 42px);
+  color: var(--brown-deep);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: var(--text-soft);
+  font-size: 14px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--brown-soft);
+}
+.article-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.article-meta .meta-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.article-meta .author-name {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--brown-deep);
+  font-weight: 500;
+}
+
+/* ---------- Featured image ---------- */
+.article-eyecatch {
+  max-width: 820px;
+  margin: -20px auto 0;
+  padding: 0 32px;
+  position: relative;
+  z-index: 3;
+}
+.article-eyecatch-inner {
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(139, 111, 78, 0.15);
+  background: var(--beige);
+}
+.article-eyecatch-inner svg,
+.article-eyecatch-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- Article body ---------- */
+.article-body-sec {
+  background: #fff;
+  padding: 80px 0 100px;
+}
+.article-layout {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 56px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.article-content {
+  min-width: 0;
+  font-size: 17px;
+  line-height: 2.1;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+.article-content > * + * { margin-top: 24px; }
+.article-content > h2 { margin-top: 64px; }
+.article-content > h3 { margin-top: 48px; }
+.article-content p { line-height: 2.1; }
+.article-content h2 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 26px;
+  color: var(--brown-deep);
+  padding: 20px 0 16px 24px;
+  border-left: 5px solid var(--orange);
+  background: linear-gradient(90deg, rgba(232,155,91,0.06) 0%, transparent 100%);
+  border-radius: 0 12px 12px 0;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+.article-content h3 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 21px;
+  color: var(--brown-deep);
+  padding-bottom: 10px;
+  border-bottom: 2px dashed var(--brown-soft);
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.article-content h3::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+.article-content h4 {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 18px;
+  color: var(--brown-deep);
+  margin-top: 32px;
+}
+.article-content strong {
+  color: var(--brown-deep);
+  font-weight: 700;
+  background: linear-gradient(transparent 65%, rgba(232,155,91,0.28) 65%);
+  padding: 0 2px;
+}
+.article-content em {
+  font-style: normal;
+  color: var(--orange-deep);
+  font-weight: 600;
+}
+.article-content a {
+  color: var(--orange-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--orange-soft);
+}
+.article-content a:hover {
+  text-decoration-color: var(--orange-deep);
+  opacity: 1;
+}
+.article-content ul,
+.article-content ol {
+  padding-left: 0;
+  list-style: none;
+}
+.article-content ul li,
+.article-content ol li {
+  position: relative;
+  padding: 8px 0 8px 32px;
+  line-height: 2;
+}
+.article-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+}
+.article-content ol {
+  counter-reset: ol-count;
+}
+.article-content ol li {
+  counter-increment: ol-count;
+  padding-left: 44px;
+}
+.article-content ol li::before {
+  content: counter(ol-count);
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.article-content blockquote {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 32px 36px;
+  border-left: 4px solid var(--green);
+  color: var(--text);
+  font-style: normal;
+  position: relative;
+  margin: 32px 0;
+  line-height: 2;
+}
+.article-content blockquote::before {
+  content: '"';
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 60px;
+  color: var(--green-soft);
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  line-height: 1;
+}
+.article-content img {
+  border-radius: 20px;
+  margin: 32px 0;
+  box-shadow: 0 6px 20px rgba(139,111,78,0.1);
+}
+.article-content figure {
+  margin: 32px 0;
+}
+.article-content figure img { margin: 0; }
+.article-content figcaption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-mute);
+  margin-top: 12px;
+}
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 32px 0;
+  box-shadow: 0 4px 16px rgba(139,111,78,0.08);
+  font-size: 15px;
+}
+.article-content th,
+.article-content td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+}
+.article-content th {
+  background: var(--beige);
+  color: var(--brown-deep);
+  font-weight: 600;
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+.article-content td { background: #fff; }
+.article-content hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brown-soft), transparent);
+  margin: 56px 0;
+}
+.article-content .callout {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF0DC 100%);
+  border-radius: 20px;
+  padding: 28px 32px;
+  border: 1px solid var(--orange-soft);
+  margin: 32px 0;
+}
+.article-content .callout-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--orange-deep);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Sidebar (TOC + share) ---------- */
+.article-sidebar {
+  position: relative;
+}
+.sidebar-sticky {
+  position: sticky;
+  top: 120px;
+}
+.toc-card {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid var(--line-soft);
+  margin-bottom: 24px;
+}
+.toc-card h4 {
+  font-size: 14px;
+  color: var(--brown-deep);
+  letter-spacing: 0.12em;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.toc-list li {
+  margin-bottom: 10px;
+}
+.toc-list a {
+  color: var(--text-soft);
+  display: block;
+  padding-left: 12px;
+  border-left: 2px solid transparent;
+  transition: all .3s var(--ease);
+}
+.toc-list a:hover,
+.toc-list a.active {
+  color: var(--brown-deep);
+  border-left-color: var(--orange);
+  opacity: 1;
+}
+.toc-list .toc-sub {
+  padding-left: 16px;
+  margin-top: 4px;
+}
+.toc-list .toc-sub a { font-size: 12px; color: var(--text-mute); }
+
+.share-card {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid var(--line-soft);
+}
+.share-card h4 {
+  font-size: 13px;
+  color: var(--brown-deep);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+.share-buttons {
+  display: flex;
+  gap: 10px;
+}
+.share-buttons a {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  color: var(--brown-deep);
+  transition: all .3s var(--ease);
+}
+.share-buttons a:hover {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .article-layout { grid-template-columns: 1fr; gap: 40px; }
+  .sidebar-sticky { position: static; }
+}
+
+/* ---------- Author box ---------- */
+.author-box {
+  max-width: 820px;
+  margin: 64px auto 0;
+  background: var(--ivory);
+  border-radius: 24px;
+  padding: 36px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  align-items: center;
+  border: 1px solid var(--line-soft);
+}
+.author-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--beige) 0%, var(--green-soft) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 32px;
+  color: var(--brown-deep);
+  font-weight: 700;
+}
+.author-info .a-name { font-family: 'Zen Maru Gothic', sans-serif; font-size: 18px; color: var(--brown-deep); margin-bottom: 4px; }
+.author-info .a-role { font-size: 12px; color: var(--text-mute); margin-bottom: 8px; letter-spacing: 0.08em; }
+.author-info .a-bio { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
+@media (max-width: 600px) {
+  .author-box { grid-template-columns: 1fr; text-align: center; }
+  .author-avatar { margin: 0 auto; }
+}
+
+/* ---------- Related articles ---------- */
+.related-articles-sec {
+  background: var(--ivory);
+  padding: 100px 0;
+}
+.related-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+.ra-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  transition: all .4s var(--ease);
+}
+.ra-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.ra-thumb { aspect-ratio: 16/10; overflow: hidden; }
+.ra-thumb svg { width: 100%; height: 100%; }
+.ra-body { padding: 20px 22px 24px; }
+.ra-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; }
+.ra-meta .cat { background: var(--green-soft); color: var(--green-deep); padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+.ra-meta .date { color: var(--text-mute); }
+.ra-title { font-size: 15px; line-height: 1.7; color: var(--brown-deep); font-weight: 500; }
+@media (max-width: 900px) {
+  .related-articles-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+}
+
+/* ---------- Back link ---------- */
+.back-to-lab {
+  max-width: 820px;
+  margin: 48px auto 0;
+  padding: 0 32px;
+  text-align: center;
+}
+.back-to-lab a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--brown-deep);
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1.5px solid var(--brown-soft);
+  background: #fff;
+  transition: all .3s var(--ease);
+  font-size: 14px;
+}
+.back-to-lab a:hover {
+  background: var(--ivory);
+  transform: translateX(-4px);
+  opacity: 1;
+}
+</style>
+</head>
+<body data-page="lab-article">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span>
+    <a href="lab.html">住資産再生ラボ</a><span class="sep">›</span>
+    <span data-article="category-link">相続・税金</span>
+  </div>
+</div>
+
+<!-- ==================== Article Hero ==================== -->
+<section class="article-hero">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="article-hero-inner">
+    <span class="article-cat-badge" data-article="category">相続・税金</span>
+    <h1 class="article-title" data-article="title">実家を相続したら、まず何から始める？<br>やさしく整理する5つのステップ</h1>
+    <div class="article-meta">
+      <div class="meta-item">
+        <span class="meta-icon">📅</span>
+        <span data-article="published-at">2026年7月28日</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">🔄</span>
+        <span>更新：<span data-article="updated-at">2026年8月3日</span></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">✍</span>
+        <span class="author-name" data-article="author">くらしのつむぎ編集部</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Eyecatch ==================== -->
+<div class="article-eyecatch">
+  <div class="article-eyecatch-inner" data-article="eyecatch">
+    <!-- microCMSからの画像が入る場所 / フォールバックのSVGサンプル -->
+    <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+      <rect width="800" height="450" fill="#F5E8D0"/>
+      <path d="M120 380 Q240 200 400 320 Q560 440 680 260" fill="none" stroke="#9CAF88" stroke-width="4" opacity="0.5"/>
+      <rect x="280" y="230" width="240" height="180" fill="#fff" stroke="#8B6F4E" stroke-width="3"/>
+      <path d="M240 230 L400 120 L560 230" fill="#B85C3E" stroke="#8B6F4E" stroke-width="3"/>
+      <rect x="360" y="290" width="80" height="120" fill="#E89B5B"/>
+      <line x1="400" y1="290" x2="400" y2="410" stroke="#8B6F4E" stroke-width="2"/>
+      <line x1="360" y1="350" x2="440" y2="350" stroke="#8B6F4E" stroke-width="2"/>
+      <circle cx="160" cy="200" r="20" fill="#9CAF88" opacity="0.6"/>
+      <circle cx="640" cy="340" r="18" fill="#9CAF88" opacity="0.6"/>
+      <ellipse cx="180" cy="220" rx="10" ry="5" fill="#9CAF88" opacity="0.7" transform="rotate(-30 180 220)"/>
+      <ellipse cx="620" cy="360" rx="10" ry="5" fill="#9CAF88" opacity="0.7" transform="rotate(30 620 360)"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ==================== Body ==================== -->
+<section class="article-body-sec">
+  <div class="article-layout">
+    <!-- Main content -->
+    <article class="article-content" data-article="body">
+      <p>大切なご家族が住まわれていた実家を継いだとき、いちばん多くの方がおっしゃるのは「<strong>何から始めればいいのかわからない</strong>」というお言葉です。</p>
+      <p>相続や手続きは、書類も多く、専門用語も並びます。悲しみの整理もつかないうちに"やること"だけが積み重なって、心も体も疲れてしまう。そんなお声を、私たちはたくさん伺ってきました。</p>
+      <p>この記事では、実家を相続したあと、<em>急がず、後悔しないため</em>の5つのステップを、やさしい順番でご紹介します。</p>
+
+      <div class="callout">
+        <div class="callout-title">🌿 この記事はこんな方に</div>
+        <ul>
+          <li>実家を相続することになった／したばかりの方</li>
+          <li>何から手をつければいいか、まだ整理できていない方</li>
+          <li>売却か、持ち続けるかで、家族で意見が分かれている方</li>
+        </ul>
+      </div>
+
+      <h2 id="step1">STEP 1｜まず、家族で"気持ち"を話す時間をとる</h2>
+      <p>いちばん最初におすすめしたいのは、書類でも手続きでもなく、<strong>家族で気持ちを話す時間</strong>をつくることです。</p>
+      <p>相続の話は、金銭や不動産の話に見えて、実は"思い出"や"それぞれの立場"の話でもあります。「早く売って現金化したい」「思い出のある家は残したい」——同じ家族でも、気持ちの向きは異なります。</p>
+      <blockquote>手続きより先に、気持ちを聞き合う。これが、後悔しない相続のいちばん大事な"はじめの一歩"です。</blockquote>
+
+      <h3>話し合いのコツ</h3>
+      <ul>
+        <li>結論を出す会ではなく、"気持ちを共有する会"と決める</li>
+        <li>期限を切らず、時間をかけていい話だと理解し合う</li>
+        <li>難しければ、第三者に間に入ってもらうのも良い方法です</li>
+      </ul>
+
+      <h2 id="step2">STEP 2｜相続の"全体像"を知る</h2>
+      <p>気持ちの整理と並行して、相続手続きの<strong>全体像</strong>をざっくり把握しましょう。細かい期限を全部覚える必要はありません。「いつまでに、何をする必要があるか」の地図を持つだけで、心が少し軽くなります。</p>
+
+      <table>
+        <thead>
+          <tr><th>時期</th><th>おおまかにやること</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>相続開始から3ヶ月以内</td><td>相続放棄をする・しないの判断</td></tr>
+          <tr><td>4ヶ月以内</td><td>被相続人の準確定申告</td></tr>
+          <tr><td>10ヶ月以内</td><td>相続税の申告・納税（必要な場合）</td></tr>
+          <tr><td>3年以内</td><td>相続登記（法律で義務化）</td></tr>
+        </tbody>
+      </table>
+
+      <p>とはいえ、これを全部ひとりで判断するのは大変です。<a href="contact.html">くらしのつむぎ</a>では、提携している司法書士・税理士とも連携して、必要なところだけを翻訳してお伝えしています。</p>
+
+      <h2 id="step3">STEP 3｜家の"今"を知る</h2>
+      <p>次に、その家がいま<strong>どんな状態か</strong>を知ります。築年数、傷み具合、間取り、周辺の環境。</p>
+      <p>ここでのポイントは、<em>「良し悪しをジャッジしない」</em>こと。傷みがあっても、それは"味"として活かせる場合があります。立地がのどかでも、そこに合う活用方法があります。</p>
+
+      <h3>確認しておきたいポイント</h3>
+      <ol>
+        <li>建物の状態（雨漏り、シロアリ、構造の傷み）</li>
+        <li>家財・遺品の量と、片付けの見通し</li>
+        <li>周辺の環境（アクセス、日当たり、地域性）</li>
+        <li>固定資産税・維持費のおおよその金額</li>
+      </ol>
+
+      <h2 id="step4">STEP 4｜"選択肢"を並べてみる</h2>
+      <p>ここまで来て、はじめて<strong>「どうするか」</strong>の選択肢を並べます。</p>
+      <p>大事なのは、いきなり「売る／売らない」の二択にしないこと。実は、住まいの"それから"には、もっと多くの道があります。</p>
+      <ul>
+        <li>ご自身やご家族が住む</li>
+        <li>賃貸として貸し出す（そのまま／リフォーム後）</li>
+        <li>借上げ・転貸のサービスを利用する</li>
+        <li>そのまま持ち続けて、管理だけを委託する</li>
+        <li>解体して土地活用（駐車場など）に切り替える</li>
+        <li>売却する</li>
+      </ul>
+      <p>それぞれに、良いところと気をつけるところがあります。ひとつずつ、じっくり見比べていきましょう。</p>
+
+      <h2 id="step5">STEP 5｜"急がない勇気"を持つ</h2>
+      <p>最後にお伝えしたいのは、<strong>「急がない」</strong>ことの大切さです。</p>
+      <p>相続の期限に追われて、慌てて売却して、後悔された方をたくさん見てきました。一方で、"1年かけてゆっくり決めた"方の多くが「決めてよかった」とおっしゃいます。</p>
+      <p>もちろん、法律で決まった期限は守る必要があります。でも、大きな判断は、時間をかけて大丈夫。<em>「今の自分たちにとって、いちばん納得できる答え」</em>を、ゆっくり見つけていきましょう。</p>
+
+      <hr>
+
+      <h2 id="conclusion">おわりに｜ひとりで抱え込まないで</h2>
+      <p>相続の相談は、"家の話"のように見えて、実は"家族の話"でもあります。ですから、ひとりで全部を背負う必要はありません。</p>
+      <p>くらしのつむぎでは、"売る／売らない"を決める前の段階から、いっしょに考えるご相談を承っています。<strong>相談は無料。急かすことはありません。</strong></p>
+      <p>「まだ何も決まっていないけれど、話だけ聞いてほしい」——そんなご連絡を、いつでもお待ちしています。</p>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="article-sidebar">
+      <div class="sidebar-sticky">
+        <div class="toc-card">
+          <h4>📖 目次</h4>
+          <ul class="toc-list" id="toc">
+            <li><a href="#step1">STEP 1｜家族で気持ちを話す</a></li>
+            <li><a href="#step2">STEP 2｜相続の全体像を知る</a></li>
+            <li><a href="#step3">STEP 3｜家の"今"を知る</a></li>
+            <li><a href="#step4">STEP 4｜選択肢を並べてみる</a></li>
+            <li><a href="#step5">STEP 5｜"急がない勇気"を持つ</a></li>
+            <li><a href="#conclusion">おわりに</a></li>
+          </ul>
+        </div>
+        <div class="share-card">
+          <h4>🔗 この記事をシェア</h4>
+          <div class="share-buttons">
+            <a href="#" aria-label="X（Twitter）でシェア"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="#" aria-label="Facebookでシェア"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="LINEでシェア"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.58 2 9.99c0 2.55 1.51 4.83 3.87 6.32-.17.61-.63 2.26-.72 2.61-.11.42.15.42.32.31.13-.08 2.05-1.39 2.87-1.96.87.13 1.75.21 2.66.21 5.52 0 10-3.58 10-8.49S17.52 2 12 2zm-4.15 10.36H6.35c-.21 0-.38-.17-.38-.38V8.51c0-.21.17-.38.38-.38.21 0 .38.17.38.38v3.09h1.12c.21 0 .38.17.38.38 0 .21-.17.38-.38.38zm2.02 0c-.21 0-.38-.17-.38-.38V8.51c0-.21.17-.38.38-.38.21 0 .38.17.38.38v3.47c0 .21-.17.38-.38.38zm4.42 0c0 .16-.1.3-.25.36-.04.01-.08.02-.13.02-.12 0-.23-.05-.3-.15L11.77 9.5v2.48c0 .21-.17.38-.38.38-.21 0-.38-.17-.38-.38V8.51c0-.16.1-.3.25-.36.04-.01.08-.02.13-.02.12 0 .23.05.3.15l1.85 2.65V8.51c0-.21.17-.38.38-.38.21 0 .38.17.38.38v3.85zm2.63-2.15c.21 0 .38.17.38.38 0 .21-.17.38-.38.38h-1.12v.73h1.12c.21 0 .38.17.38.38 0 .21-.17.38-.38.38h-1.5c-.21 0-.38-.17-.38-.38V8.51c0-.21.17-.38.38-.38h1.5c.21 0 .38.17.38.38 0 .21-.17.38-.38.38h-1.12v.72h1.12z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Author box -->
+  <div class="container">
+    <div class="author-box">
+      <div class="author-avatar">つ</div>
+      <div class="author-info">
+        <div class="a-name" data-article="author-name">くらしのつむぎ編集部</div>
+        <div class="a-role" data-article="author-role">EDITORIAL TEAM</div>
+        <div class="a-bio" data-article="author-bio">住まいのこれからとそれからに、やさしく寄り添う総合相談ブランド「くらしのつむぎ」の編集チームです。実際のご相談から生まれた気づきを、皆さまにお届けします。</div>
+      </div>
+    </div>
+
+    <div class="back-to-lab">
+      <a href="lab.html"><span>←</span> 住資産再生ラボの記事一覧へ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Related articles ==================== -->
+<section class="related-articles-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">RELATED</div>
+      <h2 class="section-title fade-up d1">関連する記事</h2>
+    </div>
+    <div class="related-articles-grid" data-article="related">
+      <a href="#" class="ra-card fade-up d1">
+        <div class="ra-thumb"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="#F5E8D0"/><rect x="100" y="80" width="200" height="140" fill="#fff" stroke="#8B6F4E" stroke-width="2" rx="6"/><circle cx="200" cy="150" r="30" fill="#E89B5B" opacity="0.5"/><text x="200" y="158" text-anchor="middle" font-size="26" fill="#8B6F4E" font-family="serif">¥</text></svg></div>
+        <div class="ra-body">
+          <div class="ra-meta"><span class="cat">相続・税金</span><span class="date">2026.07.05</span></div>
+          <div class="ra-title">相続空き家の3,000万円控除、使うべき？やさしく解説</div>
+        </div>
+      </a>
+      <a href="#" class="ra-card fade-up d2">
+        <div class="ra-thumb"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="#EEF2E5"/><circle cx="200" cy="125" r="60" fill="#9CAF88" opacity="0.4"/><path d="M170 140 Q200 90 230 140 Q220 170 200 170 Q180 170 170 140Z" fill="#9CAF88"/></svg></div>
+        <div class="ra-body">
+          <div class="ra-meta"><span class="cat">空き家情報</span><span class="date">2026.07.20</span></div>
+          <div class="ra-title">空き家を"負債"にしないために。維持費と選択肢を、わかりやすく比較</div>
+        </div>
+      </a>
+      <a href="#" class="ra-card fade-up d3">
+        <div class="ra-thumb"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="#FBF7F0"/><rect x="80" y="60" width="240" height="140" fill="#fff" stroke="#8B6F4E" stroke-width="2" rx="8"/><line x1="110" y1="100" x2="290" y2="100" stroke="#E89B5B" stroke-width="3" opacity="0.6"/><line x1="110" y1="120" x2="250" y2="120" stroke="#8B6F4E" stroke-width="1.5" opacity="0.4"/><line x1="110" y1="140" x2="270" y2="140" stroke="#8B6F4E" stroke-width="1.5" opacity="0.4"/></svg></div>
+        <div class="ra-body">
+          <div class="ra-meta"><span class="cat">再生・活用事例</span><span class="date">2026.07.12</span></div>
+          <div class="ra-title">築45年の実家を、地域の"みんなの家"に。改修活用のリアルな軌跡</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== Related services CTA ==================== -->
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">その家の"これから"、いっしょに考えませんか。</h2>
+      <p class="cta-sub fade-up d1">相談は無料。急かすことはありません。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="sorekara.html" class="btn btn-green btn-large">🌿 それからのすまいへ</a>
+        <a href="contact.html" class="btn btn-primary btn-large">📩 お問い合わせフォーム</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/article-loader.js"></script>
+<script>
+// ============ Table of Contents active highlight ============
+(() => {
+  const links = document.querySelectorAll('#toc a');
+  const targets = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (targets.length === 0) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  targets.forEach(t => io.observe(t));
+})();
+</script>
+</body>
+</html>

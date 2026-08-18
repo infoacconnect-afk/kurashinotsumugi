@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サイトマップ｜くらしのつむぎ</title>
+<link rel="icon" href="assets/logo-white.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+.sitemap-hero { background: linear-gradient(180deg, #FBF7F0 0%, #F3ECE0 100%); }
+.sitemap-body { background: #fff; padding: 80px 0 120px; }
+.sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.sitemap-block {
+  background: var(--ivory);
+  border-radius: 24px;
+  padding: 40px;
+  transition: all .3s var(--ease);
+  border: 1px solid var(--line-soft);
+}
+.sitemap-block:hover { box-shadow: var(--shadow-md); }
+.sitemap-block h2 {
+  font-size: 20px;
+  color: var(--brown-deep);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--orange-soft);
+  display: flex; align-items: center; gap: 12px;
+}
+.sitemap-block h2 .num {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--orange-deep);
+  font-size: 24px;
+}
+.sitemap-block ul { list-style: none; padding: 0; margin: 0; }
+.sitemap-block li { margin-bottom: 12px; }
+.sitemap-block a {
+  color: var(--text);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s var(--ease);
+  padding: 8px 0;
+}
+.sitemap-block a::before {
+  content: '›';
+  color: var(--orange);
+  font-weight: 700;
+}
+.sitemap-block a:hover {
+  color: var(--brown-deep);
+  padding-left: 8px;
+  opacity: 1;
+}
+.sitemap-block .sub-list {
+  padding-left: 24px;
+  margin-top: 4px;
+  border-left: 1px dashed var(--brown-soft);
+}
+.sitemap-block .sub-list li { margin-bottom: 4px; }
+.sitemap-block .sub-list a { font-size: 14px; color: var(--text-soft); padding: 4px 0; }
+@media (max-width: 700px) { .sitemap-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="sitemap">
+<div id="site-header-host"></div>
+
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">ホーム</a><span class="sep">›</span>サイトマップ
+  </div>
+</div>
+
+<section class="page-hero sitemap-hero">
+  <div class="page-hero-deco left" data-deco="vine-corner"></div>
+  <div class="page-hero-deco right" data-deco="vine-corner"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow fade-up">SITEMAP</div>
+    <h1 class="fade-up d1">サイトマップ</h1>
+    <p class="lead fade-up d2">くらしのつむぎのサイト全体をご案内します。</p>
+  </div>
+</section>
+
+<section class="sitemap-body">
+  <div class="container">
+    <div class="sitemap-grid">
+      <div class="sitemap-block fade-up d1">
+        <h2><span class="num">01</span>ホーム</h2>
+        <ul>
+          <li><a href="index.html">トップページ</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-block fade-up d1">
+        <h2><span class="num">02</span>これからのすまい</h2>
+        <ul>
+          <li>
+            <a href="korekara.html">これからのすまい 概要</a>
+            <ul class="sub-list">
+              <li><a href="mieruka-plan.html">家づくり見える化プラン</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sitemap-block fade-up d2">
+        <h2><span class="num">03</span>それからのすまい</h2>
+        <ul>
+          <li>
+            <a href="sorekara.html">それからのすまい 概要</a>
+            <ul class="sub-list">
+              <li><a href="akiya-shindan.html">空き家負担ゼロ診断</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sitemap-block fade-up d2">
+        <h2><span class="num">04</span>住資産再生ラボ</h2>
+        <ul>
+          <li><a href="lab.html">記事一覧・カテゴリ</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-block fade-up d3">
+        <h2><span class="num">05</span>会社について</h2>
+        <ul>
+          <li><a href="company.html">会社概要</a></li>
+          <li><a href="faq.html">よくある質問</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+        </ul>
+      </div>
+
+      <div class="sitemap-block fade-up d3">
+        <h2><span class="num">06</span>規約・ポリシー</h2>
+        <ul>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
+          <li><a href="sitemap.html">サイトマップ（このページ）</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+</body>
+</html>
