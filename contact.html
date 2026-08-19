@@ -123,6 +123,102 @@
   box-shadow: 0 14px 30px rgba(232, 155, 91, 0.4);
   background: var(--orange-deep);
 }
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.submit-btn .btn-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.submit-btn .btn-loading[hidden],
+.submit-btn .btn-label[hidden] {
+  display: none !important;
+}
+.spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* honeypot (人間には非表示) */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* エラー表示 */
+.form-error {
+  background: #FDECEC;
+  border: 1px solid #D97070;
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #B54848;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.form-error strong { color: #B54848; }
+.form-field.error input,
+.form-field.error textarea {
+  border-color: #D97070;
+}
+
+/* サンクスビュー */
+.thanks-view {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF7F0 100%);
+  border-radius: 28px;
+  padding: 60px 48px;
+  text-align: center;
+  border: 1px solid var(--line-soft);
+}
+.thanks-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: gentleFloat 3s ease-in-out infinite;
+}
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.thanks-view h2 {
+  font-size: clamp(24px, 3vw, 30px);
+  color: var(--brown-deep);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.thanks-lead {
+  font-size: 17px;
+  color: var(--text);
+  line-height: 2.1;
+  margin-bottom: 24px;
+}
+.thanks-sub {
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 2;
+  margin-bottom: 36px;
+}
+.thanks-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+  .thanks-view { padding: 40px 24px; }
+}
 </style>
 </head>
 <body data-page="contact">
@@ -147,60 +243,89 @@
 <section class="contact-main">
   <div class="container">
     <div class="contact-layout">
-      <form class="form-wrap fade-up" onsubmit="event.preventDefault(); alert('お問い合わせありがとうございます。（デモ動作です）');">
+      <form id="contactForm" class="form-wrap fade-up" novalidate>
         <h2>お問い合わせフォーム</h2>
         <p class="form-intro">お名前とご連絡先、ご相談の内容をご入力ください。担当より2営業日以内にご連絡差し上げます。</p>
 
         <div class="form-inline-two">
           <div class="form-field">
-            <label>お名前<span class="required">必須</span></label>
-            <input type="text" placeholder="例：山田 太郎" required>
+            <label for="fName">お名前<span class="required">必須</span></label>
+            <input type="text" id="fName" name="name" placeholder="例：山田 太郎" required>
           </div>
           <div class="form-field">
-            <label>ふりがな<span class="required">必須</span></label>
-            <input type="text" placeholder="例：やまだ たろう" required>
+            <label for="fFurigana">ふりがな<span class="required">必須</span></label>
+            <input type="text" id="fFurigana" name="furigana" placeholder="例:やまだ たろう" required>
           </div>
         </div>
 
         <div class="form-inline-two">
           <div class="form-field">
-            <label>メールアドレス<span class="required">必須</span></label>
-            <input type="email" placeholder="example@example.com" required>
+            <label for="fEmail">メールアドレス<span class="required">必須</span></label>
+            <input type="email" id="fEmail" name="email" placeholder="example@example.com" required>
           </div>
           <div class="form-field">
-            <label>電話番号</label>
-            <input type="tel" placeholder="048-782-5920">
+            <label for="fTel">電話番号</label>
+            <input type="tel" id="fTel" name="tel" placeholder="048-782-5920">
           </div>
         </div>
 
         <div class="form-field">
           <label>ご相談の内容（複数選択可）</label>
           <div class="checkbox-grid">
-            <label><input type="checkbox">🏠 これからのすまい（家づくり）</label>
-            <label><input type="checkbox">🌿 それからのすまい（空き家・実家）</label>
-            <label><input type="checkbox">📐 家づくり見える化プラン</label>
-            <label><input type="checkbox">🩺 空き家負担ゼロ診断について</label>
-            <label><input type="checkbox">💬 その他のご相談</label>
-            <label><input type="checkbox">📞 まずは電話で話したい</label>
+            <label><input type="checkbox" name="inquiry" value="korekara">🏠 これからのすまい（家づくり）</label>
+            <label><input type="checkbox" name="inquiry" value="sorekara">🌿 それからのすまい（空き家・実家）</label>
+            <label><input type="checkbox" name="inquiry" value="mieruka">📐 家づくり見える化プラン</label>
+            <label><input type="checkbox" name="inquiry" value="shindan">🩺 空き家負担ゼロ診断について</label>
+            <label><input type="checkbox" name="inquiry" value="other">💬 その他のご相談</label>
+            <label><input type="checkbox" name="inquiry" value="tel">📞 まずは電話で話したい</label>
           </div>
         </div>
 
         <div class="form-field">
-          <label>ご相談内容の詳細</label>
-          <textarea placeholder="お困りごとや、聞いてみたいことをお気軽にご記入ください（例：実家を相続したが、何から始めればいいかわからない など）"></textarea>
+          <label for="fMessage">ご相談内容の詳細</label>
+          <textarea id="fMessage" name="message" placeholder="お困りごとや、聞いてみたいことをお気軽にご記入ください（例:実家を相続したが、何から始めればいいかわからない など）"></textarea>
+        </div>
+
+        <div class="hp-field" aria-hidden="true">
+          <label>Website (Do not fill)</label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="agreement">
           <strong style="color:var(--brown-deep);display:block;margin-bottom:6px">個人情報の取扱いについて</strong>
           ご入力いただいた個人情報は、お問い合わせへのご連絡・ご案内、および同意いただいた範囲内でのサービス提供のみに利用いたします。第三者に無断で提供することはありません。詳しくは<a href="privacy.html" style="color:var(--orange-deep);text-decoration:underline">プライバシーポリシー</a>をご確認ください。
           <label class="agree-check">
-            <input type="checkbox" required>
+            <input type="checkbox" name="agree" required>
             <span>個人情報の取扱いに同意する</span>
           </label>
         </div>
 
-        <button type="submit" class="submit-btn">📩 この内容で送信する</button>
+        <div id="formError" class="form-error" role="alert" hidden></div>
+
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span class="btn-label">📩 この内容で送信する</span>
+          <span class="btn-loading" hidden>
+            <span class="spinner"></span>送信中...
+          </span>
+        </button>
       </form>
+
+      <div id="thanksView" class="thanks-view fade-up" hidden>
+        <div class="thanks-icon">🌱</div>
+        <h2>お問い合わせありがとうございます</h2>
+        <p class="thanks-lead">
+          お問い合わせを受け付けました。<br>
+          担当者より<strong>2営業日以内</strong>にご連絡いたします。
+        </p>
+        <p class="thanks-sub">
+          ご登録のメールアドレスに、確認のメールをお送りしました。<br>
+          もし届かない場合は、迷惑メールフォルダもご確認ください。
+        </p>
+        <div class="thanks-actions">
+          <a href="index.html" class="btn btn-primary">トップページへ戻る</a>
+          <button type="button" id="resetForm" class="btn btn-outline">もう一度お問い合わせする</button>
+        </div>
+      </div>
 
       <aside class="side-info">
         <div class="side-card">
@@ -234,5 +359,8 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/contact-form.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
