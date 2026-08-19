@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>くらしのつむぎ｜これからのすまい、それからのすまい。</title>
+<meta name="description" content="くらしのつむぎは、住まいに関わるすべての時間に、やさしく寄り添う総合相談ブランドです。家づくりから空き家のことまで、いっしょに考えます。">
+<meta property="og:title" content="くらしのつむぎ｜これからのすまい、それからのすまい。">
+<meta property="og:description" content="住まいのことは、これからのことも、それからのことも。">
+<meta property="og:image" content="assets/logo-white.png">
+<link rel="icon" href="assets/logo-white.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+/* ---------- Hero ---------- */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  padding: 140px 0 80px;
+  background: linear-gradient(180deg, #FBF7F0 0%, #FFFFFF 60%, #F5F0E4 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-deco-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 32px;
+  text-align: center;
+  width: 100%;
+}
+.hero-logo-mark {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 28px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 1s var(--ease);
+}
+.hero-logo-mark.show { opacity: 1; transform: scale(1); }
+.hero-brand {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(36px, 5.5vw, 58px);
+  letter-spacing: 0.12em;
+  color: var(--brown-deep);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.2s var(--ease) 0.3s;
+}
+.hero-brand.show { opacity: 1; transform: translateY(0); }
+.hero-catch {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 500;
+  font-size: clamp(22px, 3.5vw, 34px);
+  color: var(--text);
+  line-height: 1.7;
+  letter-spacing: 0.16em;
+  margin-bottom: 64px;
+  min-height: 1.7em;
+}
+.hero-catch .ch {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .6s var(--ease);
+}
+.hero-catch .ch.show { opacity: 1; transform: translateY(0); }
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .8s var(--ease);
+}
+.hero-buttons.show { opacity: 1; transform: translateY(0); }
+.hero-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 44px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(139, 111, 78, 0.12);
+  border: 1.5px solid var(--line);
+  min-width: 300px;
+  text-align: center;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+  cursor: pointer;
+}
+.hero-btn:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(139, 111, 78, 0.18);
+  border-color: var(--orange-soft);
+  opacity: 1;
+}
+.hero-btn .btn-emoji { font-size: 40px; }
+.hero-btn .btn-label {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 22px;
+  color: var(--brown-deep);
+  font-weight: 500;
+}
+.hero-btn .btn-sub {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.hero-btn.korekara:hover { border-color: var(--orange); }
+.hero-btn.sorekara:hover { border-color: var(--green); }
+
+/* SVG background lines */
+.vine-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.vine-anim {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawVine 2.4s var(--ease) forwards;
+}
+@keyframes drawVine {
+  to { stroke-dashoffset: 0; }
+}
+.leaf-dot {
+  opacity: 0;
+  transform-origin: center;
+  animation: leafPop .8s var(--ease) forwards;
+}
+@keyframes leafPop {
+  to { opacity: 0.7; transform: scale(1); }
+  0% { transform: scale(0); }
+}
+
+/* ---------- Section: About ---------- */
+.about {
+  background: #fff;
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.about-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 32px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.about-lead {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(20px, 2.6vw, 26px);
+  line-height: 2.2;
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+.about-deco-1, .about-deco-2 {
+  position: absolute;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.about-deco-1 { left: -20px; top: 40px; }
+.about-deco-2 { right: -20px; bottom: 40px; transform: scaleX(-1); }
+
+/* ---------- Section: Services ---------- */
+.services {
+  background: var(--ivory);
+  padding: 100px 0 120px;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 64px;
+}
+.service-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 44px 32px;
+  text-align: center;
+  transition: all .4s var(--ease);
+  box-shadow: 0 4px 16px rgba(139,111,78,0.06);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(139,111,78,0.14);
+  border-color: var(--orange-soft);
+}
+.service-card .icon-wrap {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 36px;
+  transition: background .4s var(--ease);
+}
+.service-card:hover .icon-wrap { background: var(--orange-soft); }
+.service-card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--brown-deep);
+}
+.service-card .service-desc {
+  font-size: 15px;
+  color: var(--text-soft);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+.service-card .service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--orange-deep);
+  font-weight: 600;
+  font-size: 14px;
+}
+.service-card .service-link .arrow { transition: transform .3s var(--ease); }
+.service-card:hover .service-link .arrow { transform: translateX(4px); }
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+}
+
+/* ---------- Korekara Section ---------- */
+.korekara-sec {
+  background: var(--beige);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.korekara-sec::before {
+  content: '';
+  position: absolute;
+  left: -80px; top: -80px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,155,91,0.08), transparent 70%);
+}
+.free-services {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.free-service-item {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  border: 1px solid var(--line-soft);
+}
+.free-service-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(139,111,78,0.08);
+}
+.free-service-item .fs-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  background: var(--ivory);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.free-service-item .fs-text h4 {
+  font-size: 16px;
+  margin-bottom: 2px;
+  color: var(--brown-deep);
+}
+.free-service-item .fs-text p {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.free-note {
+  text-align: center;
+  margin-top: 40px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 18px;
+  color: var(--brown-deep);
+  font-weight: 500;
+}
+.free-note .accent {
+  color: var(--orange-deep);
+}
+@media (max-width: 640px) {
+  .free-services { grid-template-columns: 1fr; }
+}
+
+/* Mieruka plan card */
+.mieruka-intro {
+  text-align: center;
+  margin: 32px auto 32px;
+  max-width: 520px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--brown-deep);
+  font-size: 17px;
+  letter-spacing: 0.08em;
+}
+.mieruka-intro .ornament {
+  display: inline-block;
+  margin: 0 6px;
+  color: var(--orange-deep);
+}
+.mieruka-card {
+  max-width: 880px;
+  margin: 0 auto;
+  background: #F7EFDF;
+  border-radius: 28px;
+  padding: 56px 56px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--beige-deep);
+}
+.mieruka-card-deco {
+  position: absolute;
+  right: -20px; bottom: -20px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.mieruka-badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+.mieruka-title {
+  font-size: clamp(24px, 3vw, 32px);
+  color: var(--brown-deep);
+  margin-bottom: 12px;
+}
+.mieruka-sub {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 16px;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+}
+.mieruka-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+}
+.mieruka-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 16px;
+  color: var(--text);
+  border-bottom: 1px dashed rgba(139,111,78,0.15);
+}
+.mieruka-list li:last-child { border-bottom: 0; }
+.mieruka-list .check {
+  color: var(--green-deep);
+  font-weight: bold;
+  flex-shrink: 0;
+  width: 20px;
+}
+.mieruka-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.mieruka-price .price-label {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.mieruka-price .price-num {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--brown-deep);
+}
+.mieruka-price .price-unit {
+  font-size: 16px;
+  color: var(--brown-deep);
+}
+.mieruka-price .price-tax {
+  font-size: 13px;
+  color: var(--text-mute);
+}
+.mieruka-note {
+  font-size: 13px;
+  color: var(--text-mute);
+  margin-bottom: 32px;
+}
+@media (max-width: 640px) {
+  .mieruka-card { padding: 36px 24px; }
+}
+
+/* ---------- Sorekara Section ---------- */
+.sorekara-sec {
+  background: linear-gradient(180deg, #EEF2E5 0%, #E7EDDD 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.sorekara-push {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(24px, 3.4vw, 34px);
+  color: var(--brown-deep);
+  text-align: center;
+  margin: 32px 0 48px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+.sorekara-push .accent {
+  color: var(--orange-deep);
+  font-weight: 700;
+}
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto 56px;
+}
+.tag-item {
+  padding: 12px 22px;
+  background: #fff;
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--green-deep);
+  border: 1.5px solid var(--green-soft);
+  font-weight: 500;
+  transition: all .3s var(--ease);
+}
+.tag-item:hover {
+  background: var(--green-deep);
+  color: #fff;
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+.sorekara-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Lab Section ---------- */
+.lab-sec { background: #fff; padding: 120px 0; }
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+.article-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  transition: all .4s var(--ease);
+  cursor: pointer;
+}
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(139,111,78,0.12);
+}
+.article-thumb {
+  aspect-ratio: 16/10;
+  background: var(--beige);
+  position: relative;
+  overflow: hidden;
+}
+.article-thumb svg,
+.article-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.article-body { padding: 24px 24px 28px; }
+/* トップ「住資産再生ラボ」の動的読み込み用アニメーション */
+.lab-home-appear {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: labHomeAppear .8s var(--ease) forwards;
+}
+@keyframes labHomeAppear {
+  to { opacity: 1; transform: translateY(0); }
+}
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 12px;
+}
+.article-meta .cat {
+  background: var(--green-soft);
+  color: var(--green-deep);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.article-meta .date { color: var(--text-mute); }
+.article-title {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--brown-deep);
+  font-weight: 500;
+}
+.category-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 48px;
+  margin-bottom: 40px;
+}
+.category-tags a {
+  padding: 8px 16px;
+  background: var(--ivory);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--brown-deep);
+  transition: all .3s var(--ease);
+}
+.category-tags a:hover {
+  background: var(--brown);
+  color: #fff;
+  opacity: 1;
+}
+@media (max-width: 900px) {
+  .article-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Reason Section ---------- */
+.reason-sec { background: var(--ivory); }
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.reason-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  border: 1px solid var(--line-soft);
+  transition: all .4s var(--ease);
+}
+.reason-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.reason-card .r-icon {
+  width: 64px; height: 64px;
+  border-radius: 20px;
+  background: var(--beige);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.reason-card .r-body h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--brown-deep);
+  line-height: 1.5;
+}
+.reason-card .r-body p {
+  font-size: 15px;
+  color: var(--text-soft);
+  line-height: 1.9;
+}
+@media (max-width: 800px) {
+  .reason-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Flow Section ---------- */
+.flow-sec { background: #fff; padding: 120px 0; }
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+  position: relative;
+}
+.flow-step {
+  background: var(--ivory);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  transition: all .4s var(--ease);
+}
+.flow-step:hover {
+  transform: translateY(-4px);
+  background: #fff;
+  box-shadow: var(--shadow-md);
+}
+.flow-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(232,155,91,0.28);
+}
+.flow-step h4 {
+  font-size: 17px;
+  color: var(--brown-deep);
+  margin-bottom: 10px;
+}
+.flow-step p {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.flow-arrow {
+  position: absolute;
+  right: -18px;
+  top: 40%;
+  color: var(--orange-soft);
+  opacity: 0.7;
+}
+@media (max-width: 900px) {
+  .flow-steps { grid-template-columns: 1fr 1fr; }
+  .flow-arrow { display: none; }
+}
+@media (max-width: 500px) {
+  .flow-steps { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+}
+.flow-note {
+  text-align: center;
+  margin-top: 40px;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--brown-deep);
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Contact CTA ---------- */
+.contact-cta {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #F9E4CB 0%, #FBF7F0 60%, #F5E8D0 100%);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.contact-cta::before,
+.contact-cta::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.contact-cta::before {
+  left: 5%; top: 20%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,155,91,0.15), transparent 70%);
+}
+.contact-cta::after {
+  right: 5%; bottom: 20%;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(156,175,136,0.15), transparent 70%);
+}
+.contact-cta-inner { position: relative; z-index: 2; }
+.contact-cta h2 {
+  font-size: clamp(28px, 4.5vw, 44px);
+  color: var(--brown-deep);
+  margin-bottom: 20px;
+}
+.contact-cta .cta-sub {
+  font-size: 17px;
+  color: var(--text-soft);
+  margin-bottom: 48px;
+}
+.contact-cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tel-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 40px;
+  background: #fff;
+  border-radius: 999px;
+  border: 1.5px solid var(--brown-soft);
+  color: var(--brown-deep);
+  transition: all .3s var(--ease);
+  min-width: 220px;
+}
+.tel-btn:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+  box-shadow: 0 12px 28px rgba(139,111,78,0.15);
+}
+.tel-btn .tel-label { font-size: 12px; color: var(--text-mute); margin-bottom: 4px; }
+.tel-btn .tel-num { font-family: 'Zen Maru Gothic', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0.06em; }
+.tel-btn .tel-hours { font-size: 11px; color: var(--text-mute); margin-top: 2px; }
+</style>
+</head>
+<body data-page="home">
+
+<div id="site-header-host"></div>
+
+<!-- ========== 02 Hero ========== -->
+<section class="hero">
+  <div class="hero-deco-bg">
+    <!-- background flowing vine SVG (drawn on load) -->
+    <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
+      <path class="vine-line vine-anim" style="animation-delay: 0s" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
+      <path class="vine-line vine-anim" style="animation-delay: 0.4s" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
+      <path class="vine-line vine-anim" style="animation-delay: 0.2s" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
+      <path class="vine-line vine-anim" style="animation-delay: 0.6s" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
+      <!-- leaves -->
+      <g>
+        <ellipse class="leaf-dot" style="animation-delay:1.4s" cx="200" cy="180" rx="8" ry="4" fill="#9CAF88" transform="rotate(-30 200 180)"/>
+        <ellipse class="leaf-dot" style="animation-delay:1.6s" cx="500" cy="260" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(20 500 260)"/>
+        <ellipse class="leaf-dot" style="animation-delay:1.8s" cx="900" cy="220" rx="8" ry="4" fill="#9CAF88" transform="rotate(-25 900 220)"/>
+        <ellipse class="leaf-dot" style="animation-delay:2.0s" cx="1200" cy="200" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(30 1200 200)"/>
+        <ellipse class="leaf-dot" style="animation-delay:1.5s" cx="300" cy="720" rx="8" ry="4" fill="#9CAF88" transform="rotate(30 300 720)"/>
+        <ellipse class="leaf-dot" style="animation-delay:1.7s" cx="700" cy="680" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(-20 700 680)"/>
+        <ellipse class="leaf-dot" style="animation-delay:1.9s" cx="1050" cy="720" rx="8" ry="4" fill="#9CAF88" transform="rotate(25 1050 720)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-logo-mark" id="heroLogo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Small house from logo -->
+        <path d="M18 55 L50 22 L82 55 L82 82 L18 82 Z" fill="#fff" stroke="#8B6F4E" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M14 55 L50 18 L86 55" fill="#B85C3E" stroke="#8B6F4E" stroke-width="2.5" stroke-linejoin="round"/>
+        <rect x="40" y="55" width="20" height="20" fill="#E89B5B" stroke="#8B6F4E" stroke-width="1.8"/>
+        <line x1="50" y1="55" x2="50" y2="75" stroke="#8B6F4E" stroke-width="1.5"/>
+        <line x1="40" y1="65" x2="60" y2="65" stroke="#8B6F4E" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h1 class="hero-brand" id="heroBrand">くらしのつむぎ</h1>
+    <p class="hero-catch" id="heroCatch">これからのすまい、それからのすまい。</p>
+    <div class="hero-buttons" id="heroButtons">
+      <a href="korekara.html" class="hero-btn korekara">
+        <div class="btn-emoji">🏠</div>
+        <div class="btn-label">これからのすまい</div>
+        <div class="btn-sub">これから家を建てる・買う方へ</div>
+      </a>
+      <a href="sorekara.html" class="hero-btn sorekara">
+        <div class="btn-emoji">🌿</div>
+        <div class="btn-label">それからのすまい</div>
+        <div class="btn-sub">空き家・実家に悩む方へ</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 03 About ========== -->
+<section class="about">
+  <div class="about-deco-1" data-deco="vine-corner"></div>
+  <div class="about-deco-2" data-deco="vine-corner"></div>
+  <div class="about-inner">
+    <div class="section-eyebrow fade-up">ABOUT</div>
+    <h2 class="section-title fade-up d1">くらしのつむぎとは</h2>
+    <p class="about-lead fade-up d2">
+      住まいのことは、これからのことも、それからのことも。<br>
+      くらしのつむぎは、住まいに関わるすべての時間に、<br>
+      やさしく寄り添う総合相談ブランドです。
+    </p>
+  </div>
+</section>
+
+<!-- ========== 04 Services ========== -->
+<section class="services">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">SERVICES</div>
+      <h2 class="section-title fade-up d1">3つのサービス</h2>
+      <p class="section-lead center fade-up d2">
+        住まいの「これから」と「それから」、<br>そして学びの場を、ひとつのブランドで。
+      </p>
+    </div>
+    <div class="services-grid">
+      <a href="korekara.html" class="service-card fade-up d1">
+        <div class="icon-wrap">🏠</div>
+        <h3>これからのすまい</h3>
+        <p class="service-desc">家づくりの"はじめの一歩"を、いっしょに。予算、ローン、土地、住宅会社選びまで無料でサポート。</p>
+        <span class="service-link">詳しく見る <span class="arrow">→</span></span>
+      </a>
+      <a href="sorekara.html" class="service-card fade-up d2">
+        <div class="icon-wrap">🌿</div>
+        <h3>それからのすまい</h3>
+        <p class="service-desc">空き家や実家、相続後の住まいの負担を軽く。売却だけが答えではない、7つの選択肢。</p>
+        <span class="service-link">詳しく見る <span class="arrow">→</span></span>
+      </a>
+      <a href="lab.html" class="service-card fade-up d3">
+        <div class="icon-wrap">📖</div>
+        <h3>住資産再生ラボ</h3>
+        <p class="service-desc">住まいの"これから"を、やさしく学べる場所。相続、税金、活用事例をわかりやすく発信。</p>
+        <span class="service-link">詳しく見る <span class="arrow">→</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 05 Korekara ========== -->
+<section class="korekara-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up" style="color:var(--orange-deep)">FOR NEW HOME</div>
+      <h2 class="section-title fade-up d1">これからのすまい</h2>
+      <p class="section-lead center fade-up d2" style="font-family:'Zen Maru Gothic',sans-serif;color:var(--brown-deep);font-size:20px;">
+        家づくりの"はじめの一歩"を、いっしょに
+      </p>
+    </div>
+
+    <div class="free-services">
+      <div class="free-service-item fade-up d1">
+        <div class="fs-icon">💰</div>
+        <div class="fs-text"><h4>予算整理</h4><p>無理のない予算をいっしょに考えます</p></div>
+      </div>
+      <div class="free-service-item fade-up d1">
+        <div class="fs-icon">🏦</div>
+        <div class="fs-text"><h4>住宅ローン相談</h4><p>各社の条件をわかりやすく比較</p></div>
+      </div>
+      <div class="free-service-item fade-up d2">
+        <div class="fs-icon">📋</div>
+        <div class="fs-text"><h4>希望条件・優先順位の整理</h4><p>暮らしのイメージを言葉に</p></div>
+      </div>
+      <div class="free-service-item fade-up d2">
+        <div class="fs-icon">🗺️</div>
+        <div class="fs-text"><h4>土地探し・候補地相談</h4><p>候補地の見え方を丁寧に整理</p></div>
+      </div>
+      <div class="free-service-item fade-up d3">
+        <div class="fs-icon">⚖️</div>
+        <div class="fs-text"><h4>住宅会社の比較整理</h4><p>特徴と違いをフラットに解説</p></div>
+      </div>
+      <div class="free-service-item fade-up d3">
+        <div class="fs-icon">🤝</div>
+        <div class="fs-text"><h4>住宅会社紹介</h4><p>ご希望に合う会社をご紹介</p></div>
+      </div>
+    </div>
+
+    <div class="free-note fade-up">
+      <span class="accent">すべて無料で、何度でも。</span>
+    </div>
+
+    <div style="text-align:center;margin-top:40px" class="fade-up">
+      <a href="korekara.html" class="btn btn-primary btn-large">これからのすまいを詳しく見る <span class="arrow">→</span></a>
+    </div>
+
+    <div class="divider-vine fade-up">
+      <span data-deco="leaf" style="display:flex"></span>
+      <span style="font-family:'Zen Maru Gothic',sans-serif;color:var(--brown);font-size:15px;letter-spacing:0.08em">つむぐ、次の一歩</span>
+      <span data-deco="leaf" style="display:flex;transform:scaleX(-1)"></span>
+    </div>
+
+    <div class="mieruka-intro fade-up">
+      <span class="ornament">＼</span> さらに、もう一歩踏み込みたい方へ <span class="ornament">／</span>
+    </div>
+
+    <div class="mieruka-card fade-up">
+      <div class="mieruka-card-deco" data-deco="vine-corner"></div>
+      <div style="position:relative;z-index:2">
+        <span class="mieruka-badge">SPECIAL PLAN</span>
+        <h3 class="mieruka-title">家づくり見える化プラン</h3>
+        <p class="mieruka-sub">住宅会社を選ぶ前に、"住まいの姿"を見る</p>
+        <ul class="mieruka-list">
+          <li><span class="check">✓</span><span>候補地に合わせた参考配置図</span></li>
+          <li><span class="check">✓</span><span>参考平面プラン</span></li>
+          <li><span class="check">✓</span><span>外観パース</span></li>
+          <li><span class="check">✓</span><span>プラン連動型 簡易資金計画表</span></li>
+        </ul>
+        <div class="mieruka-price">
+          <span class="price-label">基本セット</span>
+          <span class="price-num">22,000</span>
+          <span class="price-unit">円</span>
+          <span class="price-tax">（税込）</span>
+        </div>
+        <p class="mieruka-note">※内観パースは追加オプションでご用意します</p>
+        <a href="mieruka-plan.html" class="btn btn-primary">家づくり見える化プランを詳しく見る <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 06 Sorekara ========== -->
+<section class="sorekara-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FOR AFTER LIFE</div>
+      <h2 class="section-title fade-up d1">それからのすまい</h2>
+      <p class="section-lead center fade-up d2" style="font-family:'Zen Maru Gothic',sans-serif;color:var(--brown-deep);font-size:20px;">
+        その家の、これからを、いっしょに考える
+      </p>
+    </div>
+    <h3 class="sorekara-push fade-up">
+      <span class="accent">売却だけが、</span>答えではありません。
+    </h3>
+    <div class="tag-cloud fade-up d1">
+      <span class="tag-item">空き家負担ゼロ診断</span>
+      <span class="tag-item">借上げ・転貸</span>
+      <span class="tag-item">管理</span>
+      <span class="tag-item">改修・賃貸活用</span>
+      <span class="tag-item">解体・駐車場活用</span>
+      <span class="tag-item">維持負担軽減</span>
+      <span class="tag-item">売却・相続後の整理</span>
+    </div>
+    <div class="sorekara-ctas fade-up d2">
+      <a href="sorekara.html" class="btn btn-green btn-large">それからのすまいを詳しく見る <span class="arrow">→</span></a>
+      <a href="akiya-shindan.html" class="btn btn-primary btn-large">まずは約30秒の負担ゼロ診断へ <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 07 Lab ========== -->
+<section class="lab-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">LAB</div>
+      <h2 class="section-title fade-up d1">住資産再生ラボ</h2>
+      <p class="section-lead center fade-up d2">
+        住まいの"これから"を、やさしく学べる場所。<br>
+        相続・空き家・活用事例など、暮らしに寄り添う情報をお届けします。
+      </p>
+    </div>
+    <div class="article-grid" data-lab-home="latest">
+      <!-- microCMSから最新3件を自動読み込み。読み込み中はローディング表示 -->
+      <div class="lab-home-loading" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-mute);font-size:14px;">
+        記事を読み込んでいます...
+      </div>
+    </div>
+    <div class="category-tags fade-up">
+      <a href="lab.html">#空き家情報</a>
+      <a href="lab.html">#相続・税金</a>
+      <a href="lab.html">#管理・活用</a>
+      <a href="lab.html">#再生・活用事例</a>
+      <a href="lab.html">#取組紹介</a>
+      <a href="lab.html">#活用物件検索</a>
+    </div>
+    <div style="text-align:center" class="fade-up">
+      <a href="lab.html" class="btn btn-outline">住資産再生ラボを見る <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 08 Reasons ========== -->
+<section class="reason-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">REASONS</div>
+      <h2 class="section-title fade-up d1">選ばれる理由</h2>
+    </div>
+    <div class="reason-grid">
+      <div class="reason-card fade-up d1">
+        <div class="r-icon">🌿</div>
+        <div class="r-body">
+          <h3>押し売りしない、伴走型の相談スタイル</h3>
+          <p>結論を急がず、お客さまのペースでいっしょに考えます。契約を目的にした説明はいたしません。</p>
+        </div>
+      </div>
+      <div class="reason-card fade-up d2">
+        <div class="r-icon">🏠</div>
+        <div class="r-body">
+          <h3>「これから」と「それから」、住まいのすべてに対応</h3>
+          <p>家づくりから、空き家、相続まで。ライフステージのどんな瞬間にも、窓口はひとつです。</p>
+        </div>
+      </div>
+      <div class="reason-card fade-up d3">
+        <div class="r-icon">🤝</div>
+        <div class="r-body">
+          <h3>提携設計事務所・専門家との連携で安心</h3>
+          <p>設計士、税理士、司法書士など、その道の専門家と連携。むずかしい話も、翻訳してお伝えします。</p>
+        </div>
+      </div>
+      <div class="reason-card fade-up d4">
+        <div class="r-icon">💬</div>
+        <div class="r-body">
+          <h3>女性・ご高齢の方にもわかりやすい丁寧な説明</h3>
+          <p>専門用語はできる限り使わず、図や例を添えて。ご不安なことは、何度でも伺います。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 09 Flow ========== -->
+<section class="flow-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FLOW</div>
+      <h2 class="section-title fade-up d1">ご相談の流れ</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-up d1">
+        <div class="flow-num">1</div>
+        <h4>お問い合わせ</h4>
+        <p>フォームまたはお電話で、まずはご連絡ください</p>
+        <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
+          <path d="M2 12 Q10 4 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 8 L34 12 L28 16" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fade-up d2">
+        <div class="flow-num">2</div>
+        <h4>ヒアリング</h4>
+        <p>お悩みやご希望をゆっくり伺います</p>
+        <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
+          <path d="M2 12 Q10 20 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 8 L34 12 L28 16" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fade-up d3">
+        <div class="flow-num">3</div>
+        <h4>ご提案・情報整理</h4>
+        <p>選択肢を整理してご提案します</p>
+        <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
+          <path d="M2 12 Q10 4 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 8 L34 12 L28 16" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fade-up d4">
+        <div class="flow-num">4</div>
+        <h4>ご相談の継続 or ご案内</h4>
+        <p>必要なサービスへつないでいきます</p>
+      </div>
+    </div>
+    <p class="flow-note fade-up">ご相談は無料です。急かすことはありません。</p>
+  </div>
+</section>
+
+<!-- ========== 10 FAQ ========== -->
+<section style="background: var(--ivory)">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">FAQ</div>
+      <h2 class="section-title fade-up d1">よくある質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up d1">
+        <div class="faq-q"><span class="q-mark">Q</span><span class="q-text">相談は本当に無料ですか？</span><span class="q-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">はい、ご相談・ヒアリング・情報整理まで、無料で承っています。ご紹介した住宅会社と契約された場合の紹介手数料でサービスを運営していますので、ご相談いただく方から費用をいただくことはありません。「家づくり見える化プラン」など一部の有料サービスもございますが、事前に必ずご案内します。</div></div>
+      </div>
+      <div class="faq-item fade-up d1">
+        <div class="faq-q"><span class="q-mark">Q</span><span class="q-text">まだ家を建てるか決めていなくても大丈夫？</span><span class="q-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">もちろんです。「なんとなく気になっている」「情報を整理したい」という段階のご相談を、いちばん大切にしています。急かすことはありません。</div></div>
+      </div>
+      <div class="faq-item fade-up d2">
+        <div class="faq-q"><span class="q-mark">Q</span><span class="q-text">空き家を売るつもりはないのですが相談できますか？</span><span class="q-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">売却以外の選択肢もたくさんあります。借上げ、賃貸活用、駐車場活用、負担軽減の工夫など、その家に合った"これから"をいっしょに考えます。</div></div>
+      </div>
+      <div class="faq-item fade-up d2">
+        <div class="faq-q"><span class="q-mark">Q</span><span class="q-text">遠方でも相談できますか？</span><span class="q-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">オンライン（Zoom等）でのご相談も承っています。全国どちらからでもお気軽にお問い合わせください。</div></div>
+      </div>
+      <div class="faq-item fade-up d3">
+        <div class="faq-q"><span class="q-mark">Q</span><span class="q-text">無理に契約を勧められませんか？</span><span class="q-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">押し売りは一切いたしません。ご相談中に「今の段階では動かないほうが良い」という結論になることもあります。それも大切なご提案のひとつと考えています。</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px" class="fade-up">
+      <a href="faq.html" class="btn btn-outline">FAQをすべて見る <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 11 Contact CTA ========== -->
+<section class="contact-cta">
+  <div class="container">
+    <div class="contact-cta-inner">
+      <h2 class="fade-up">まずは、お話を聞かせてください。</h2>
+      <p class="cta-sub fade-up d1">相談は無料。急かすことはありません。</p>
+      <div class="contact-cta-buttons fade-up d2">
+        <a href="contact.html" class="btn btn-primary btn-large">📩 お問い合わせフォームへ</a>
+        <a href="tel:0000000000" class="tel-btn">
+          <span class="tel-label">📞 お電話でのご相談</span>
+          <span class="tel-num">048-782-5920</span>
+          <span class="tel-hours">平日 9:00 - 18:00</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-host"></div>
+
+<script src="assets/partials.js"></script>
+<script src="assets/decorations.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/lab-home.js"></script>
+<script>
+// Hero animation sequence
+window.addEventListener('load', () => {
+  // Step 1: vines already animating via CSS (0-1.5s)
+  // Step 2: Logo (at 1.5s)
+  setTimeout(() => document.getElementById('heroLogo').classList.add('show'), 1500);
+  // Step 3: Brand
+  setTimeout(() => document.getElementById('heroBrand').classList.add('show'), 1800);
+  // Step 4: Catchcopy letter by letter (starts at 2.4s)
+  const catchEl = document.getElementById('heroCatch');
+  const text = catchEl.textContent;
+  catchEl.innerHTML = '';
+  [...text].forEach((c, i) => {
+    const span = document.createElement('span');
+    span.className = 'ch';
+    span.textContent = c;
+    span.style.transitionDelay = (i * 0.06) + 's';
+    catchEl.appendChild(span);
+  });
+  setTimeout(() => {
+    catchEl.querySelectorAll('.ch').forEach(s => s.classList.add('show'));
+  }, 2400);
+  // Step 5: Buttons
+  setTimeout(() => document.getElementById('heroButtons').classList.add('show'), 3600);
+});
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
