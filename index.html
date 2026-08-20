@@ -459,13 +459,7 @@
   color: var(--green-deep);
   border: 1.5px solid var(--green-soft);
   font-weight: 500;
-  transition: all .3s var(--ease);
-}
-.tag-item:hover {
-  background: var(--green-deep);
-  color: #fff;
-  transform: translateY(-2px);
-  cursor: pointer;
+  cursor: default;
 }
 .sorekara-ctas {
   display: flex;
@@ -556,6 +550,69 @@
 }
 @media (max-width: 900px) {
   .article-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Partners Section (カルーセル) ---------- */
+.partners-sec {
+  background: #fff;
+  padding: 100px 0 110px;
+  position: relative;
+  overflow: hidden;
+}
+.partners-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 56px 0 0;
+  padding: 20px 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.partners-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: partnersScroll 60s linear infinite;
+}
+@keyframes partnersScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.partner-item {
+  flex: 0 0 auto;
+  width: 220px;
+  height: 140px;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.partner-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.92;
+}
+.partners-note {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--text-mute);
+  letter-spacing: 0.04em;
+}
+.partners-note strong { color: var(--brown-deep); font-weight: 600; }
+@media (max-width: 640px) {
+  .partner-item { width: 180px; height: 110px; padding: 18px 22px; border-radius: 14px; }
+  .partners-track { gap: 16px; }
+}
+/* motion reduce対応 */
+@media (prefers-reduced-motion: reduce) {
+  .partners-track { animation-duration: 180s; }
 }
 
 /* ---------- Reason Section ---------- */
@@ -978,6 +1035,53 @@
   </div>
 </section>
 
+<!-- ========== Partners ========== -->
+<section class="partners-sec">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">PARTNERS</div>
+      <h2 class="section-title fade-up d1">提携パートナー</h2>
+      <p class="section-lead center fade-up d2">
+        大手ハウスメーカーから地域密着の工務店まで、<br>
+        フラットな立場でご紹介できるよう、幅広いパートナー各社と連携しています。
+      </p>
+    </div>
+    <div class="partners-carousel" aria-label="提携パートナー一覧">
+      <div class="partners-track">
+        <!-- 1セット目 -->
+        <div class="partner-item"><img src="assets/partners/01-sekisui-heim.png" alt="セキスイハイム" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/02-panasonic-homes.png" alt="パナソニック ホームズ" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/06-daiwa-house.png" alt="大和ハウスグループ" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/09-yamada-homes.png" alt="ヤマダホームズ" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/03-ai-koumuten.png" alt="アイ工務店" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/07-idea-home.png" alt="イデアホーム" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/04-apple-home.png" alt="株式会社アップルホーム" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/05-clair-house-build.png" alt="CLAIR HOUSE BUILD" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/08-luminous-link.png" alt="Luminous. Link" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/10-noble-partner.png" alt="Noble Partner" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/11-vesta-create.png" alt="VestaCreate" loading="lazy"></div>
+        <div class="partner-item"><img src="assets/partners/12-sai-house.jpg" alt="彩house 天然木の家" loading="lazy"></div>
+        <!-- 2セット目（無限スクロール用の複製・aria-hidden） -->
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/01-sekisui-heim.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/02-panasonic-homes.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/06-daiwa-house.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/09-yamada-homes.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/03-ai-koumuten.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/07-idea-home.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/04-apple-home.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/05-clair-house-build.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/08-luminous-link.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/10-noble-partner.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/11-vesta-create.png" alt="" loading="lazy"></div>
+        <div class="partner-item" aria-hidden="true"><img src="assets/partners/12-sai-house.jpg" alt="" loading="lazy"></div>
+      </div>
+    </div>
+    <p class="partners-note fade-up">
+      <strong>掲載順不同。</strong>大手ハウスメーカーから地域密着の工務店まで、ご希望・ご条件に合わせてフラットな立場でご紹介いたします。
+    </p>
+  </div>
+</section>
+
 <!-- ========== 08 Reasons ========== -->
 <section class="reason-sec">
   <div class="container">
@@ -1109,7 +1213,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">平日 9:00 - 18:00</span>
+          <span class="tel-hours">10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>

@@ -131,6 +131,67 @@
 }
 .invite-inner h2 { font-size: clamp(28px, 4vw, 36px); color: var(--brown-deep); margin-bottom: 20px; }
 .invite-inner p { font-size: 16px; color: var(--text-soft); line-height: 2; margin-bottom: 40px; }
+
+/* Korekara Partners section (カルーセル) */
+.korekara-partners {
+  background: #fff;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+.kp-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 48px 0 0;
+  padding: 16px 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.kp-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: kpScroll 50s linear infinite;
+  animation-direction: reverse;
+}
+@keyframes kpScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.kp-item {
+  flex: 0 0 auto;
+  width: 190px;
+  height: 120px;
+  background: #fff;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.kp-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.92;
+}
+.kp-note {
+  text-align: center;
+  margin-top: 36px;
+  font-size: 13px;
+  color: var(--text-mute);
+  line-height: 2;
+}
+.kp-note strong { color: var(--brown-deep); font-weight: 600; }
+@media (max-width: 640px) {
+  .kp-item { width: 160px; height: 100px; padding: 16px 20px; border-radius: 12px; }
+  .kp-track { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kp-track { animation-duration: 150s; }
+}
 </style>
 </head>
 <body data-page="korekara">
@@ -229,6 +290,54 @@
     </div>
     <p class="free-note fade-up" style="text-align:center;margin-top:56px;font-family:'Zen Maru Gothic',sans-serif;font-size:22px;color:var(--brown-deep)">
       <span style="color:var(--orange-deep)">すべて無料で、何度でも。</span>
+    </p>
+  </div>
+</section>
+
+<!-- Partners (これからのすまいページ用・コンパクト版) -->
+<section class="korekara-partners">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow fade-up">PARTNERS</div>
+      <h2 class="section-title fade-up d1">ご紹介できる住宅会社の一部</h2>
+      <p class="section-lead center fade-up d2">
+        大手ハウスメーカーから地域密着の工務店まで。<br>
+        ご家族のご希望に合いそうな会社を、フラットな立場でご紹介します。
+      </p>
+    </div>
+    <div class="kp-carousel" aria-label="ご紹介できる住宅会社一覧">
+      <div class="kp-track">
+        <!-- 1セット目 -->
+        <div class="kp-item"><img src="assets/partners/01-sekisui-heim.png" alt="セキスイハイム" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/02-panasonic-homes.png" alt="パナソニック ホームズ" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/06-daiwa-house.png" alt="大和ハウスグループ" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/09-yamada-homes.png" alt="ヤマダホームズ" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/03-ai-koumuten.png" alt="アイ工務店" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/07-idea-home.png" alt="イデアホーム" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/04-apple-home.png" alt="株式会社アップルホーム" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/05-clair-house-build.png" alt="CLAIR HOUSE BUILD" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/08-luminous-link.png" alt="Luminous. Link" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/10-noble-partner.png" alt="Noble Partner" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/11-vesta-create.png" alt="VestaCreate" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/12-sai-house.jpg" alt="彩house 天然木の家" loading="lazy"></div>
+        <!-- 2セット目（無限スクロール用の複製・aria-hidden） -->
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/01-sekisui-heim.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/02-panasonic-homes.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/06-daiwa-house.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/09-yamada-homes.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/03-ai-koumuten.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/07-idea-home.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/04-apple-home.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/05-clair-house-build.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/08-luminous-link.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/10-noble-partner.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/11-vesta-create.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/12-sai-house.jpg" alt="" loading="lazy"></div>
+      </div>
+    </div>
+    <p class="kp-note fade-up">
+      <strong>掲載順不同。</strong>ご希望・ご条件に合わせてご紹介する会社は変わります。<br>
+      ここに掲載していない住宅会社のご紹介もご相談いただけます。
     </p>
   </div>
 </section>
@@ -332,7 +441,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">平日 9:00 - 18:00</span>
+          <span class="tel-hours">10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>
@@ -344,5 +453,6 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>

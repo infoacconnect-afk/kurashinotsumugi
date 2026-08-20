@@ -13,37 +13,16 @@
 
 .message-sec { background: #fff; padding: 100px 0; }
 .message-inner {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 56px;
-  max-width: 980px;
+  max-width: 780px;
   margin: 0 auto;
-  align-items: start;
 }
-.ceo-photo {
-  background: linear-gradient(135deg, #F3ECE0 0%, #EEF2E5 100%);
-  border-radius: 24px;
-  aspect-ratio: 3/4;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--brown-soft);
-  font-family: 'Zen Maru Gothic', sans-serif;
-  border: 1px dashed var(--brown-soft);
-  font-size: 13px;
-  position: relative;
-}
-.ceo-photo::after {
-  content: '代表写真';
-  position: absolute;
-  bottom: 20px; left: 50%;
-  transform: translateX(-50%);
-  color: var(--text-mute);
-}
-.ceo-photo svg { width: 60%; opacity: 0.4; }
 .message-body h2 {
-  font-size: clamp(24px, 3.2vw, 32px);
+  font-size: clamp(24px, 3.4vw, 34px);
   color: var(--brown-deep);
-  line-height: 1.6;
-  margin-bottom: 28px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: 0.04em;
 }
 .message-body p {
   font-size: 16px;
@@ -52,16 +31,22 @@
   margin-bottom: 20px;
 }
 .ceo-name {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px dashed var(--brown-soft);
   font-family: 'Zen Maru Gothic', sans-serif;
+  text-align: right;
 }
-.ceo-name .role { font-size: 13px; color: var(--text-mute); margin-bottom: 4px; }
-.ceo-name .name { font-size: 20px; color: var(--brown-deep); }
-@media (max-width: 700px) {
-  .message-inner { grid-template-columns: 1fr; }
-  .ceo-photo { max-width: 240px; margin: 0 auto; }
+.ceo-name .role {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+  letter-spacing: 0.06em;
+}
+.ceo-name .name {
+  font-size: 22px;
+  color: var(--brown-deep);
+  letter-spacing: 0.1em;
 }
 
 .info-sec { background: var(--ivory); padding: 100px 0; }
@@ -144,41 +129,56 @@
   overflow: hidden;
   border: 1px solid var(--line-soft);
 }
-.map-placeholder {
+.map-embed {
+  position: relative;
+  width: 100%;
   aspect-ratio: 16/9;
   background: linear-gradient(135deg, #EEF2E5 0%, #F3ECE0 100%);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--brown-soft);
-  position: relative;
+  overflow: hidden;
 }
-.map-placeholder::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(#9CAF8830 1px, transparent 1px),
-    linear-gradient(90deg, #9CAF8830 1px, transparent 1px);
-  background-size: 40px 40px;
+.map-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: saturate(0.85);
 }
-.map-pin {
-  width: 50px; height: 50px;
-  background: var(--orange);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  position: relative;
-  z-index: 2;
+.access-info {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: center;
 }
-.map-pin::after {
-  content: '';
-  width: 14px; height: 14px;
-  background: #fff;
-  border-radius: 50%;
-  transform: rotate(45deg);
-}
-.access-info { padding: 32px; }
 .access-info h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 12px; }
-.access-info p { font-size: 15px; color: var(--text); line-height: 2; }
+.access-info p { font-size: 15px; color: var(--text); line-height: 2; margin: 0; }
+.access-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(232, 155, 91, 0.28);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.access-map-btn:hover {
+  transform: translateY(-2px);
+  opacity: 1 !important;
+  box-shadow: 0 8px 20px rgba(232, 155, 91, 0.38);
+}
+.access-map-btn svg { flex-shrink: 0; }
+@media (max-width: 640px) {
+  .access-info { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+  .access-map-btn { justify-content: center; }
+}
 </style>
 </head>
 <body data-page="company">
@@ -207,17 +207,14 @@
       <h2 class="section-title fade-up d1">代表挨拶</h2>
     </div>
     <div class="message-inner">
-      <div class="ceo-photo fade-up">
-        <svg viewBox="0 0 100 100"><circle cx="50" cy="38" r="18" fill="currentColor"/><path d="M20 90 Q20 65 50 65 Q80 65 80 90" fill="currentColor"/></svg>
-      </div>
-      <div class="message-body fade-up d1">
+      <div class="message-body fade-up">
         <h2>「売る」ためではなく<br>「いっしょに考える」ために。</h2>
         <p>私たちAc・Connect株式会社は、家づくり、空き家、相続と、住まいのさまざまな時間に寄り添ってきました。その中で気づいたのは、多くのお客さまが「相談したいのに、営業されるのが少しこわい」と感じていらっしゃるということです。</p>
         <p>ご相談は、契約のための入口ではありません。ご家族のこれまでと、これからの暮らしを、いっしょに考える時間だと考えています。だから私たちは、押し売りをしません。急かしません。「今は動かない方が良い」という結論も、大切なご提案のひとつです。</p>
         <p>「くらしのつむぎ」は、そうした姿勢を形にしたブランドです。これから家を建てる方、家を継いだ方、空き家を抱えている方。どんな段階のご相談も、いつでもお待ちしています。</p>
         <div class="ceo-name">
           <div class="role">Ac・Connect株式会社 代表取締役</div>
-          <div class="name">〇〇 〇〇</div>
+          <div class="name">金子 晃弘</div>
         </div>
       </div>
     </div>
@@ -232,19 +229,16 @@
     </div>
     <dl class="info-table fade-up">
       <div class="info-row"><dt>会社名</dt><dd>Ac・Connect株式会社</dd></div>
-      <div class="info-row"><dt>設立</dt><dd>2020年〇月</dd></div>
-      <div class="info-row"><dt>代表者</dt><dd>代表取締役 〇〇 〇〇</dd></div>
-      <div class="info-row"><dt>資本金</dt><dd>〇〇〇万円</dd></div>
+      <div class="info-row"><dt>代表者</dt><dd>代表取締役 金子 晃弘</dd></div>
       <div class="info-row"><dt>所在地</dt><dd>〒331-0814<br>埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階</dd></div>
       <div class="info-row"><dt>電話番号</dt><dd>048-782-5920</dd></div>
-      <div class="info-row"><dt>営業時間</dt><dd>平日 9:00 – 18:00（土日祝、事前予約制）</dd></div>
+      <div class="info-row"><dt>営業時間</dt><dd>10:00 – 18:00（定休日：水曜日、事前予約制）</dd></div>
       <div class="info-row"><dt>事業内容</dt><dd>住まいの総合相談・仲介・活用支援<br>「くらしのつむぎ」ブランド運営<br>不動産の売買、賃貸、管理、リノベーション支援ほか</dd></div>
-      <div class="info-row"><dt>免許・登録</dt><dd>宅地建物取引業免許 〇〇県知事(1)第〇〇〇〇号</dd></div>
-      <div class="info-row"><dt>提携先</dt><dd>提携設計事務所／司法書士／税理士／地域工務店 ほか</dd></div>
     </dl>
   </div>
 </section>
 
+<!-- 沿革セクションは、正式な沿革情報が確定次第、下記コメントアウトを外して情報を差し替えてください
 <section class="history-sec">
   <div class="container">
     <div class="section-head center">
@@ -253,28 +247,14 @@
     </div>
     <div class="timeline">
       <div class="timeline-item fade-up d1">
-        <div class="timeline-year">2020年</div>
-        <p>Ac・Connect株式会社 設立。住まいに関する総合相談窓口として事業を開始。</p>
-      </div>
-      <div class="timeline-item fade-up d2">
-        <div class="timeline-year">2022年</div>
-        <p>空き家活用のサービスを本格展開。地域の設計事務所・工務店とのネットワークを拡大。</p>
-      </div>
-      <div class="timeline-item fade-up d3">
-        <div class="timeline-year">2023年</div>
-        <p>「家づくり見える化プラン」の提供を開始。営業を介さずにプランと資金計画を"見える化"。</p>
-      </div>
-      <div class="timeline-item fade-up d4">
-        <div class="timeline-year">2024年</div>
-        <p>「住資産再生ラボ」を開設。住まいに関する学びのコンテンツを継続的に発信。</p>
-      </div>
-      <div class="timeline-item fade-up d5">
-        <div class="timeline-year">2026年</div>
-        <p>総合ブランド「くらしのつむぎ」をリニューアル。これからと、それからの住まいをつなぐ窓口として再スタート。</p>
+        <div class="timeline-year">YYYY年</div>
+        <p>ここに沿革の項目を記入</p>
       </div>
     </div>
   </div>
 </section>
+-->
+
 
 <section class="access-sec">
   <div class="container">
@@ -283,17 +263,35 @@
       <h2 class="section-title fade-up d1">アクセス</h2>
     </div>
     <div class="access-card fade-up">
-      <div class="map-placeholder">
-        <div class="map-pin"></div>
+      <div class="map-embed">
+        <iframe
+          src="https://maps.google.com/maps?q=%E5%9F%BC%E7%8E%89%E7%9C%8C%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E5%B8%82%E5%8C%97%E5%8C%BA%E6%9D%B1%E5%A4%A7%E6%88%90%E7%94%BA1-651-13&z=16&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="くらしのつむぎ 本社 地図"
+          allowfullscreen></iframe>
       </div>
       <div class="access-info">
-        <h3>くらしのつむぎ 本社</h3>
-        <p>
-          〒331-0814<br>
-          埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階<br>
-          【最寄駅】東武アーバンパークライン「北大宮駅」徒歩約8分<br>
-          【営業時間】平日 9:00 – 18:00（土日祝、事前予約制）
-        </p>
+        <div>
+          <h3>くらしのつむぎ 本社</h3>
+          <p>
+            〒331-0814<br>
+            埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階<br>
+            【最寄駅】東武アーバンパークライン「北大宮駅」徒歩約8分<br>
+            【営業時間】10:00 – 18:00（定休日：水曜日、事前予約制）
+          </p>
+        </div>
+        <a class="access-map-btn"
+           href="https://www.google.com/maps/search/?api=1&query=%E5%9F%BC%E7%8E%89%E7%9C%8C%E3%81%95%E3%81%84%E3%81%9F%E3%81%BE%E5%B8%82%E5%8C%97%E5%8C%BA%E6%9D%B1%E5%A4%A7%E6%88%90%E7%94%BA1-651-13+%E5%8A%A0%E8%97%A4%E3%83%93%E3%83%AB"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Google Mapsで場所を開く">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          Google Mapsで開く
+        </a>
       </div>
     </div>
   </div>
@@ -309,7 +307,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">平日 9:00 - 18:00</span>
+          <span class="tel-hours">10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>
@@ -320,5 +318,6 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
