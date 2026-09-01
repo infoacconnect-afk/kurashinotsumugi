@@ -44,6 +44,84 @@
   background: var(--ivory);
   padding: 100px 0;
 }
+/* 新: 見える化資料の一枚絵 */
+.plan-visual-hero {
+  max-width: 980px;
+  margin: 0 auto 40px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(139,111,78,0.15);
+  background: #fff;
+  position: relative;
+}
+.plan-visual-hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.plan-visual-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,155,91,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.plan-visual-caption {
+  max-width: 980px;
+  margin: -8px auto 40px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-mute);
+  letter-spacing: 0.04em;
+}
+/* 4項目コンパクトグリッド */
+.plan-items-compact {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.plan-item-compact {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px 22px;
+  border: 1px solid var(--line-soft);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.plan-item-compact:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.plan-item-compact .pic-num {
+  display: inline-block;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 11px;
+  color: var(--orange-deep);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  background: #FFF6E9;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.plan-item-compact h3 {
+  font-size: 16px;
+  color: var(--brown-deep);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.plan-item-compact p {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.85;
+}
+@media (max-width: 900px) {
+  .plan-items-compact { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .plan-items-compact { grid-template-columns: 1fr; }
+}
 .plan-item {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -183,6 +261,93 @@
   border-radius: 50%;
   background: var(--green);
 }
+
+/* インライン ミニCTA（本文中に挟む軽やかなCTA） */
+.mini-cta {
+  max-width: 720px;
+  margin: 20px auto 0;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF7F0 100%);
+  border: 1px solid var(--orange-soft);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.mini-cta .mc-icon {
+  width: 56px; height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mini-cta .mc-icon img { width: 100%; height: 100%; object-fit: contain; }
+.mini-cta .mc-text {
+  flex: 1;
+  min-width: 220px;
+}
+.mini-cta .mc-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 17px;
+  color: var(--brown-deep);
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+.mini-cta .mc-sub {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.mini-cta .mc-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mini-cta .mc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  white-space: nowrap;
+}
+.mini-cta .mc-btn-primary {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(232, 155, 91, 0.28);
+}
+.mini-cta .mc-btn-primary:hover {
+  transform: translateY(-2px);
+  opacity: 1 !important;
+  box-shadow: 0 8px 20px rgba(232, 155, 91, 0.38);
+}
+.mini-cta .mc-btn-outline {
+  background: #fff;
+  color: var(--brown-deep);
+  border: 1.5px solid var(--brown-soft);
+}
+.mini-cta .mc-btn-outline:hover {
+  transform: translateY(-2px);
+  opacity: 1 !important;
+  background: var(--ivory);
+}
+.mini-cta .mc-tel {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 15px;
+  color: var(--brown-deep);
+  font-weight: 600;
+}
+@media (max-width: 640px) {
+  .mini-cta { flex-direction: column; text-align: center; padding: 24px; }
+  .mini-cta .mc-text { text-align: center; }
+  .mini-cta .mc-actions { justify-content: center; }
+}
 </style>
 </head>
 <body data-page="mieruka">
@@ -218,6 +383,17 @@
       <div class="for-whom-item fade-up d3"><div class="check">✓</div><p>複数の住宅会社を比較する共通のたたき台がほしい</p></div>
       <div class="for-whom-item fade-up d3"><div class="check">✓</div><p>家族で話し合うためのイメージ資料がほしい</p></div>
     </div>
+
+    <div class="mini-cta fade-up">
+      <div class="mc-icon"><img src="assets/icons/speech.png" alt=""></div>
+      <div class="mc-text">
+        <div class="mc-title">ひとつでも当てはまる方は、お気軽にご相談ください。</div>
+        <div class="mc-sub">「まだ検討段階です」というお声がけからで、まったく問題ありません。</div>
+      </div>
+      <div class="mc-actions">
+        <a href="contact.html" class="mc-btn mc-btn-primary">お問い合わせ</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -229,50 +405,44 @@
       <p class="section-lead center fade-up d2">プランナーが提携設計事務所と連携し、以下の4点をお作りします。</p>
     </div>
 
-    <div class="plan-item fade-up">
-      <div class="plan-visual">
-        <svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><path d="M20 45 L80 45 M45 20 L45 80" stroke="#8B6F4E" stroke-width="1"/><rect x="25" y="25" width="15" height="15" fill="#F5E8D0"/><rect x="50" y="50" width="25" height="25" fill="#E89B5B" opacity="0.4"/><circle cx="70" cy="30" r="8" fill="#9CAF88" opacity="0.5"/></svg>
-      </div>
-      <div>
-        <div class="plan-num">ITEM 01</div>
-        <h3>候補地に合わせた参考配置図</h3>
-        <p>候補となる敷地に、建物・駐車場・アプローチをどう配置するか。日当たり、風通し、隣地との距離を踏まえた"住まいのレイアウト"をお示しします。</p>
-      </div>
+    <div class="plan-visual-hero fade-up">
+      <img src="assets/hero/mieruka-set.png" alt="家づくり見える化プラン 納品資料イメージ：参考配置図・参考平面プラン・外観パース・簡易資金計画表" loading="lazy">
     </div>
+    <p class="plan-visual-caption fade-up">※上記はイメージです。実際の資料は候補地・ご希望条件に合わせてお作りします。</p>
 
-    <div class="plan-item fade-up">
-      <div class="plan-visual">
-        <svg viewBox="0 0 100 100"><rect x="15" y="20" width="70" height="60" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><line x1="15" y1="50" x2="85" y2="50" stroke="#8B6F4E" stroke-width="1"/><line x1="50" y1="20" x2="50" y2="80" stroke="#8B6F4E" stroke-width="1"/><text x="30" y="42" font-size="8" fill="#8B6F4E">LDK</text><text x="60" y="42" font-size="6" fill="#8B6F4E">和室</text><text x="30" y="70" font-size="6" fill="#8B6F4E">寝室</text><text x="60" y="70" font-size="6" fill="#8B6F4E">水回り</text></svg>
+    <div class="plan-items-compact">
+      <div class="plan-item-compact fade-up d1">
+        <div class="pic-num">ITEM 01</div>
+        <h3>候補地に合わせた<br>参考配置図</h3>
+        <p>候補地に、建物・駐車場・アプローチをどう配置するか。日当たり、風通し、隣地との距離を踏まえた"住まいのレイアウト"をお示しします。</p>
       </div>
-      <div>
-        <div class="plan-num">ITEM 02</div>
+      <div class="plan-item-compact fade-up d2">
+        <div class="pic-num">ITEM 02</div>
         <h3>参考平面プラン</h3>
-        <p>家族構成やご希望の暮らし方をもとに、部屋の配置や動線を検討した参考プランをお作りします。「こういう暮らしができそう」というイメージを具体化できます。</p>
+        <p>家族構成やご希望の暮らし方をもとに、部屋の配置や動線を検討したプラン。「こういう暮らしができそう」を具体化できます。</p>
       </div>
-    </div>
-
-    <div class="plan-item fade-up">
-      <div class="plan-visual">
-        <svg viewBox="0 0 100 100"><path d="M15 55 L50 25 L85 55 L85 85 L15 85 Z" fill="#fff" stroke="#8B6F4E" stroke-width="1.5"/><path d="M10 55 L50 22 L90 55" fill="#B85C3E" stroke="#8B6F4E" stroke-width="1.5"/><rect x="40" y="55" width="20" height="20" fill="#E89B5B"/><rect x="22" y="65" width="10" height="15" fill="#F5E8D0" stroke="#8B6F4E" stroke-width="0.8"/><rect x="68" y="65" width="10" height="15" fill="#F5E8D0" stroke="#8B6F4E" stroke-width="0.8"/></svg>
-      </div>
-      <div>
-        <div class="plan-num">ITEM 03</div>
+      <div class="plan-item-compact fade-up d3">
+        <div class="pic-num">ITEM 03</div>
         <h3>外観パース</h3>
         <p>正面から見たときの、家の"顔"のイメージ図。屋根の形、外壁の色味、窓の配置など、雰囲気が伝わるパースをご用意します。</p>
       </div>
-    </div>
-
-    <div class="plan-item fade-up">
-      <div class="plan-visual">
-        <svg viewBox="0 0 100 100"><rect x="15" y="15" width="70" height="70" fill="#fff" stroke="#8B6F4E" stroke-width="1.5" rx="4"/><rect x="22" y="22" width="56" height="8" fill="#E89B5B" opacity="0.4"/><line x1="22" y1="40" x2="78" y2="40" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="50" x2="60" y2="50" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="60" x2="68" y2="60" stroke="#8B6F4E" stroke-width="0.8"/><line x1="22" y1="70" x2="55" y2="70" stroke="#8B6F4E" stroke-width="0.8"/><rect x="60" y="72" width="18" height="6" fill="#9CAF88" opacity="0.6"/></svg>
-      </div>
-      <div>
-        <div class="plan-num">ITEM 04</div>
-        <h3>プラン連動型 簡易資金計画表</h3>
+      <div class="plan-item-compact fade-up d4">
+        <div class="pic-num">ITEM 04</div>
+        <h3>プラン連動型<br>簡易資金計画表</h3>
         <p>参考プランに紐づいた"建物本体・付帯工事・諸費用・土地"の目安を一覧化。ローンの月々返済までシミュレーションします。</p>
       </div>
     </div>
 
+    <div class="mini-cta fade-up" style="margin-top:48px">
+      <div class="mc-icon"><img src="assets/icons/checklist.png" alt=""></div>
+      <div class="mc-text">
+        <div class="mc-title">内容について、ご不明な点がありましたら。</div>
+        <div class="mc-sub">「うちの場合はどうなる？」など、ご状況に合わせたご説明もいたします。</div>
+      </div>
+      <div class="mc-actions">
+        <a href="contact.html" class="mc-btn mc-btn-primary">詳しくはお問い合わせください</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -303,6 +473,20 @@
       </div>
       <div class="price-tax">（税込）</div>
       <div class="price-sub">お申し込みから納品まで、およそ3〜4週間</div>
+    </div>
+
+    <div class="mini-cta fade-up" style="margin-top:48px; background: #fff; border-color: var(--line);">
+      <div class="mc-icon"><img src="assets/icons/handshake.png" alt=""></div>
+      <div class="mc-text" style="text-align:left">
+        <div class="mc-title">お申し込み前のご質問も、お気軽にどうぞ。</div>
+        <div class="mc-sub">オプションの内容や、ご利用のタイミングのご相談も承っています。</div>
+      </div>
+      <div class="mc-actions">
+        <a href="contact.html" class="mc-btn mc-btn-primary">お問い合わせ</a>
+        <a href="tel:048-782-5920" class="mc-btn mc-btn-outline">
+          <span class="mc-tel">048-782-5920</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -377,5 +561,6 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
