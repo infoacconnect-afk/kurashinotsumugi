@@ -31,7 +31,7 @@
 //   記事公開後 2〜3分で本番サイトに反映されます。
 // =============================================================
 
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, statSync, rmSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -151,9 +151,23 @@ const normalizeArticle = (a) => {
   writeFileSync(OUT_PATH, JSON.stringify(output, null, 2), 'utf8');
   log('Wrote:', OUT_PATH);
 
-  // ---- 記事詳細ページ用に、記事本文を個別JSONにも書き出す（オプション） ----
+  // ---- 記事詳細ページ用に、記事本文を個別JSONにも書き出す ----
   const detailDir = resolve(ROOT, 'data/articles');
-  if (!existsSync(detailDir)) mkdirSync(detailDir, { recursive: true });
+
+  // 「data/articles」がファイルとして存在する場合は削除する（フォルダに作り直す）
+  if (existsSync(detailDir)) {
+    const stat = statSync(detailDir);
+    if (!stat.isDirectory()) {
+      log('[fix] data/articles exists as a file. Removing to create a directory.');
+      rmSync(detailDir, { force: true });
+    }
+  }
+
+  // フォルダとして確実に作成
+  if (!existsSync(detailDir)) {
+    mkdirSync(detailDir, { recursive: true });
+  }
+
   for (const a of articles) {
     if (!a.slug) continue;
     writeFileSync(
