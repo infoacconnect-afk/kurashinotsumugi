@@ -252,7 +252,8 @@
 .discover-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
 .discover-card { background: var(--ivory); border-radius: 20px; padding: 36px 28px; transition: all .3s var(--ease); }
 .discover-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.discover-card .d-icon { font-size: 36px; margin-bottom: 16px; }
+.discover-card .d-icon { width: 76px; height: 76px; margin-bottom: 12px; display:flex; align-items:center; justify-content:center; }
+.discover-card .d-icon img { max-width: 100%; max-height: 100%; }
 .discover-card h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 10px; }
 .discover-card p { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
 @media (max-width: 900px) { .discover-grid { grid-template-columns: 1fr; } }
@@ -348,17 +349,17 @@
     </div>
     <div class="discover-grid">
       <div class="discover-card fade-up d1">
-        <div class="d-icon">🔍</div>
+        <div class="d-icon"><img class="hd-icon" src="assets/icons/magnify.png" alt=""></div>
         <h3>その家に合う選択肢</h3>
         <p>売却、借上げ、賃貸活用、管理…7つのサービスから、その家に合いそうな道筋をお示しします。</p>
       </div>
       <div class="discover-card fade-up d2">
-        <div class="d-icon">💰</div>
+        <div class="d-icon"><img class="hd-icon" src="assets/icons/coins.png" alt=""></div>
         <h3>負担軽減のヒント</h3>
         <p>維持費、税金、時間、心理的な負担。どの負担を、どうやって軽くできそうかの方向性が見えます。</p>
       </div>
       <div class="discover-card fade-up d3">
-        <div class="d-icon">🗺️</div>
+        <div class="d-icon"><img class="hd-icon" src="assets/icons/compass.png" alt=""></div>
         <h3>次にとる一歩</h3>
         <p>「診断だけでは何もはじまらない」ではなく、次にどんな相談をすればいいかまでご案内します。</p>
       </div>
@@ -433,7 +434,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">平日 9:00 - 18:00</span>
+          <span class="tel-hours">平日 10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>

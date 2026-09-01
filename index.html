@@ -40,13 +40,14 @@
   width: 100%;
 }
 .hero-logo-mark {
-  width: 88px;
-  height: 88px;
-  margin: 0 auto 28px;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 24px;
   opacity: 0;
   transform: scale(0.85);
   transition: all 1s var(--ease);
 }
+.hero-logo-mark img { width: 100%; height: 100%; object-fit: contain; }
 .hero-logo-mark.show { opacity: 1; transform: scale(1); }
 .hero-brand {
   font-family: 'Zen Maru Gothic', sans-serif;
@@ -108,7 +109,15 @@
   border-color: var(--orange-soft);
   opacity: 1;
 }
-.hero-btn .btn-emoji { font-size: 40px; }
+.hero-btn .btn-emoji {
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -8px auto 4px;
+}
+.hero-btn .btn-emoji img { width: 100%; height: 100%; object-fit: contain; }
 .hero-btn .btn-label {
   font-family: 'Zen Maru Gothic', sans-serif;
   font-size: 22px;
@@ -207,18 +216,14 @@
   border-color: var(--orange-soft);
 }
 .service-card .icon-wrap {
-  width: 84px;
-  height: 84px;
-  border-radius: 24px;
-  background: var(--beige);
+  width: 108px;
+  height: 108px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
-  font-size: 36px;
-  transition: background .4s var(--ease);
+  margin: 0 auto 20px;
 }
-.service-card:hover .icon-wrap { background: var(--orange-soft); }
+.service-card .icon-wrap img { max-width: 100%; max-height: 100%; }
 .service-card h3 {
   font-size: 22px;
   margin-bottom: 12px;
@@ -283,13 +288,11 @@
   box-shadow: 0 8px 20px rgba(139,111,78,0.08);
 }
 .free-service-item .fs-icon {
-  width: 56px; height: 56px;
-  border-radius: 16px;
-  background: var(--ivory);
+  width: 68px; height: 68px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
   flex-shrink: 0;
 }
+.free-service-item .fs-icon img { max-width: 100%; max-height: 100%; }
 .free-service-item .fs-text h4 {
   font-size: 16px;
   margin-bottom: 2px;
@@ -638,13 +641,11 @@
   box-shadow: var(--shadow-md);
 }
 .reason-card .r-icon {
-  width: 64px; height: 64px;
-  border-radius: 20px;
-  background: var(--beige);
+  width: 80px; height: 80px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
   flex-shrink: 0;
 }
+.reason-card .r-icon img { max-width: 100%; max-height: 100%; }
 .reason-card .r-body h3 {
   font-size: 18px;
   margin-bottom: 10px;
@@ -820,25 +821,18 @@
   </div>
   <div class="hero-inner">
     <div class="hero-logo-mark" id="heroLogo">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Small house from logo -->
-        <path d="M18 55 L50 22 L82 55 L82 82 L18 82 Z" fill="#fff" stroke="#8B6F4E" stroke-width="2.5" stroke-linejoin="round"/>
-        <path d="M14 55 L50 18 L86 55" fill="#B85C3E" stroke="#8B6F4E" stroke-width="2.5" stroke-linejoin="round"/>
-        <rect x="40" y="55" width="20" height="20" fill="#E89B5B" stroke="#8B6F4E" stroke-width="1.8"/>
-        <line x1="50" y1="55" x2="50" y2="75" stroke="#8B6F4E" stroke-width="1.5"/>
-        <line x1="40" y1="65" x2="60" y2="65" stroke="#8B6F4E" stroke-width="1.5"/>
-      </svg>
+      <img src="assets/icons/house.png" alt="くらしのつむぎ" loading="eager">
     </div>
     <h1 class="hero-brand" id="heroBrand">くらしのつむぎ</h1>
     <p class="hero-catch" id="heroCatch">これからのすまい、それからのすまい。</p>
     <div class="hero-buttons" id="heroButtons">
       <a href="korekara.html" class="hero-btn korekara">
-        <div class="btn-emoji">🏠</div>
+        <div class="btn-emoji"><img src="assets/icons/house.png" alt="" loading="eager"></div>
         <div class="btn-label">これからのすまい</div>
         <div class="btn-sub">これから家を建てる・買う方へ</div>
       </a>
       <a href="sorekara.html" class="hero-btn sorekara">
-        <div class="btn-emoji">🌿</div>
+        <div class="btn-emoji"><img src="assets/icons/leaf.png" alt="" loading="eager"></div>
         <div class="btn-label">それからのすまい</div>
         <div class="btn-sub">空き家・実家に悩む方へ</div>
       </a>
@@ -873,21 +867,21 @@
     </div>
     <div class="services-grid">
       <a href="korekara.html" class="service-card fade-up d1">
-        <div class="icon-wrap">🏠</div>
+        <div class="icon-wrap"><img class="hd-icon" src="assets/icons/house.png" alt=""></div>
         <h3>これからのすまい</h3>
         <p class="service-desc">家づくりの"はじめの一歩"を、いっしょに。予算、ローン、土地、住宅会社選びまで無料でサポート。</p>
         <span class="service-link">詳しく見る <span class="arrow">→</span></span>
       </a>
       <a href="sorekara.html" class="service-card fade-up d2">
-        <div class="icon-wrap">🌿</div>
+        <div class="icon-wrap"><img class="hd-icon" src="assets/icons/leaf.png" alt=""></div>
         <h3>それからのすまい</h3>
         <p class="service-desc">空き家や実家、相続後の住まいの負担を軽く。売却だけが答えではない、7つの選択肢。</p>
         <span class="service-link">詳しく見る <span class="arrow">→</span></span>
       </a>
       <a href="lab.html" class="service-card fade-up d3">
-        <div class="icon-wrap">📖</div>
+        <div class="icon-wrap"><img class="hd-icon" src="assets/icons/book.png" alt=""></div>
         <h3>住資産再生ラボ</h3>
-        <p class="service-desc">住まいの"これから"を、やさしく学べる場所。相続、税金、活用事例をわかりやすく発信。</p>
+        <p class="service-desc">住まいの"未来"を、やさしく学べる場所。相続、税金、活用事例をわかりやすく発信。</p>
         <span class="service-link">詳しく見る <span class="arrow">→</span></span>
       </a>
     </div>
@@ -907,27 +901,27 @@
 
     <div class="free-services">
       <div class="free-service-item fade-up d1">
-        <div class="fs-icon">💰</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/wallet.png" alt=""></div>
         <div class="fs-text"><h4>予算整理</h4><p>無理のない予算をいっしょに考えます</p></div>
       </div>
       <div class="free-service-item fade-up d1">
-        <div class="fs-icon">🏦</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/bank.png" alt=""></div>
         <div class="fs-text"><h4>住宅ローン相談</h4><p>各社の条件をわかりやすく比較</p></div>
       </div>
       <div class="free-service-item fade-up d2">
-        <div class="fs-icon">📋</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/checklist.png" alt=""></div>
         <div class="fs-text"><h4>希望条件・優先順位の整理</h4><p>暮らしのイメージを言葉に</p></div>
       </div>
       <div class="free-service-item fade-up d2">
-        <div class="fs-icon">🗺️</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/map.png" alt=""></div>
         <div class="fs-text"><h4>土地探し・候補地相談</h4><p>候補地の見え方を丁寧に整理</p></div>
       </div>
       <div class="free-service-item fade-up d3">
-        <div class="fs-icon">⚖️</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/scale.png" alt=""></div>
         <div class="fs-text"><h4>住宅会社の比較整理</h4><p>特徴と違いをフラットに解説</p></div>
       </div>
       <div class="free-service-item fade-up d3">
-        <div class="fs-icon">🤝</div>
+        <div class="fs-icon"><img class="hd-icon" src="assets/icons/handshake.png" alt=""></div>
         <div class="fs-text"><h4>住宅会社紹介</h4><p>ご希望に合う会社をご紹介</p></div>
       </div>
     </div>
@@ -982,7 +976,7 @@
       <div class="section-eyebrow fade-up">FOR AFTER LIFE</div>
       <h2 class="section-title fade-up d1">それからのすまい</h2>
       <p class="section-lead center fade-up d2" style="font-family:'Zen Maru Gothic',sans-serif;color:var(--brown-deep);font-size:20px;">
-        その家の、これからを、いっしょに考える
+        その家の、この後を、いっしょに考える
       </p>
     </div>
     <h3 class="sorekara-push fade-up">
@@ -1011,7 +1005,7 @@
       <div class="section-eyebrow fade-up">LAB</div>
       <h2 class="section-title fade-up d1">住資産再生ラボ</h2>
       <p class="section-lead center fade-up d2">
-        住まいの"これから"を、やさしく学べる場所。<br>
+        住まいの"未来"を、やさしく学べる場所。<br>
         相続・空き家・活用事例など、暮らしに寄り添う情報をお届けします。
       </p>
     </div>
@@ -1091,28 +1085,28 @@
     </div>
     <div class="reason-grid">
       <div class="reason-card fade-up d1">
-        <div class="r-icon">🌿</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/leaf.png" alt=""></div>
         <div class="r-body">
           <h3>押し売りしない、伴走型の相談スタイル</h3>
           <p>結論を急がず、お客さまのペースでいっしょに考えます。契約を目的にした説明はいたしません。</p>
         </div>
       </div>
       <div class="reason-card fade-up d2">
-        <div class="r-icon">🏠</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/homes-vine.png" alt=""></div>
         <div class="r-body">
           <h3>「これから」と「それから」、住まいのすべてに対応</h3>
           <p>家づくりから、空き家、相続まで。ライフステージのどんな瞬間にも、窓口はひとつです。</p>
         </div>
       </div>
       <div class="reason-card fade-up d3">
-        <div class="r-icon">🤝</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/handshake.png" alt=""></div>
         <div class="r-body">
           <h3>提携設計事務所・専門家との連携で安心</h3>
           <p>設計士、税理士、司法書士など、その道の専門家と連携。むずかしい話も、翻訳してお伝えします。</p>
         </div>
       </div>
       <div class="reason-card fade-up d4">
-        <div class="r-icon">💬</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/speech.png" alt=""></div>
         <div class="r-body">
           <h3>女性・ご高齢の方にもわかりやすい丁寧な説明</h3>
           <p>専門用語はできる限り使わず、図や例を添えて。ご不安なことは、何度でも伺います。</p>
@@ -1213,7 +1207,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">10:00 - 18:00（水曜定休）</span>
+          <span class="tel-hours">平日 10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>
@@ -1252,6 +1246,5 @@ window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('heroButtons').classList.add('show'), 3600);
 });
 </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>

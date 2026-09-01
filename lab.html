@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>住資産再生ラボ｜くらしのつむぎ</title>
-<meta name="description" content="住まいの"これから"を、やさしく学べる場所。空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。">
+<meta name="description" content="住まいの"未来"を、やさしく学べる場所。空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。">
 <link rel="icon" href="assets/logo-white.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
@@ -206,7 +206,8 @@
   transition: all .3s var(--ease);
 }
 .related-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.related-card .r-icon { font-size: 40px; }
+.related-card .r-icon { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.related-card .r-icon img { max-width: 100%; max-height: 100%; }
 .related-card h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 6px; }
 .related-card p { font-size: 13px; color: var(--text-soft); }
 @media (max-width: 700px) { .related-grid { grid-template-columns: 1fr; } }
@@ -244,7 +245,7 @@
   <div class="page-hero-inner">
     <div class="eyebrow fade-up">LAB</div>
     <h1 class="fade-up d1">住資産再生ラボ</h1>
-    <p class="lead fade-up d2">住まいの"これから"を、やさしく学べる場所。<br>空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。</p>
+    <p class="lead fade-up d2">住まいの"未来"を、やさしく学べる場所。<br>空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。</p>
   </div>
 </section>
 
@@ -303,14 +304,14 @@
     </div>
     <div class="related-grid">
       <a href="korekara.html" class="related-card fade-up d1">
-        <div class="r-icon">🏠</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/homes-vine.png" alt=""></div>
         <div>
           <h3>これからのすまい</h3>
           <p>これから家を建てる・買う方の無料相談</p>
         </div>
       </a>
       <a href="sorekara.html" class="related-card fade-up d2">
-        <div class="r-icon">🌿</div>
+        <div class="r-icon"><img class="hd-icon" src="assets/icons/leaf.png" alt=""></div>
         <div>
           <h3>それからのすまい</h3>
           <p>空き家・実家の"これから"のご相談</p>

@@ -9,7 +9,66 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
 <style>
-.hero-korekara { background: linear-gradient(180deg, #FBF7F0 0%, #F5E8D0 100%); }
+.hero-korekara {
+  background: linear-gradient(180deg, #FBF7F0 0%, #F5E8D0 100%);
+  padding: 40px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-korekara .page-hero-inner {
+  max-width: 1180px;
+  padding: 40px 32px 20px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-korekara .hero-text {
+  position: relative;
+  z-index: 2;
+}
+.hero-korekara .eyebrow { display: inline-block; }
+.hero-korekara h1 {
+  margin-bottom: 24px;
+  text-align: left;
+}
+.hero-korekara .lead {
+  text-align: left;
+  max-width: 100%;
+}
+.hero-korekara .hero-photo {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(139,111,78,0.15);
+  opacity: 1;
+}
+.hero-korekara .hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-korekara .hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,155,91,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .hero-korekara .page-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 20px 32px 20px;
+  }
+  .hero-korekara h1, .hero-korekara .lead { text-align: center; }
+  .hero-korekara .eyebrow { display: block; text-align: center; }
+  .hero-korekara .hero-photo { aspect-ratio: 16/10; }
+}
 .worry-sec { background: #fff; padding: 100px 0; }
 .worry-grid {
   display: grid;
@@ -57,12 +116,11 @@
   margin-bottom: 20px;
 }
 .service-detail-card .sd-icon {
-  width: 64px; height: 64px;
-  border-radius: 20px;
-  background: var(--beige);
+  width: 80px; height: 80px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 30px;
+  flex-shrink: 0;
 }
+.service-detail-card .sd-icon img { max-width: 100%; max-height: 100%; }
 .service-detail-card h3 { font-size: 20px; color: var(--brown-deep); }
 .service-detail-card p { font-size: 15px; color: var(--text-soft); line-height: 2; }
 @media (max-width: 700px) { .service-detail-grid { grid-template-columns: 1fr; } }
@@ -205,11 +263,15 @@
 
 <section class="page-hero hero-korekara">
   <div class="page-hero-deco left" data-deco="vine-corner"></div>
-  <div class="page-hero-deco right" data-deco="vine-corner"></div>
   <div class="page-hero-inner">
-    <div class="eyebrow fade-up">FOR NEW HOME</div>
-    <h1 class="fade-up d1">これからのすまい</h1>
-    <p class="lead fade-up d2">家づくりの"はじめの一歩"を、いっしょに。<br>予算、ローン、土地、住宅会社選びまで、まずはご相談ください。</p>
+    <div class="hero-text">
+      <div class="eyebrow">FOR NEW HOME</div>
+      <h1>これからのすまい</h1>
+      <p class="lead">家づくりの"はじめの一歩"を、いっしょに。<br>予算、ローン、土地、住宅会社選びまで、まずはご相談ください。</p>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/hero/korekara-hero.png" alt="家づくりの計画を進めるあたたかな時間" loading="eager">
+    </div>
   </div>
 </section>
 
@@ -264,27 +326,27 @@
     </div>
     <div class="service-detail-grid">
       <div class="service-detail-card fade-up d1">
-        <div class="sd-header"><div class="sd-icon">💰</div><h3>予算整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/wallet.png" alt=""></div><h3>予算整理</h3></div>
         <p>年収・貯蓄・ライフプランから、無理のない住まいの予算をいっしょに整理します。「いくらまで出せるか」ではなく「いくらまでなら安心か」を大切にします。</p>
       </div>
       <div class="service-detail-card fade-up d1">
-        <div class="sd-header"><div class="sd-icon">🏦</div><h3>住宅ローン相談</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/bank.png" alt=""></div><h3>住宅ローン相談</h3></div>
         <p>変動と固定、フラット35、団信の違い。各社の金利や条件をわかりやすく比較。ご自身に合った借り方を、時間をかけていっしょに考えます。</p>
       </div>
       <div class="service-detail-card fade-up d2">
-        <div class="sd-header"><div class="sd-icon">📋</div><h3>希望条件・優先順位の整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/checklist.png" alt=""></div><h3>希望条件・優先順位の整理</h3></div>
         <p>「なんとなくの理想」を、具体的な条件へ。家族での話し合いのお手伝いや、優先順位づけのシートもご用意しています。</p>
       </div>
       <div class="service-detail-card fade-up d2">
-        <div class="sd-header"><div class="sd-icon">🗺️</div><h3>土地探し・候補地相談</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/map.png" alt=""></div><h3>土地探し・候補地相談</h3></div>
         <p>気になっている土地、迷っている候補地。日当たり、通学路、災害リスクまで、地図を広げていっしょに見ていきます。</p>
       </div>
       <div class="service-detail-card fade-up d3">
-        <div class="sd-header"><div class="sd-icon">⚖️</div><h3>住宅会社の比較整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/scale.png" alt=""></div><h3>住宅会社の比較整理</h3></div>
         <p>大手ハウスメーカー、地域工務店、設計事務所…それぞれの特徴と違いを、フラットな立場でご説明します。</p>
       </div>
       <div class="service-detail-card fade-up d3">
-        <div class="sd-header"><div class="sd-icon">🤝</div><h3>住宅会社紹介</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/handshake.png" alt=""></div><h3>住宅会社紹介</h3></div>
         <p>ご希望を伺ったうえで、その方に合いそうな住宅会社をご紹介します。相性が合わないと感じたらいつでも切り替えていただけます。</p>
       </div>
     </div>
@@ -441,7 +503,7 @@
         <a href="tel:0000000000" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">10:00 - 18:00（水曜定休）</span>
+          <span class="tel-hours">平日 10:00 - 18:00（水曜定休）</span>
         </a>
       </div>
     </div>
@@ -453,6 +515,5 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>

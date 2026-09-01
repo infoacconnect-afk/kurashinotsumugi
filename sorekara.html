@@ -9,7 +9,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
 <style>
-.hero-sorekara { background: linear-gradient(180deg, #EEF2E5 0%, #F7F9F2 100%); }
+.hero-sorekara {
+  background: linear-gradient(180deg, #EEF2E5 0%, #F7F9F2 100%);
+  padding: 40px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-sorekara .page-hero-inner {
+  max-width: 1180px;
+  padding: 40px 32px 20px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-sorekara .hero-photo {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 3;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(122,144,104,0.18);
+  order: 1;
+  opacity: 1;
+}
+.hero-sorekara .hero-text {
+  position: relative;
+  z-index: 2;
+  order: 2;
+}
+.hero-sorekara .hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-sorekara .hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(156,175,136,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-sorekara .eyebrow { display: inline-block; }
+.hero-sorekara h1 {
+  margin-bottom: 24px;
+  text-align: left;
+}
+.hero-sorekara .lead {
+  text-align: left;
+  max-width: 100%;
+}
+@media (max-width: 900px) {
+  .hero-sorekara .page-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 20px 32px 20px;
+  }
+  .hero-sorekara .hero-photo { order: 2; aspect-ratio: 16/10; }
+  .hero-sorekara .hero-text { order: 1; }
+  .hero-sorekara h1, .hero-sorekara .lead { text-align: center; }
+  .hero-sorekara .eyebrow { display: block; text-align: center; }
+}
 
 .push-sec {
   background: #fff;
@@ -88,13 +150,11 @@
   border-color: var(--green);
 }
 .svc7-card .svc7-icon {
-  width: 60px; height: 60px;
-  border-radius: 18px;
-  background: var(--beige);
+  width: 76px; height: 76px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
+.svc7-card .svc7-icon img { max-width: 100%; max-height: 100%; }
 .svc7-card h3 { font-size: 18px; color: var(--brown-deep); margin-bottom: 12px; line-height: 1.5; }
 .svc7-card p { font-size: 14px; color: var(--text-soft); line-height: 1.9; }
 
@@ -104,7 +164,6 @@
   grid-column: span 1;
   position: relative;
 }
-.svc7-card.featured .svc7-icon { background: var(--orange); color: #fff; }
 .svc7-card.featured .featured-badge {
   position: absolute;
   top: -10px; right: 16px;
@@ -154,12 +213,16 @@
 </div>
 
 <section class="page-hero hero-sorekara">
-  <div class="page-hero-deco left" data-deco="vine-corner"></div>
   <div class="page-hero-deco right" data-deco="vine-corner"></div>
   <div class="page-hero-inner">
-    <div class="eyebrow fade-up">FOR AFTER LIFE</div>
-    <h1 class="fade-up d1">それからのすまい</h1>
-    <p class="lead fade-up d2">その家の、これからを、いっしょに考える。<br>空き家、実家、相続後の住まいに、寄り添う7つのサービスがあります。</p>
+    <div class="hero-photo">
+      <img src="assets/hero/sorekara-hero.png" alt="縁側から望む庭のある実家の風景" loading="eager">
+    </div>
+    <div class="hero-text">
+      <div class="eyebrow">FOR AFTER LIFE</div>
+      <h1>それからのすまい</h1>
+      <p class="lead">その家の、この後を、いっしょに考える。<br>空き家、実家、相続後の住まいに、寄り添う7つのサービスがあります。</p>
+    </div>
   </div>
 </section>
 
@@ -217,38 +280,38 @@
     <div class="svc7-grid">
       <a href="akiya-shindan.html" class="svc7-card featured fade-up d1" style="text-decoration:none">
         <span class="featured-badge">POPULAR</span>
-        <div class="svc7-icon">🩺</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/stethoscope.png" alt=""></div>
         <h3>空き家負担ゼロ診断</h3>
         <p>約30秒の簡単な質問で、その家に合う選択肢と負担軽減策を診断。まずはここから、はじめての方に。</p>
         <span class="featured-cta">診断を試してみる <span class="arrow">→</span></span>
       </a>
       <div class="svc7-card fade-up d1">
-        <div class="svc7-icon">🏘️</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/transfer.png" alt=""></div>
         <h3>借上げ・転貸</h3>
         <p>空き家を借上げ、必要な入居者にお貸しする仕組み。オーナーさまの手間なく、家に人の息づかいを。</p>
       </div>
       <div class="svc7-card fade-up d2">
-        <div class="svc7-icon">🧹</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/broom.png" alt=""></div>
         <h3>管理</h3>
         <p>定期巡回、通風、簡易清掃、庭木の確認まで。遠方の実家の管理を、代わって承ります。</p>
       </div>
       <div class="svc7-card fade-up d2">
-        <div class="svc7-icon">🔨</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/tools.png" alt=""></div>
         <h3>改修・賃貸活用</h3>
         <p>暮らしやすい形にリノベーションして、賃貸として活用。長い目で見た収支計画までご相談ください。</p>
       </div>
       <div class="svc7-card fade-up d3">
-        <div class="svc7-icon">🚗</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/car.png" alt=""></div>
         <h3>解体・駐車場活用</h3>
         <p>建物の状態やご家族のご意向に合わせて、解体と月極駐車場等への転用もご提案します。</p>
       </div>
       <div class="svc7-card fade-up d3">
-        <div class="svc7-icon">💡</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/bulb.png" alt=""></div>
         <h3>維持負担軽減</h3>
         <p>固定資産税、火災保険、光熱費など、家を持ち続ける負担を丁寧に整理し、軽減策をご提案。</p>
       </div>
       <div class="svc7-card fade-up d4">
-        <div class="svc7-icon">📖</div>
+        <div class="svc7-icon"><img class="hd-icon" src="assets/icons/book.png" alt=""></div>
         <h3>売却・相続後の整理</h3>
         <p>売却も選択肢のひとつ。相続手続きや家財整理まで、専門家と連携してサポートします。</p>
       </div>
