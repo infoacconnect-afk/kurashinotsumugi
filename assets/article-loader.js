@@ -89,26 +89,71 @@
     }
   }
 
-  // ---- Related (同一カテゴリの新着3件を差し込み) ----
+  // ---- Related (同カテゴリ優先 → 不足分は他カテゴリで埋める) ----
   try {
-    const sameCat = allArticles
-      .filter(a => a.category === article.category && a.slug !== article.slug)
-      .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
-      .slice(0, 3);
     const related = document.querySelector('[data-article="related"]');
-    if (related && sameCat.length > 0) {
-      related.innerHTML = sameCat.map((a, i) => {
-        const c = categoriesMap[a.category];
-        return `
-          <a href="lab-article.html?id=${encodeURIComponent(a.slug)}" class="ra-card fade-up d${i+1}">
-            <div class="ra-thumb"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="#F5E8D0"/><rect x="130" y="80" width="140" height="110" fill="#fff" stroke="#8B6F4E" stroke-width="2"/><path d="M110 80 L200 30 L290 80" fill="#B85C3E" stroke="#8B6F4E" stroke-width="2"/><rect x="180" y="120" width="40" height="70" fill="#E89B5B"/></svg></div>
-            <div class="ra-body">
-              <div class="ra-meta"><span class="cat">${escapeHtml(c ? c.name : '')}</span><span class="date">${(a.publishedAt||'').replace(/-/g,'.')}</span></div>
-              <div class="ra-title">${escapeHtml(a.title)}</div>
-            </div>
-          </a>
-        `;
-      }).join('');
+    if (!related) return;
+
+    // 現在の記事を除外し、公開日の新しい順にソート
+    const sortedOthers = allArticles
+      .filter(a => a.slug !== article.slug)
+      .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+
+    // 優先: 同一カテゴリの新着記事
+    const sameCat = sortedOthers.filter(a => a.category === article.category);
+    // 補完: 別カテゴリの新着記事
+    const otherCat = sortedOthers.filter(a => a.category !== article.category);
+
+    // 同一カテゴリを優先しつつ、合計3件になるように結合
+    const relatedArticles = [...sameCat, ...otherCat].slice(0, 3);
+
+    if (relatedArticles.length === 0) {
+      // 他に記事が1件もない: セクション自体を非表示
+      const section = related.closest('.related-articles-sec');
+      if (section) section.style.display = 'none';
+      return;
     }
-  } catch (_) { /* noop */ }
+
+    // フォールバックSVG（アイキャッチが未設定の場合）
+    const catStyle = {
+      green:  { bg: '#EEF2E5', accent: '#9CAF88' },
+      brown:  { bg: '#F3ECE0', accent: '#B99A78' },
+      orange: { bg: '#FBF0DC', accent: '#E89B5B' },
+    };
+    const fallbackThumb = (a) => {
+      const c = categoriesMap[a.category] || { color: 'brown' };
+      const s = catStyle[c.color] || catStyle.brown;
+      const seed = [...(a.slug || '')].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+      const variants = [
+        `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="${s.bg}"/><rect x="130" y="80" width="140" height="110" fill="#fff" stroke="#8B6F4E" stroke-width="2"/><path d="M110 80 L200 30 L290 80" fill="#B85C3E" stroke="#8B6F4E" stroke-width="2"/><rect x="180" y="120" width="40" height="70" fill="#E89B5B"/></svg>`,
+        `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="${s.bg}"/><circle cx="200" cy="125" r="70" fill="${s.accent}" opacity="0.35"/><path d="M170 155 Q200 90 230 155 Q220 185 200 185 Q180 185 170 155Z" fill="${s.accent}"/></svg>`,
+        `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="${s.bg}"/><rect x="80" y="60" width="240" height="140" fill="#fff" stroke="#8B6F4E" stroke-width="2" rx="8"/><rect x="110" y="88" width="180" height="10" fill="${s.accent}" opacity="0.7" rx="2"/><line x1="110" y1="118" x2="270" y2="118" stroke="#8B6F4E" stroke-width="1.4" opacity="0.35"/><line x1="110" y1="140" x2="250" y2="140" stroke="#8B6F4E" stroke-width="1.4" opacity="0.35"/></svg>`,
+        `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" fill="${s.bg}"/><rect x="100" y="70" width="200" height="140" fill="#fff" stroke="#8B6F4E" stroke-width="2" rx="8"/><circle cx="200" cy="140" r="40" fill="${s.accent}" opacity="0.5"/><text x="200" y="152" text-anchor="middle" font-size="34" fill="#8B6F4E" font-family="serif">¥</text></svg>`,
+      ];
+      return variants[seed % 4];
+    };
+    const thumbHtml = (a) => a.eyecatch
+      ? `<img src="${escapeHtml(a.eyecatch)}" alt="${escapeHtml(a.eyecatchAlt || a.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      : fallbackThumb(a);
+
+    related.innerHTML = relatedArticles.map((a, i) => {
+      const c = categoriesMap[a.category];
+      return `
+        <a href="lab-article.html?id=${encodeURIComponent(a.slug)}" class="ra-card fade-up d${i+1}">
+          <div class="ra-thumb">${thumbHtml(a)}</div>
+          <div class="ra-body">
+            <div class="ra-meta"><span class="cat">${escapeHtml(c ? c.name : '')}</span><span class="date">${(a.publishedAt||'').replace(/-/g,'.')}</span></div>
+            <div class="ra-title">${escapeHtml(a.title)}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    // fade-upを即座に有効化
+    requestAnimationFrame(() => {
+      related.querySelectorAll('.fade-up').forEach(el => el.classList.add('in'));
+    });
+  } catch (e) {
+    console.error('[article-loader] Related articles render failed:', e);
+  }
 })();
