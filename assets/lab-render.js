@@ -73,20 +73,34 @@
   const pickupEl = document.querySelector('[data-lab="pickup"]');
   if (pickupEl) {
     const pickup = sorted.find(a => a.isPickup) || sorted[0];
-    const cat = catMap[pickup.category];
-    pickupEl.innerHTML = `
-      <div class="pu-thumb">${thumbHtml(pickup)}</div>
-      <div>
-        <span class="pickup-badge">PICKUP</span>
-        <h2>${escapeHtml(pickup.title)}</h2>
-        <div class="pu-meta">
-          <span class="cat">${escapeHtml(cat ? cat.name : '')}</span>
-          <span class="date">${formatDate(pickup.publishedAt)}</span>
+    if (pickup) {
+      const cat = catMap[pickup.category];
+      pickupEl.innerHTML = `
+        <div class="pu-thumb">${thumbHtml(pickup)}</div>
+        <div>
+          <span class="pickup-badge">PICKUP</span>
+          <h2>${escapeHtml(pickup.title)}</h2>
+          <div class="pu-meta">
+            <span class="cat">${escapeHtml(cat ? cat.name : '')}</span>
+            <span class="date">${formatDate(pickup.publishedAt)}</span>
+          </div>
+          <p class="pu-excerpt">${escapeHtml(pickup.excerpt)}</p>
+          <a href="${articleUrl(pickup)}" class="btn btn-outline">記事を読む <span class="arrow">→</span></a>
         </div>
-        <p class="pu-excerpt">${escapeHtml(pickup.excerpt)}</p>
-        <a href="${articleUrl(pickup)}" class="btn btn-outline">記事を読む <span class="arrow">→</span></a>
-      </div>
-    `;
+      `;
+    } else {
+      // 記事が1件もない状態のやさしい表示
+      pickupEl.innerHTML = `
+        <div style="padding: 60px 40px; text-align: center; width: 100%;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🌱</div>
+          <h2 style="font-size: 22px; color: var(--brown-deep); margin-bottom: 12px;">記事の準備中です</h2>
+          <p style="color: var(--text-soft); line-height: 2; font-size: 15px;">
+            住まいのこれからとそれからに寄り添う情報を、<br>
+            近日中に、こちらでお届けしてまいります。
+          </p>
+        </div>
+      `;
+    }
   }
 
   // ---------- Category tabs ----------
@@ -204,18 +218,24 @@
       // フォールバック：閲覧数上位
       popular.push(...[...articles].sort((a,b) => (b.views||0)-(a.views||0)).slice(0,5));
     }
-    popularEl.innerHTML = popular.map((a, i) => {
-      const cat = catMap[a.category];
-      return `
-        <a href="${articleUrl(a)}" class="pop-item lab-appear" style="animation-delay:${i * 0.05}s">
-          <div class="pop-num">${String(i + 1).padStart(2, '0')}</div>
-          <div>
-            <h3>${escapeHtml(a.title)}</h3>
-            <div class="pop-meta">${escapeHtml(cat ? cat.name : '')}｜${formatDate(a.publishedAt)}</div>
-          </div>
-        </a>
-      `;
-    }).join('');
+    if (popular.length === 0) {
+      // 記事が1件もない場合：人気記事セクション全体を非表示
+      const popularSec = popularEl.closest('.popular-sec');
+      if (popularSec) popularSec.style.display = 'none';
+    } else {
+      popularEl.innerHTML = popular.map((a, i) => {
+        const cat = catMap[a.category];
+        return `
+          <a href="${articleUrl(a)}" class="pop-item lab-appear" style="animation-delay:${i * 0.05}s">
+            <div class="pop-num">${String(i + 1).padStart(2, '0')}</div>
+            <div>
+              <h3>${escapeHtml(a.title)}</h3>
+              <div class="pop-meta">${escapeHtml(cat ? cat.name : '')}｜${formatDate(a.publishedAt)}</div>
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
   }
 
   // Trigger fade-up for freshly injected elements
