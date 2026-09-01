@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub × Netlify 連携手順書｜くらしのつむぎ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brown: #8B6F4E;
+  --brown-deep: #6B5238;
+  --green: #9CAF88;
+  --green-deep: #7A9068;
+  --orange: #E89B5B;
+  --orange-deep: #D07E3E;
+  --ivory: #FBF7F0;
+  --beige: #F3ECE0;
+  --text: #3D3227;
+  --text-soft: #6B5D50;
+  --text-mute: #9A8E80;
+  --line: #E8DDC8;
+  --code-bg: #2E2620;
+  --code-text: #F0E7D5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--text);
+  background: linear-gradient(180deg, #FBF7F0 0%, #FFFFFF 200px);
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+  font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+  color: var(--brown-deep);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.doc-hero {
+  background: linear-gradient(135deg, #F5E8D0 0%, #EEF2E5 100%);
+  padding: 80px 40px 100px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.doc-hero .eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--green-deep);
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 6px 20px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 999px;
+}
+.doc-hero h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--brown-deep);
+  margin-bottom: 20px;
+}
+.doc-hero p {
+  font-size: 16px;
+  color: var(--text-soft);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 2;
+}
+.doc-hero .meta {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--brown);
+  display: inline-block;
+  min-width: 300px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+.doc-layout { max-width: 900px; margin: 0 auto; padding: 60px 40px 120px; }
+
+.toc {
+  background: var(--ivory);
+  border-radius: 20px;
+  padding: 32px 40px;
+  margin-bottom: 60px;
+  border: 1px solid var(--line);
+}
+.toc h2 {
+  font-size: 16px;
+  color: var(--brown-deep);
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+}
+.toc ol { padding-left: 24px; margin: 0; }
+.toc li { padding: 6px 0; font-size: 15px; }
+.toc a { color: var(--brown-deep); text-decoration: none; }
+.toc a:hover { color: var(--orange-deep); text-decoration: underline; }
+
+.step { margin-bottom: 80px; scroll-margin-top: 40px; }
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--orange);
+  flex-wrap: wrap;
+}
+.step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(232,155,91,0.3);
+}
+.step-head h2 { font-size: clamp(20px, 2.6vw, 26px); }
+.step-head .step-sub {
+  font-size: 12px;
+  color: var(--text-mute);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+.step-head .step-time {
+  font-size: 12px;
+  color: var(--green-deep);
+  background: rgba(156,175,136,0.15);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+h3 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-left: 14px;
+  border-left: 5px solid var(--green);
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+h4 { font-size: 16px; margin: 20px 0 10px; color: var(--brown-deep); }
+p { margin: 14px 0; line-height: 2.05; }
+strong {
+  color: var(--brown-deep);
+  font-weight: 700;
+  background: linear-gradient(transparent 65%, rgba(232,155,91,0.28) 65%);
+  padding: 0 2px;
+}
+em {
+  font-style: normal;
+  color: var(--orange-deep);
+  font-weight: 600;
+}
+a {
+  color: var(--orange-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 20px 24px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 20px 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+code {
+  background: var(--beige);
+  color: var(--brown-deep);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+}
+pre code { background: transparent; color: var(--code-text); padding: 0; font-size: inherit; }
+
+.callout {
+  background: linear-gradient(135deg, #FFF6E9 0%, #FBF0DC 100%);
+  border-radius: 16px;
+  padding: 22px 26px;
+  border: 1px solid var(--orange);
+  margin: 20px 0;
+}
+.callout.warning {
+  background: linear-gradient(135deg, #FDECEC 0%, #FBE2E2 100%);
+  border-color: #D97070;
+}
+.callout.tip {
+  background: linear-gradient(135deg, #EEF2E5 0%, #DDE7CE 100%);
+  border-color: var(--green);
+}
+.callout-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--brown-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.callout p { margin: 0; }
+.callout p + p { margin-top: 10px; }
+.callout ul, .callout ol { margin: 8px 0; }
+.callout li { margin: 4px 0; }
+
+.checklist {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  margin: 20px 0;
+  list-style: none;
+  padding-left: 24px;
+}
+.checklist li {
+  position: relative;
+  padding: 8px 0 8px 32px;
+  border-bottom: 1px dashed var(--line);
+  font-size: 14px;
+}
+.checklist li:last-child { border-bottom: 0; }
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 14px;
+  width: 18px; height: 18px;
+  border: 2px solid var(--brown);
+  border-radius: 5px;
+  background: #fff;
+}
+
+.guide-list { counter-reset: guide-count; padding: 0; list-style: none; margin: 24px 0; }
+.guide-list > li {
+  counter-increment: guide-count;
+  position: relative;
+  padding: 20px 20px 20px 66px;
+  background: var(--ivory);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--orange);
+}
+.guide-list > li::before {
+  content: counter(guide-count);
+  position: absolute;
+  left: 18px; top: 20px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--orange);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+.guide-list > li h4 { margin-top: 0; margin-bottom: 6px; }
+.guide-list > li p:last-child { margin-bottom: 0; }
+.guide-list p code { font-size: 12px; }
+
+.ui-mock {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+.ui-mock .ui-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--brown-deep);
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+.ui-mock .ui-row { padding: 3px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ui-mock .ui-btn {
+  display: inline-block;
+  background: #24292F;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+.ui-mock .ui-btn-green { background: #2DA44E; }
+.ui-mock .ui-btn-teal { background: #00AD9F; }
+.ui-mock .ui-field {
+  background: var(--ivory);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 3px 8px;
+  color: var(--text);
+  font-size: 11px;
+}
+.ui-mock .ui-label {
+  color: var(--brown-deep);
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+  min-width: 100px;
+  font-size: 12px;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 4px;
+  margin: 40px 0;
+  padding: 16px;
+  background: var(--ivory);
+  border-radius: 14px;
+  flex-wrap: wrap;
+}
+.progress-item {
+  flex: 1;
+  min-width: 90px;
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 8px;
+  font-size: 10px;
+  color: var(--text-mute);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.progress-item.done {
+  background: var(--green-deep);
+  color: #fff;
+  border-color: var(--green-deep);
+}
+.progress-item.current {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 4px 12px rgba(232,155,91,0.3);
+}
+.progress-num {
+  display: block;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 20px 0;
+  box-shadow: 0 4px 16px rgba(139,111,78,0.08);
+  font-size: 14px;
+}
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+th {
+  background: var(--beige);
+  color: var(--brown-deep);
+  font-weight: 600;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  white-space: nowrap;
+}
+td { background: #fff; line-height: 1.7; }
+tr:last-child td { border-bottom: 0; }
+
+.flow-diagram {
+  background: #fff;
+  border: 2px dashed var(--brown-soft, #A88A6A);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 24px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  .doc-hero { background: none; padding: 40px 20px; }
+  .step { page-break-inside: avoid; }
+  pre { page-break-inside: avoid; font-size: 10pt; }
+}
+</style>
+</head>
+<body>
+
+<header class="doc-hero">
+  <div class="eyebrow">DOCUMENT 3 / 3</div>
+  <h1>GitHub × Netlify<br>連携セットアップ手順書</h1>
+  <p>ドラッグ&ドロップ運用から、完全自動デプロイへ切り替えます。<br>この設定を1回だけ済ませれば、あとは microCMS で記事を書くだけでサイトが自動更新されます 🌱</p>
+  <div class="meta">
+    対象: kurashinotsumugi.com<br>
+    バージョン 1.0｜2026年8月
+  </div>
+</header>
+
+<main class="doc-layout">
+
+<div class="progress-bar">
+  <div class="progress-item done"><span class="progress-num">①〜⑤</span>Netlify公開済</div>
+  <div class="progress-item current"><span class="progress-num">今回</span>GitHub連携</div>
+  <div class="progress-item"><span class="progress-num">次</span>microCMS</div>
+  <div class="progress-item"><span class="progress-num">完成</span>記事投稿</div>
+</div>
+
+<nav class="toc">
+  <h2>📖 目次</h2>
+  <ol>
+    <li><a href="#intro">はじめに｜GitHubってなに？何が便利になる？</a></li>
+    <li><a href="#step1">STEP 1｜GitHubアカウント作成（10分）</a></li>
+    <li><a href="#step2">STEP 2｜リポジトリを作る（5分）</a></li>
+    <li><a href="#step3">STEP 3｜サイトファイルをアップロード（10分）</a></li>
+    <li><a href="#step4">STEP 4｜Netlifyとつなぐ（10分）</a></li>
+    <li><a href="#step5">STEP 5｜古い方のサイトを削除・入れ替え（5分）</a></li>
+    <li><a href="#verify">動作確認</a></li>
+    <li><a href="#daily">今後の運用（サイト編集・記事更新）</a></li>
+    <li><a href="#faq">FAQ｜困ったときは</a></li>
+  </ol>
+</nav>
+
+<!-- ================ Intro ================ -->
+<section class="step" id="intro">
+  <div class="step-head">
+    <div class="step-num">i</div>
+    <div>
+      <div class="step-sub">INTRO</div>
+      <h2>はじめに｜GitHubってなに？</h2>
+    </div>
+  </div>
+
+  <p><strong>GitHub</strong>（ギットハブ）は、世界中の開発者が使う「ファイル置き場」のようなサービスです。無料で、Microsoft社が運営していて、信頼性は世界最高レベルです。</p>
+
+  <h3>GitHub連携で何ができるようになる？</h3>
+  <table>
+    <thead>
+      <tr><th></th><th>現在（ドラッグ&ドロップ）</th><th>GitHub連携後</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>サイト更新</th>
+        <td>ZIP解凍 → Netlifyにドラッグ</td>
+        <td><strong>GitHubに置くだけで自動</strong></td>
+      </tr>
+      <tr>
+        <th>microCMS記事公開</th>
+        <td>制作会社に依頼が必要</td>
+        <td><strong>公開ボタン1つで自動反映</strong></td>
+      </tr>
+      <tr>
+        <th>変更履歴</th>
+        <td>残らない</td>
+        <td>すべての変更が履歴として残る</td>
+      </tr>
+      <tr>
+        <th>間違えたとき</th>
+        <td>復元困難</td>
+        <td>いつでも過去の状態に戻せる</td>
+      </tr>
+      <tr>
+        <th>複数人で編集</th>
+        <td>難しい</td>
+        <td>簡単</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>今回のセットアップの全体像</h3>
+  <div class="flow-diagram">┌─────────────────────────────┐
+│  1. GitHubアカウント作成         │  ← 一度だけ
+└─────────────┬───────────────┘
+              │
+┌─────────────▼───────────────┐
+│  2. リポジトリ（ファイル置き場）を作成 │
+└─────────────┬───────────────┘
+              │
+┌─────────────▼───────────────┐
+│  3. サイトファイルをアップロード     │
+│    （ZIPをドラッグするだけ）        │
+└─────────────┬───────────────┘
+              │
+┌─────────────▼───────────────┐
+│  4. Netlifyに「このGitHubを使って」  │
+│     と教える                       │
+└─────────────┬───────────────┘
+              │
+┌─────────────▼───────────────┐
+│  5. 古いサイトを削除して切替完了     │
+└─────────────────────────────┘
+              │
+              ▼
+    ✨ これ以降、GitHubに変更を反映するだけで
+       自動でサイト更新されます</div>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 ご安心ください</div>
+    <p>コードやコマンドラインの操作は<strong>一切必要ありません</strong>。すべてブラウザから、クリック操作だけで進められます。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 1 ================ -->
+<section class="step" id="step1">
+  <div class="step-head">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-sub">SIGN UP</div>
+      <h2>GitHubアカウント作成</h2>
+    </div>
+    <span class="step-time">所要時間: 10分</span>
+  </div>
+
+  <ol class="guide-list">
+    <li>
+      <h4>GitHub公式サイトを開く</h4>
+      <p><a href="https://github.com/signup" target="_blank">https://github.com/signup</a></p>
+    </li>
+
+    <li>
+      <h4>メールアドレスを入力</h4>
+      <p>会社のメール（例: info@ac-c.co.jp）をおすすめします。引き継ぎ時に便利です。</p>
+    </li>
+
+    <li>
+      <h4>パスワードを設定</h4>
+      <p>15文字以上・大文字/小文字/数字/記号を混ぜたもの</p>
+    </li>
+
+    <li>
+      <h4>ユーザー名を決める</h4>
+      <p>他の人と重複しない半角英数字。例:</p>
+      <ul>
+        <li><code>ac-connect</code></li>
+        <li><code>kurashinotsumugi</code></li>
+        <li><code>ac-connect-jp</code></li>
+      </ul>
+      <p><strong>このユーザー名はURL の一部になります</strong>（例: <code>github.com/ac-connect</code>）</p>
+    </li>
+
+    <li>
+      <h4>「y/n」の質問（メール受信）</h4>
+      <p>お知らせメールを受け取るかの確認。<strong>「n」</strong>でOKです。</p>
+    </li>
+
+    <li>
+      <h4>パズル認証</h4>
+      <p>「私はロボットではありません」的なパズルを解いてください。</p>
+    </li>
+
+    <li>
+      <h4>「Create account」をクリック</h4>
+      <p>メールに認証コード（6桁）が届くので、画面に入力してください。</p>
+    </li>
+
+    <li>
+      <h4>アンケート画面（英語）</h4>
+      <p>下記のように答えれば大丈夫です:</p>
+      <ul>
+        <li>How many team members? → <strong>Just me</strong></li>
+        <li>What features? → 何も選ばず「Continue」でOK</li>
+        <li>What do you plan to use GitHub for? → <strong>Other</strong> や <strong>Manage code and collaborate</strong> どちらでも</li>
+      </ul>
+      <p>最後に <strong>Free plan（無料プラン）</strong> を選択して完了 🎉</p>
+    </li>
+  </ol>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 完了の目印</div>
+    <p>ダッシュボード（左に「Top Repositories」、中央に「Start a new repository」ボタンがある画面）が表示されればOK。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 2 ================ -->
+<section class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">2</div>
+    <div>
+      <div class="step-sub">REPO</div>
+      <h2>リポジトリ（ファイル置き場）を作る</h2>
+    </div>
+    <span class="step-time">所要時間: 5分</span>
+  </div>
+
+  <p><strong>リポジトリ</strong>（英: repository）は「保管庫」の意味。今回のサイトファイル一式を入れる場所を作ります。</p>
+
+  <ol class="guide-list">
+    <li>
+      <h4>右上の「＋」→「New repository」をクリック</h4>
+      <p>または、中央の <strong>「Create repository」</strong> の緑ボタンでもOK</p>
+    </li>
+
+    <li>
+      <h4>リポジトリの情報を入力</h4>
+
+      <div class="ui-mock">
+        <div class="ui-title">Create a new repository</div>
+        <div class="ui-row"><span class="ui-label">Owner:</span><span class="ui-field">ac-connect</span> ← あなたのユーザー名</div>
+        <div class="ui-row"><span class="ui-label">Repository name:</span><span class="ui-field">kurashinotsumugi</span></div>
+        <div class="ui-row"><span class="ui-label">Description:</span><span class="ui-field">くらしのつむぎ ブランドサイト</span></div>
+        <div class="ui-row">
+          <span class="ui-label">公開設定:</span>
+          <span>🟢 <strong>Public</strong>（公開）または 🔒 Private（非公開）</span>
+        </div>
+        <div class="ui-row"><span class="ui-label">Initialize:</span><span>☑️ Add a README file にチェック</span></div>
+        <div class="ui-row"><span class="ui-btn ui-btn-green">Create repository</span></div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-title">🤔 Public と Private の違い</div>
+    <p><strong>Public（公開）</strong>: 誰でもソースコードを見られる。多くの企業や個人が公開している普通の状態。GitHubの慣例に沿っている。</p>
+    <p><strong>Private（非公開）</strong>: あなたと招待した人だけが見られる。有料プラン扱いになる場合あり（無料枠内で使えることも多い）。</p>
+    <p><em>今回のような通常のブランドサイトのソースコードは、Publicで問題ありません</em>。APIキーなど秘密情報はそもそもGitHubに置きません（環境変数で管理）。</p>
+    <p><strong>迷ったら Public</strong>で。</p>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">⚠️ .gitignore について</div>
+    <p>「Add .gitignore」というオプションが出た場合、<strong>「None」</strong>を選択してください。</p>
+    <p>また、「Choose a license」も<strong>「None」</strong>で大丈夫です。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 3 ================ -->
+<section class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">3</div>
+    <div>
+      <div class="step-sub">UPLOAD</div>
+      <h2>サイトファイルをアップロード</h2>
+    </div>
+    <span class="step-time">所要時間: 10分</span>
+  </div>
+
+  <p>先ほど作ったリポジトリに、くらしのつむぎのサイトファイル一式をアップロードします。</p>
+
+  <ol class="guide-list">
+    <li>
+      <h4>リポジトリ画面を開く</h4>
+      <p>今作ったリポジトリのページ（<code>github.com/あなたのユーザー名/kurashinotsumugi</code>）にいる状態です。</p>
+    </li>
+
+    <li>
+      <h4>「Add file」→「Upload files」を選択</h4>
+      <p>画面上部（README.mdの上あたり）に <strong>「Add file」</strong> というボタンがあります。</p>
+      <p>クリック → <strong>「Upload files」</strong> を選択</p>
+    </li>
+
+    <li>
+      <h4>サイトファイルをドラッグ&ドロップ</h4>
+      <p>手元にある <strong>くらしのつむぎサイトのフォルダ</strong>を開き、中身のファイル・フォルダを<strong>すべて選択</strong>して、GitHubのアップロード枠にドラッグ&ドロップしてください。</p>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ 大事なポイント</div>
+        <p>「フォルダごと」ではなく、<em>フォルダの中身を全部選択</em>してドラッグしてください。</p>
+        <p><strong>OK例:</strong> <code>index.html, korekara.html, sorekara.html, ..., assets/, data/, build/, docs/</code> を選択してドラッグ</p>
+        <p><strong>NG例:</strong> <code>kurashinotsumugi/</code> フォルダごとドラッグ（余計な階層が1つ増えてしまいます）</p>
+      </div>
+    </li>
+
+    <li>
+      <h4>アップロード完了を待つ</h4>
+      <p>ファイル数が多いので、1〜2分かかります。進行状況が緑のバーで表示されます。</p>
+    </li>
+
+    <li>
+      <h4>コミットメッセージを入力</h4>
+      <p>ページを下にスクロールすると、以下の入力欄があります:</p>
+
+      <div class="ui-mock">
+        <div class="ui-title">Commit changes</div>
+        <div class="ui-row"><span class="ui-field" style="flex:1">Initial upload of kurashinotsumugi site</span></div>
+        <div class="ui-row">
+          ◉ Commit directly to the <code>main</code> branch
+        </div>
+        <div class="ui-row"><span class="ui-btn ui-btn-green">Commit changes</span></div>
+      </div>
+
+      <p>コミットメッセージは<strong>「Initial upload」</strong>や<strong>「サイト初期アップロード」</strong>など、内容が分かる短い文で大丈夫です。</p>
+    </li>
+
+    <li>
+      <h4>アップロード完了を確認</h4>
+      <p>リポジトリのトップページに戻り、以下のファイルが表示されればOK:</p>
+      <ul>
+        <li><code>index.html</code></li>
+        <li><code>korekara.html</code></li>
+        <li><code>sorekara.html</code></li>
+        <li><code>lab.html</code></li>
+        <li><code>assets/</code></li>
+        <li><code>data/</code></li>
+        <li><code>build/</code></li>
+        <li><code>docs/</code></li>
+        <li>その他HTML等</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 完了の目印</div>
+    <p>GitHubのリポジトリ画面で、<code>index.html</code>をクリックしてHTMLコードが表示されればアップロード成功です。</p>
+  </div>
+</section>
+
+<!-- ================ STEP 4 ================ -->
+<section class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">4</div>
+    <div>
+      <div class="step-sub">CONNECT</div>
+      <h2>Netlifyとつなぐ</h2>
+    </div>
+    <span class="step-time">所要時間: 10分</span>
+  </div>
+
+  <p>いよいよ、GitHubとNetlifyを連携させます。連携ができれば、GitHubに変更を加えるたびにNetlifyが自動で反映してくれるようになります。</p>
+
+  <ol class="guide-list">
+    <li>
+      <h4>Netlifyにログイン</h4>
+      <p><a href="https://app.netlify.com/" target="_blank">https://app.netlify.com/</a></p>
+    </li>
+
+    <li>
+      <h4>「Add new site」→「Import an existing project」</h4>
+      <p>ダッシュボードの右上または中央にある <strong>「Add new site」</strong> をクリック</p>
+      <p>3つの選択肢が出ますが、<strong>「Import an existing project」</strong>を選択</p>
+    </li>
+
+    <li>
+      <h4>「Deploy with GitHub」をクリック</h4>
+      <p>GitLab / Bitbucket などの選択肢もありますが、<strong>GitHub</strong>を選択</p>
+    </li>
+
+    <li>
+      <h4>GitHubとの連携を承認</h4>
+      <p>GitHubのログイン画面に遷移し、<strong>「Authorize Netlify」</strong>という緑ボタンをクリック</p>
+      <p>「どのリポジトリを見せる？」と聞かれた場合:</p>
+      <ul>
+        <li><strong>「Only select repositories」</strong>を選び、<code>kurashinotsumugi</code>のみを選択</li>
+        <li>（All repositoriesでも動きますが、Only selectの方が安全です）</li>
+      </ul>
+      <p>「Install」をクリック</p>
+    </li>
+
+    <li>
+      <h4>Netlifyでリポジトリを選択</h4>
+      <p>Netlifyの画面に戻り、リポジトリ一覧が表示されます。<code>kurashinotsumugi</code>をクリック</p>
+    </li>
+
+    <li>
+      <h4>ビルド設定画面が表示される（← ここが Build settings！）</h4>
+      <p>ようやくお探しだった画面です 🎉</p>
+
+      <div class="ui-mock">
+        <div class="ui-title">Deploy settings for kurashinotsumugi</div>
+        <div class="ui-row"><span class="ui-label">Branch to deploy:</span><span class="ui-field">main</span></div>
+        <div class="ui-row"><span class="ui-label">Base directory:</span><span class="ui-field">（空欄でOK）</span></div>
+        <div class="ui-row"><span class="ui-label">Build command:</span><span class="ui-field">node build/fetch-lab.mjs</span></div>
+        <div class="ui-row"><span class="ui-label">Publish directory:</span><span class="ui-field">.</span></div>
+        <div class="ui-row"><span class="ui-btn ui-btn-teal">Deploy site</span></div>
+      </div>
+
+      <table>
+        <thead><tr><th>項目</th><th>入力値</th></tr></thead>
+        <tbody>
+          <tr><td>Branch to deploy</td><td><code>main</code>（デフォルトのまま）</td></tr>
+          <tr><td>Base directory</td><td>空欄</td></tr>
+          <tr><td><strong>Build command</strong></td><td><code>node build/fetch-lab.mjs</code></td></tr>
+          <tr><td><strong>Publish directory</strong></td><td><code>.</code>（ドットひとつ）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <div class="callout-title">🌱 補足：Build commandについて</div>
+        <p>今の時点では、まだmicroCMSが未接続なので、<code>node build/fetch-lab.mjs</code>を実行してもエラーになります。</p>
+        <p>そこで今回は、Build commandは<em>空欄のまま</em>にしておくのがおすすめです。microCMS連携時に改めて設定します。</p>
+        <p><strong>👉 Build command: （空欄）</strong>で「Deploy site」をクリックしてください。</p>
+      </div>
+    </li>
+
+    <li>
+      <h4>「Deploy site」をクリック</h4>
+      <p>Netlifyが自動で:</p>
+      <ol>
+        <li>GitHubからファイルをダウンロード</li>
+        <li>サイトを公開</li>
+        <li>仮URLを発行</li>
+      </ol>
+      <p>1〜2分待つと、<code>xxx.netlify.app</code> の仮URLが発行され、サイトが表示されます。</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ================ STEP 5 ================ -->
+<section class="step" id="step5">
+  <div class="step-head">
+    <div class="step-num">5</div>
+    <div>
+      <div class="step-sub">SWAP</div>
+      <h2>古い方のサイトを削除・入れ替え</h2>
+    </div>
+    <span class="step-time">所要時間: 5分</span>
+  </div>
+
+  <p>今、Netlify上には <strong>2つのサイト</strong> が存在する状態のはずです:</p>
+  <ol>
+    <li>古い方: ドラッグ&ドロップで公開したサイト（<code>kurashinotsumugi.com</code>が繋がっている）</li>
+    <li>新しい方: GitHub連携で公開したサイト（仮URLだけ）</li>
+  </ol>
+
+  <p>「新しい方」に <code>kurashinotsumugi.com</code> を付け替えます。</p>
+
+  <ol class="guide-list">
+    <li>
+      <h4>古い方のサイトからドメインを外す</h4>
+      <p>Netlifyダッシュボードで<strong>古い方のサイト</strong>を開く</p>
+      <p>「Domain settings」または「Domains」を開く</p>
+      <p><code>kurashinotsumugi.com</code>と<code>www.kurashinotsumugi.com</code>の右端「⋯」→ <strong>「Remove domain」</strong></p>
+      <p>両方削除してください。</p>
+    </li>
+
+    <li>
+      <h4>新しい方のサイトにドメインを追加</h4>
+      <p>Netlifyダッシュボードで<strong>新しい方のサイト</strong>（GitHub連携で作った方）を開く</p>
+      <p>「Domain settings」→「Add a domain」または「Add custom domain」</p>
+      <p><code>kurashinotsumugi.com</code>を入力 → 「Verify」 → 「Yes, add domain」</p>
+      <p><strong>www バージョンも自動で追加</strong>されます。</p>
+    </li>
+
+    <li>
+      <h4>SSL証明書の再発行を待つ（数分）</h4>
+      <p>ドメインの付け替えなので、SSL証明書も自動で新しいサイトに紐づけ直されます。<em>数分待つ</em>と「Let's Encrypt certificate」がactiveになります。</p>
+    </li>
+
+    <li>
+      <h4>「Force HTTPS」を有効化</h4>
+      <p>HTTPSセクションの「Force HTTPS」トグルをONにしてください。</p>
+    </li>
+
+    <li>
+      <h4>古い方のサイトを削除</h4>
+      <p>古い方のサイト画面 → 「Site settings」→ 一番下までスクロール → <strong>「Delete this site」</strong></p>
+      <p>確認ダイアログでサイト名を入力して削除完了。</p>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ ゆっくり進めても大丈夫</div>
+        <p>不安なら、古い方のサイトはすぐ削除せず<strong>数日〜1週間残しておく</strong>のもOK。新しい方が問題なく動いてから削除しても遅くありません。</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- ================ Verify ================ -->
+<section class="step" id="verify">
+  <div class="step-head">
+    <div class="step-num">✓</div>
+    <div>
+      <div class="step-sub">TEST</div>
+      <h2>動作確認</h2>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><a href="https://kurashinotsumugi.com/" target="_blank">https://kurashinotsumugi.com/</a> でトップが表示される</li>
+    <li>各下層ページ（korekara / sorekara / lab など）が開ける</li>
+    <li>ブラウザに 🔒 の鍵マークが表示</li>
+    <li>スマホでも表示が崩れていない</li>
+    <li>Netlifyダッシュボードで、「Deploys」タブに<strong>「Published」</strong>と緑バッジが付いている</li>
+  </ul>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 自動デプロイをお試しあれ</div>
+    <p>GitHubの<code>README.md</code>を編集して保存すると、1〜2分後にNetlifyが自動デプロイを開始します。「Deploys」タブでリアルタイムに見られます。</p>
+    <p>これがGitHub連携の醍醐味です。あとは microCMS を繋げば、記事更新も同じ流れで自動化されます。</p>
+  </div>
+</section>
+
+<!-- ================ Daily ================ -->
+<section class="step" id="daily">
+  <div class="step-head">
+    <div class="step-num">📗</div>
+    <div>
+      <div class="step-sub">DAILY OPS</div>
+      <h2>今後の運用</h2>
+    </div>
+  </div>
+
+  <h3>ケース①: サイトの文言や画像を修正したい</h3>
+  <ol>
+    <li>制作会社から新しいファイルを受け取る</li>
+    <li>GitHubリポジトリで該当ファイルを開く → 右上の <strong>「✏️」（鉛筆マーク）</strong>で編集</li>
+    <li>または、「Add file」→「Upload files」で上書きアップロード</li>
+    <li>コミットして保存 → <strong>1〜2分で本番反映</strong></li>
+  </ol>
+
+  <h3>ケース②: microCMSで記事を書きたい</h3>
+  <ol>
+    <li>microCMSにログイン → 記事作成 → 「公開」ボタン</li>
+    <li>Webhookが発火 → Netlifyが自動ビルド → <strong>2〜3分で本番反映</strong></li>
+    <li>あなたは<em>何もしなくてOK</em>です 🌱</li>
+  </ol>
+
+  <h3>ケース③: 過去の状態に戻したい</h3>
+  <ol>
+    <li>Netlifyの「Deploys」タブを開く</li>
+    <li>戻したい過去のデプロイをクリック → 「Publish deploy」</li>
+    <li>数秒で過去の状態に戻ります</li>
+  </ol>
+
+  <div class="callout tip">
+    <div class="callout-title">🌱 覚えておいてほしいこと</div>
+    <p>これからは<strong>「GitHubに置くこと」＝「本番サイトに公開すること」</strong>と覚えてください。</p>
+    <p>逆に言うと、GitHubで編集した瞬間から本番に反映されるので、慎重に。</p>
+    <p>不安な場合は<em>「Branchを分けてプレビュー」</em>という上級テクニックもありますが、必要になったら別途ご案内します。</p>
+  </div>
+</section>
+
+<!-- ================ FAQ ================ -->
+<section class="step" id="faq">
+  <div class="step-head">
+    <div class="step-num">?</div>
+    <div>
+      <div class="step-sub">HELP</div>
+      <h2>FAQ｜困ったときは</h2>
+    </div>
+  </div>
+
+  <h3>Q. GitHubにログインしたら、変な英語のダッシュボードが出て怖いです</h3>
+  <p><strong>A.</strong> GitHubのUIは開発者向けで、初見だと圧倒されがちです。慣れないうちは、以下だけ覚えれば大丈夫:</p>
+  <ul>
+    <li>「Repositories」→ 自分の保管庫一覧</li>
+    <li>「＋」（右上）→ 新規作成メニュー</li>
+    <li>「Settings」→ アカウント設定</li>
+  </ul>
+  <p>ブラウザの翻訳機能で日本語化することもできます。</p>
+
+  <h3>Q. GitHubにアップロードしたのに、Netlifyにサイトが反映されません</h3>
+  <p><strong>A.</strong> 以下を確認:</p>
+  <ol>
+    <li>NetlifyのDeploysタブに新しいデプロイが表示されているか</li>
+    <li>デプロイが「Failed」になっていないか（クリックしてログを確認）</li>
+    <li>NetlifyとGitHubの連携が有効か（Site settings → Build & deploy）</li>
+  </ol>
+
+  <h3>Q. GitHubのファイルを間違えて削除してしまいました</h3>
+  <p><strong>A.</strong> 慌てないでください。GitHubは<strong>すべての履歴が残っています</strong>。</p>
+  <ol>
+    <li>リポジトリ画面 → 上部の <strong>「Commits」</strong>（〇〇 commits と書いてある部分）をクリック</li>
+    <li>削除前のコミットを見つけて開く</li>
+    <li>ファイルを再度アップロードすれば復元完了</li>
+  </ol>
+
+  <h3>Q. リポジトリを「Private」で作ってしまいました。Publicに変えるには？</h3>
+  <p><strong>A.</strong> リポジトリ → 「Settings」→ 一番下までスクロール → 「Change visibility」→ Publicに変更。逆も可能です。</p>
+
+  <h3>Q. Build command「node build/fetch-lab.mjs」を今すぐ設定するとどうなる？</h3>
+  <p><strong>A.</strong> microCMSの環境変数が未設定なので、ビルドが失敗します。今は空欄で進めて、microCMS設定時に「Site settings → Build & deploy → Build settings → Edit settings」から追記してください。この時、この画面が今回設定した本来の「Build settings」画面です。</p>
+
+  <h3>Q. GitHubの容量制限はある？</h3>
+  <p><strong>A.</strong> 無料プランで:</p>
+  <ul>
+    <li>1リポジトリあたり <strong>5GB推奨</strong>（技術的には制限なし）</li>
+    <li>1ファイルあたり <strong>100MB</strong>まで</li>
+  </ul>
+  <p>くらしのつむぎサイトの規模なら余裕です（数MBのはず）。</p>
+</section>
+
+<!-- Closing -->
+<section style="text-align:center; margin-top:80px; padding:60px 40px; background: linear-gradient(135deg, #FFF6E9 0%, #EEF2E5 100%); border-radius: 32px;">
+  <h2 style="font-size:22px; margin-bottom:16px;">🎉 GitHub連携おつかれさまでした</h2>
+  <p style="font-size:15px; color:var(--text-soft); line-height:2; max-width:640px; margin:0 auto;">
+    これで、記事更新もサイト修正もすべて自動化される土台が整いました。<br>
+    最後にmicroCMSを設定すれば、いよいよ完成です 🌱
+  </p>
+  <p style="margin-top:24px; font-size:14px;">
+    <a href="microcms-setup.html" style="display:inline-block; background:var(--orange); color:#fff; padding:14px 32px; border-radius:999px; text-decoration:none; font-weight:600;">
+      → microCMS 導入手順書へ進む
+    </a>
+  </p>
+</section>
+
+</main>
+
+<footer style="background: #4E3E2F; color: #D9CDB6; padding: 40px; text-align: center; font-size: 12px; letter-spacing: 0.08em;">
+  <p style="margin:0;">GitHub × Netlify 連携手順書｜© Ac・Connect Co., Ltd.</p>
+  <p style="margin-top:8px; opacity:0.6;">Document version 1.0 ／ 2026年8月</p>
+</footer>
+
+</body>
+</html>
