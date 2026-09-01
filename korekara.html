@@ -6,7 +6,8 @@
 <title>これからのすまい｜くらしのつむぎ</title>
 <meta name="description" content="家づくりの"はじめの一歩"を、いっしょに。予算、ローン、土地、住宅会社選びまで、すべて無料でサポートします。">
 <link rel="icon" href="assets/logo-white.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero/korekara-hero.webp" type="image/webp" imagesrcset="assets/hero/korekara-hero.webp" media="(min-width: 900px)">
 <link rel="stylesheet" href="assets/common.css">
 <style>
 .hero-korekara {
@@ -210,7 +211,6 @@
   gap: 20px;
   width: max-content;
   animation: kpScroll 50s linear infinite;
-  animation-direction: reverse;
 }
 @keyframes kpScroll {
   from { transform: translateX(0); }
@@ -270,7 +270,10 @@
       <p class="lead">家づくりの"はじめの一歩"を、いっしょに。<br>予算、ローン、土地、住宅会社選びまで、まずはご相談ください。</p>
     </div>
     <div class="hero-photo">
-      <img src="assets/hero/korekara-hero.png" alt="家づくりの計画を進めるあたたかな時間" loading="eager">
+      <picture>
+        <source type="image/webp" srcset="assets/hero/korekara-hero.webp">
+        <img src="assets/hero/korekara-hero.jpg" alt="家づくりの計画を進めるあたたかな時間" loading="eager" width="1600" height="893">
+      </picture>
     </div>
   </div>
 </section>
@@ -326,27 +329,27 @@
     </div>
     <div class="service-detail-grid">
       <div class="service-detail-card fade-up d1">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/wallet.png" alt=""></div><h3>予算整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/wallet.webp" alt=""></div><h3>予算整理</h3></div>
         <p>年収・貯蓄・ライフプランから、無理のない住まいの予算をいっしょに整理します。「いくらまで出せるか」ではなく「いくらまでなら安心か」を大切にします。</p>
       </div>
       <div class="service-detail-card fade-up d1">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/bank.png" alt=""></div><h3>住宅ローン相談</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/bank.webp" alt=""></div><h3>住宅ローン相談</h3></div>
         <p>変動と固定、フラット35、団信の違い。各社の金利や条件をわかりやすく比較。ご自身に合った借り方を、時間をかけていっしょに考えます。</p>
       </div>
       <div class="service-detail-card fade-up d2">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/checklist.png" alt=""></div><h3>希望条件・優先順位の整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/checklist.webp" alt=""></div><h3>希望条件・優先順位の整理</h3></div>
         <p>「なんとなくの理想」を、具体的な条件へ。家族での話し合いのお手伝いや、優先順位づけのシートもご用意しています。</p>
       </div>
       <div class="service-detail-card fade-up d2">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/map.png" alt=""></div><h3>土地探し・候補地相談</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/map.webp" alt=""></div><h3>土地探し・候補地相談</h3></div>
         <p>気になっている土地、迷っている候補地。日当たり、通学路、災害リスクまで、地図を広げていっしょに見ていきます。</p>
       </div>
       <div class="service-detail-card fade-up d3">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/scale.png" alt=""></div><h3>住宅会社の比較整理</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/scale.webp" alt=""></div><h3>住宅会社の比較整理</h3></div>
         <p>大手ハウスメーカー、地域工務店、設計事務所…それぞれの特徴と違いを、フラットな立場でご説明します。</p>
       </div>
       <div class="service-detail-card fade-up d3">
-        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/handshake.png" alt=""></div><h3>住宅会社紹介</h3></div>
+        <div class="sd-header"><div class="sd-icon"><img class="hd-icon" src="assets/icons/handshake.webp" alt=""></div><h3>住宅会社紹介</h3></div>
         <p>ご希望を伺ったうえで、その方に合いそうな住宅会社をご紹介します。相性が合わないと感じたらいつでも切り替えていただけます。</p>
       </div>
     </div>
@@ -375,12 +378,12 @@
         <div class="kp-item"><img src="assets/partners/06-daiwa-house.png" alt="大和ハウスグループ" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/09-yamada-homes.png" alt="ヤマダホームズ" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/03-ai-koumuten.png" alt="アイ工務店" loading="lazy"></div>
-        <div class="kp-item"><img src="assets/partners/07-idea-home.png" alt="イデアホーム" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/07-idea-home.webp" alt="イデアホーム" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/04-apple-home.png" alt="株式会社アップルホーム" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/05-clair-house-build.png" alt="CLAIR HOUSE BUILD" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/08-luminous-link.png" alt="Luminous. Link" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/10-noble-partner.png" alt="Noble Partner" loading="lazy"></div>
-        <div class="kp-item"><img src="assets/partners/11-vesta-create.png" alt="VestaCreate" loading="lazy"></div>
+        <div class="kp-item"><img src="assets/partners/11-vesta-create.webp" alt="VestaCreate" loading="lazy"></div>
         <div class="kp-item"><img src="assets/partners/12-sai-house.jpg" alt="彩house 天然木の家" loading="lazy"></div>
         <!-- 2セット目（無限スクロール用の複製・aria-hidden） -->
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/01-sekisui-heim.png" alt="" loading="lazy"></div>
@@ -388,12 +391,12 @@
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/06-daiwa-house.png" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/09-yamada-homes.png" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/03-ai-koumuten.png" alt="" loading="lazy"></div>
-        <div class="kp-item" aria-hidden="true"><img src="assets/partners/07-idea-home.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/07-idea-home.webp" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/04-apple-home.png" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/05-clair-house-build.png" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/08-luminous-link.png" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/10-noble-partner.png" alt="" loading="lazy"></div>
-        <div class="kp-item" aria-hidden="true"><img src="assets/partners/11-vesta-create.png" alt="" loading="lazy"></div>
+        <div class="kp-item" aria-hidden="true"><img src="assets/partners/11-vesta-create.webp" alt="" loading="lazy"></div>
         <div class="kp-item" aria-hidden="true"><img src="assets/partners/12-sai-house.jpg" alt="" loading="lazy"></div>
       </div>
     </div>
