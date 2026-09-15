@@ -74,27 +74,75 @@
   color: var(--text-mute);
   letter-spacing: 0.04em;
 }
-/* 4項目コンパクトグリッド */
+/* 4項目カードグリッド（実物サムネイル入り） */
 .plan-items-compact {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 1080px;
+  gap: 24px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 .plan-item-compact {
   background: #fff;
-  border-radius: 18px;
-  padding: 24px 22px;
+  border-radius: 20px;
+  overflow: hidden;
   border: 1px solid var(--line-soft);
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(139, 108, 78, 0.06);
 }
 .plan-item-compact:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(139, 108, 78, 0.14);
+}
+.plan-item-compact .pic-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(180deg, #FBF7F0 0%, #F4EDE0 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.plan-item-compact .pic-thumb picture,
+.plan-item-compact .pic-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.plan-item-compact .pic-thumb img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform .6s var(--ease);
+}
+.plan-item-compact:hover .pic-thumb img {
+  transform: scale(1.04);
+}
+/* サンプルタグ */
+.plan-item-compact .pic-thumb::after {
+  content: 'SAMPLE';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.92);
+  color: var(--brown-deep);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.plan-item-compact .pic-body {
+  padding: 22px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .plan-item-compact .pic-num {
   display: inline-block;
+  align-self: flex-start;
   font-family: 'Zen Maru Gothic', sans-serif;
   font-size: 11px;
   color: var(--orange-deep);
@@ -116,8 +164,8 @@
   color: var(--text-soft);
   line-height: 1.85;
 }
-@media (max-width: 900px) {
-  .plan-items-compact { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1000px) {
+  .plan-items-compact { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }
 @media (max-width: 500px) {
   .plan-items-compact { grid-template-columns: 1fr; }
@@ -349,6 +397,14 @@
   .mini-cta .mc-actions { justify-content: center; }
 }
 </style>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yild4m8x2e");
+</script>
 </head>
 <body data-page="mieruka">
 <div id="site-header-host"></div>
@@ -405,36 +461,61 @@
       <p class="section-lead center fade-up d2">プランナーが提携設計事務所と連携し、以下の4点をお作りします。</p>
     </div>
 
-    <div class="plan-visual-hero fade-up">
-      <picture>
-        <source type="image/webp" srcset="assets/hero/mieruka-set.webp">
-        <img src="assets/hero/mieruka-set.jpg" alt="家づくり見える化プラン 納品資料イメージ：参考配置図・参考平面プラン・外観パース・簡易資金計画表" loading="lazy" width="1600" height="900">
-      </picture>
-    </div>
-    <p class="plan-visual-caption fade-up">※上記はイメージです。実際の資料は候補地・ご希望条件に合わせてお作りします。</p>
-
     <div class="plan-items-compact">
       <div class="plan-item-compact fade-up d1">
-        <div class="pic-num">ITEM 01</div>
-        <h3>候補地に合わせた<br>参考配置図</h3>
-        <p>候補地に、建物・駐車場・アプローチをどう配置するか。日当たり、風通し、隣地との距離を踏まえた"住まいのレイアウト"をお示しします。</p>
+        <div class="pic-thumb">
+          <picture>
+            <source type="image/webp" srcset="assets/mieruka/haichi.webp">
+            <img src="assets/mieruka/haichi.jpg" alt="参考配置図のサンプル：敷地に建物・駐車場・植栽を配置した図面" loading="lazy" width="900" height="900">
+          </picture>
+        </div>
+        <div class="pic-body">
+          <div class="pic-num">ITEM 01</div>
+          <h3>候補地に合わせた<br>参考配置図</h3>
+          <p>候補地に、建物・駐車場・アプローチをどう配置するか。日当たり、風通し、隣地との距離を踏まえた"住まいのレイアウト"をお示しします。</p>
+        </div>
       </div>
       <div class="plan-item-compact fade-up d2">
-        <div class="pic-num">ITEM 02</div>
-        <h3>参考平面プラン</h3>
-        <p>家族構成やご希望の暮らし方をもとに、部屋の配置や動線を検討したプラン。「こういう暮らしができそう」を具体化できます。</p>
+        <div class="pic-thumb">
+          <picture>
+            <source type="image/webp" srcset="assets/mieruka/heimen.webp">
+            <img src="assets/mieruka/heimen.jpg" alt="参考平面プランのサンプル：1階俯瞰の3Dパース" loading="lazy" width="900" height="1094">
+          </picture>
+        </div>
+        <div class="pic-body">
+          <div class="pic-num">ITEM 02</div>
+          <h3>参考平面プラン</h3>
+          <p>家族構成やご希望の暮らし方をもとに、部屋の配置や動線を検討したプラン。「こういう暮らしができそう」を具体化できます。</p>
+        </div>
       </div>
       <div class="plan-item-compact fade-up d3">
-        <div class="pic-num">ITEM 03</div>
-        <h3>外観パース</h3>
-        <p>正面から見たときの、家の"顔"のイメージ図。屋根の形、外壁の色味、窓の配置など、雰囲気が伝わるパースをご用意します。</p>
+        <div class="pic-thumb">
+          <picture>
+            <source type="image/webp" srcset="assets/mieruka/gaikan.webp">
+            <img src="assets/mieruka/gaikan.jpg" alt="外観パースのサンプル：モダンな箱型住宅のライトアップイメージ" loading="lazy" width="1200" height="764">
+          </picture>
+        </div>
+        <div class="pic-body">
+          <div class="pic-num">ITEM 03</div>
+          <h3>外観パース</h3>
+          <p>正面から見たときの、家の"顔"のイメージ図。屋根の形、外壁の色味、窓の配置など、雰囲気が伝わるパースをご用意します。</p>
+        </div>
       </div>
       <div class="plan-item-compact fade-up d4">
-        <div class="pic-num">ITEM 04</div>
-        <h3>プラン連動型<br>簡易資金計画表</h3>
-        <p>参考プランに紐づいた"建物本体・付帯工事・諸費用・土地"の目安を一覧化。ローンの月々返済までシミュレーションします。</p>
+        <div class="pic-thumb">
+          <picture>
+            <source type="image/webp" srcset="assets/mieruka/shikin.webp">
+            <img src="assets/mieruka/shikin.jpg" alt="簡易資金計画表のサンプル：建物・土地・諸費用・準備資金の一覧" loading="lazy" width="900" height="731">
+          </picture>
+        </div>
+        <div class="pic-body">
+          <div class="pic-num">ITEM 04</div>
+          <h3>プラン連動型<br>簡易資金計画表</h3>
+          <p>参考プランに紐づいた"建物本体・付帯工事・諸費用・土地"の目安を一覧化。ローンの月々返済までシミュレーションします。</p>
+        </div>
       </div>
     </div>
+    <p class="plan-visual-caption fade-up" style="margin-top:32px">※サンプルはイメージです。実際の資料は候補地・ご希望条件に合わせてお作りします。</p>
 
     <div class="mini-cta fade-up" style="margin-top:48px">
       <div class="mc-icon"><img src="assets/icons/checklist.webp" alt=""></div>

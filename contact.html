@@ -87,21 +87,100 @@
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 24px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
   font-size: 13px;
   color: var(--text-soft);
   line-height: 1.9;
 }
+.agreement + .agreement { margin-top: -4px; }
+.agreement strong.a-title {
+  color: var(--brown-deep);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* 適用規約リンク一覧 */
+.applied-terms-box {
+  background: #FBF7F0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 12px 0 6px;
+  border: 1px solid #EDE3D0;
+}
+.applied-terms-box .atb-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange-deep);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.applied-terms-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+.applied-terms-box li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--brown-deep);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 3px 0;
+}
+.applied-terms-box li a::before { content: '›'; color: var(--orange); font-weight: 700; }
+.applied-terms-box li a:hover { color: var(--orange-deep); text-decoration: underline; }
+.applied-terms-empty {
+  font-size: 12.5px;
+  color: var(--text-mute);
+  padding: 4px 0;
+}
+
 .agree-check {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   margin-top: 12px;
   font-weight: 500;
   color: var(--text);
+  cursor: pointer;
+  line-height: 1.7;
 }
-.agree-check input { accent-color: var(--orange); width: 18px; height: 18px; }
+.agree-check input {
+  accent-color: var(--orange);
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.agree-check .req {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.agree-check .opt {
+  display: inline-block;
+  background: var(--line);
+  color: var(--text-mute);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
 
 .submit-btn {
   width: 100%;
@@ -220,6 +299,14 @@
   .thanks-view { padding: 40px 24px; }
 }
 </style>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yild4m8x2e");
+</script>
 </head>
 <body data-page="contact">
 <div id="site-header-host"></div>
@@ -292,11 +379,35 @@
         </div>
 
         <div class="agreement">
-          <strong style="color:var(--brown-deep);display:block;margin-bottom:6px">個人情報の取扱いについて</strong>
-          ご入力いただいた個人情報は、お問い合わせへのご連絡・ご案内、および同意いただいた範囲内でのサービス提供のみに利用いたします。第三者に無断で提供することはありません。詳しくは<a href="privacy.html" style="color:var(--orange-deep);text-decoration:underline">プライバシーポリシー</a>をご確認ください。
+          <strong class="a-title">このご相談に適用される規約</strong>
+          お問い合わせの内容に応じて、以下の規約・規定が適用されます。送信の前に必ずご確認ください。
+          <div class="applied-terms-box" id="appliedTermsBox">
+            <div class="atb-title">このお問い合わせに適用される規約</div>
+            <ul id="appliedTermsList">
+              <!-- JSで動的に挿入 -->
+            </ul>
+          </div>
           <label class="agree-check">
-            <input type="checkbox" name="agree" required>
-            <span>個人情報の取扱いに同意する</span>
+            <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
+            <span><span class="req">必須</span>利用規約および当サービスに適用される各種規定を確認し、同意します。</span>
+          </label>
+        </div>
+
+        <div class="agreement">
+          <strong class="a-title">個人情報の取扱いについて</strong>
+          ご入力いただいた個人情報は、お問い合わせへのご連絡・ご案内、および同意いただいた範囲内でのサービス提供のみに利用いたします。詳しくは<a href="privacy.html" style="color:var(--orange-deep);text-decoration:underline" target="_blank" rel="noopener">プライバシーポリシー</a>および<a href="privacy-kurashinotsumugi.html" style="color:var(--orange-deep);text-decoration:underline" target="_blank" rel="noopener">「くらしのつむぎ 個人情報の取扱いについて」</a>をご確認ください。
+          <label class="agree-check">
+            <input type="checkbox" name="agreePrivacy" id="agreePrivacy" required>
+            <span><span class="req">必須</span>個人情報の取扱いに同意する</span>
+          </label>
+        </div>
+
+        <div class="agreement" id="thirdPartyAgreementBox" hidden>
+          <strong class="a-title">提携事業者への個人情報提供について</strong>
+          ご相談内容によっては、対応のため提携する住宅会社、不動産会社、金融機関、士業事務所その他の事業者（提携事業者）に、氏名・連絡先・ご相談内容等の情報を提供する場合があります。ご同意いただかない場合でも、当社内で対応可能な範囲でご案内いたします。
+          <label class="agree-check">
+            <input type="checkbox" name="agreeThirdParty" id="agreeThirdParty">
+            <span><span class="opt">任意</span>ご相談対応に必要な範囲で、氏名、連絡先、ご相談内容その他必要な個人情報を、当社が選定する提携事業者へ提供することに同意します。</span>
           </label>
         </div>
 
