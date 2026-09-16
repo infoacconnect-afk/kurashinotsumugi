@@ -59,6 +59,7 @@
           <div class="footer-col">
             <h4>規約</h4>
             <ul>
+              <li><a href="terms.html">利用規約・各種規定</a></li>
               <li><a href="privacy.html">プライバシーポリシー</a></li>
               <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
             </ul>

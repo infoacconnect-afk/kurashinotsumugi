@@ -15,6 +15,84 @@
   const thanksView = document.getElementById('thanksView');
   const resetBtn = document.getElementById('resetForm');
 
+  // ============================================
+  // 適用規約リンクの動的表示
+  // ============================================
+  // 各サービスに適用される規約を定義
+  const TERMS_MATRIX = {
+    korekara: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+      { href: 'terms-korekara.html', title: 'これからのすまい 利用特則' },
+    ],
+    mieruka: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+      { href: 'terms-korekara.html', title: 'これからのすまい 利用特則' },
+      { href: 'terms-mieruka.html', title: '家づくり見える化プラン 特則' },
+    ],
+    sorekara: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+      { href: 'terms-sorekara.html', title: 'それからのすまい 利用特則' },
+    ],
+    shindan: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+      { href: 'terms-sorekara.html', title: 'それからのすまい 利用特則' },
+    ],
+    other: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+    ],
+    tel: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+    ],
+  };
+
+  // どのサービス選択で第三者提供同意欄を表示するか
+  const THIRD_PARTY_SERVICES = new Set(['korekara', 'mieruka', 'sorekara', 'shindan']);
+
+  const appliedTermsList = document.getElementById('appliedTermsList');
+  const thirdPartyBox = document.getElementById('thirdPartyAgreementBox');
+  const agreeThirdParty = document.getElementById('agreeThirdParty');
+
+  function updateAppliedTerms() {
+    if (!appliedTermsList) return;
+    const checked = Array.from(form.querySelectorAll('input[name="inquiry"]:checked')).map(i => i.value);
+    // 重複を排除しつつマージ
+    const seen = new Set();
+    const merged = [];
+    // 選択された項目に対応する規約を全て集約（未選択時はデフォルトのcommon+kurashinotsumugi）
+    const services = checked.length ? checked : ['other'];
+    services.forEach(s => {
+      (TERMS_MATRIX[s] || []).forEach(t => {
+        if (!seen.has(t.href)) {
+          seen.add(t.href);
+          merged.push(t);
+        }
+      });
+    });
+    // プライバシー系は個人情報同意ブロックで扱うため規約リストには含めない
+    appliedTermsList.innerHTML = merged.map(t =>
+      `<li><a href="${t.href}" target="_blank" rel="noopener">${t.title}</a></li>`
+    ).join('');
+
+    // 第三者提供同意欄の表示切替
+    const showThirdParty = checked.some(s => THIRD_PARTY_SERVICES.has(s));
+    if (thirdPartyBox) {
+      thirdPartyBox.hidden = !showThirdParty;
+      if (!showThirdParty && agreeThirdParty) agreeThirdParty.checked = false;
+    }
+  }
+
+  // 初期表示 & チェック変更時
+  updateAppliedTerms();
+  form.querySelectorAll('input[name="inquiry"]').forEach(el => {
+    el.addEventListener('change', updateAppliedTerms);
+  });
+
   // ---------- Helpers ----------
   const showError = (msg) => {
     errorEl.innerHTML = `<strong>入力内容をご確認ください</strong><br>${msg}`;
@@ -43,7 +121,8 @@
     if (!data.email || !isValidEmail(data.email)) return 'メールアドレスの形式が正しくありません';
     if (data.tel && !/^[\d\-\+\(\)\s]+$/.test(data.tel)) return '電話番号の形式が正しくありません';
     if (data.message && data.message.length > 5000) return 'ご相談内容は5000文字以内でご入力ください';
-    if (!data.agree) return '個人情報の取扱いへの同意が必要です';
+    if (!data.agreeTerms) return '利用規約への同意が必要です';
+    if (!data.agreePrivacy) return '個人情報の取扱いへの同意が必要です';
     return null;
   };
 
@@ -55,6 +134,12 @@
     // フォームデータを収集
     const fd = new FormData(form);
     const inquiryTypes = fd.getAll('inquiry');
+    // 適用規約リスト（同意履歴の記録用）
+    const appliedTermsSet = new Set();
+    const services = inquiryTypes.length ? inquiryTypes : ['other'];
+    services.forEach(s => {
+      (TERMS_MATRIX[s] || []).forEach(t => appliedTermsSet.add(t.title));
+    });
     const data = {
       name: fd.get('name'),
       furigana: fd.get('furigana'),
@@ -63,7 +148,13 @@
       inquiryTypes: inquiryTypes,
       message: fd.get('message'),
       website: fd.get('website'), // honeypot
-      agree: !!fd.get('agree'),
+      // 同意情報
+      agreeTerms: !!fd.get('agreeTerms'),
+      agreePrivacy: !!fd.get('agreePrivacy'),
+      agreeThirdParty: !!fd.get('agreeThirdParty'),
+      appliedTerms: Array.from(appliedTermsSet),
+      consentedAt: new Date().toISOString(),
+      termsVersion: '2026-08-18',
       userAgent: navigator.userAgent,
       referrer: document.referrer,
     };
