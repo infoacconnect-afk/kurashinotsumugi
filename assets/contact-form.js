@@ -198,6 +198,15 @@
       thanksView.classList.add('in');
       window.scrollTo({ top: thanksView.offsetTop - 100, behavior: 'smooth' });
 
+      // OpenAI Q コンバージョン計測: 問い合わせ完了
+      try {
+        if (typeof window.oaiq === 'function') {
+          window.oaiq('measure', 'registration_completed', { type: 'customer_action' });
+        }
+      } catch (e) {
+        console.warn('[oaiq] measure failed:', e);
+      }
+
     } catch (err) {
       console.error('[contact-form] Submit failed:', err);
       showError(
