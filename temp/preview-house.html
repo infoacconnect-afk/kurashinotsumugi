@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><style>
+body { margin: 0; font-family: sans-serif; }
+.row { display: flex; gap: 20px; padding: 40px; align-items: flex-start; }
+.card { text-align: center; }
+.card .box { width: 260px; height: 260px; display: flex; align-items: center; justify-content: center; border-radius: 20px; }
+.card img { width: 220px; height: 220px; object-fit: contain; }
+.card .label { padding: 12px 8px; font-size: 13px; }
+.bg-cream { background: #FBF7F0; }
+.bg-beige { background: linear-gradient(180deg, #FBF7F0 0%, #F3ECE0 100%); }
+.bg-orange { background: linear-gradient(180deg, #F7EFDF 0%, #F5E8D0 100%); }
+.bg-white { background: #ffffff; border: 1px solid #eee; }
+.bg-check {
+  background:
+    repeating-conic-gradient(#e0e0e0 0deg 90deg, #ffffff 90deg 180deg)
+    0 0/20px 20px;
+}
+h2 { padding: 20px 40px 0; margin: 0; font-size: 18px; color: #333; }
+</style></head>
+<body>
+  <h2>元画像（不透明・白背景）</h2>
+  <div class="row">
+    <div class="card"><div class="box bg-cream"><img src="../assets/icons/house.webp"></div><div class="label">クリーム背景</div></div>
+    <div class="card"><div class="box bg-beige"><img src="../assets/icons/house.webp"></div><div class="label">ベージュグラデ</div></div>
+    <div class="card"><div class="box bg-orange"><img src="../assets/icons/house.webp"></div><div class="label">オレンジ系</div></div>
+    <div class="card"><div class="box bg-check"><img src="../assets/icons/house.webp"></div><div class="label">チェック</div></div>
+  </div>
+
+  <h2>透過版（新画像）</h2>
+  <div class="row">
+    <div class="card"><div class="box bg-cream"><img src="../assets/icons/house-transparent.png"></div><div class="label">クリーム背景</div></div>
+    <div class="card"><div class="box bg-beige"><img src="../assets/icons/house-transparent.png"></div><div class="label">ベージュグラデ</div></div>
+    <div class="card"><div class="box bg-orange"><img src="../assets/icons/house-transparent.png"></div><div class="label">オレンジ系</div></div>
+    <div class="card"><div class="box bg-check"><img src="../assets/icons/house-transparent.png"></div><div class="label">チェック</div></div>
+  </div>
+</body>
+</html>
