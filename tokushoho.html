@@ -4,58 +4,109 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>特定商取引法に基づく表記｜くらしのつむぎ</title>
+<meta name="description" content="Ac・Connect株式会社が「くらしのつむぎ」において一般消費者向けに提供する有料サービスに関する特定商取引法に基づく表記です。">
 <link rel="icon" href="assets/logo-white.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
+<link rel="stylesheet" href="assets/legal-common.css">
 <style>
-.legal-hero { background: linear-gradient(180deg, #FBF7F0 0%, #F3ECE0 100%); }
-.legal-body { background: #fff; padding: 80px 0 120px; }
-.tokusho-table {
-  max-width: 820px;
-  margin: 0 auto;
+/* 特商法テーブル */
+.tokusho-section {
   background: #fff;
-  border-radius: 24px;
-  overflow: hidden;
+  border-radius: 20px;
+  padding: 40px 44px;
+  margin-bottom: 32px;
   border: 1px solid var(--line-soft);
+  box-shadow: 0 2px 12px rgba(139, 108, 78, 0.05);
+}
+.tokusho-section h2 {
+  font-size: 21px;
+  color: var(--brown-deep);
+  margin: 0 0 24px;
+  padding: 8px 0 8px 16px;
+  border-left: 4px solid var(--orange);
+  line-height: 1.5;
+  font-weight: 700;
+}
+.tokusho-table {
+  display: grid;
+  grid-template-columns: minmax(140px, 240px) 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line-soft);
 }
 .tokusho-row {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  padding: 22px 32px;
-  border-bottom: 1px solid var(--line-soft);
+  display: contents;
 }
-.tokusho-row:last-child { border-bottom: 0; }
-.tokusho-row dt {
-  font-size: 14px;
-  color: var(--brown-deep);
-  font-weight: 600;
-  font-family: 'Zen Maru Gothic', sans-serif;
-}
+.tokusho-row dt,
 .tokusho-row dd {
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.9;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line-soft);
+  line-height: 1.85;
+  font-size: 14.5px;
   margin: 0;
 }
+.tokusho-row dt {
+  background: #FBF7F0;
+  color: var(--brown-deep);
+  font-weight: 600;
+  font-size: 14px;
+}
+.tokusho-row dd { color: var(--text); }
+.tokusho-row dd ul { margin: 6px 0 0; padding-left: 20px; }
+.tokusho-row dd ul li { margin-bottom: 4px; font-size: 14px; }
+
+/* 料金プランテーブル */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4px 0 12px;
+  font-size: 14px;
+  border: 1px solid var(--line-soft);
+}
+.price-table thead th {
+  background: #FBF7F0;
+  color: var(--brown-deep);
+  font-weight: 600;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--orange-soft);
+  font-size: 13px;
+}
+.price-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  line-height: 1.75;
+  vertical-align: top;
+}
+.price-table td.price-num { white-space: nowrap; font-weight: 600; color: var(--brown-deep); }
+.price-table tr:last-child td { border-bottom: none; }
+.price-note {
+  font-size: 13px;
+  color: var(--text-mute);
+  margin: 8px 0 20px;
+  line-height: 1.85;
+}
 @media (max-width: 700px) {
-  .tokusho-row { grid-template-columns: 1fr; gap: 6px; padding: 20px; }
+  .tokusho-section { padding: 28px 22px; }
+  .tokusho-table { grid-template-columns: 1fr; }
+  .tokusho-row dt {
+    border-bottom: none;
+    padding-bottom: 4px;
+    font-size: 12px;
+  }
+  .tokusho-row dd {
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
 }
 </style>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "yild4m8x2e");
-</script>
 </head>
 <body data-page="tokushoho">
 <div id="site-header-host"></div>
 
 <div class="breadcrumb">
   <div class="breadcrumb-inner">
-    <a href="index.html">ホーム</a><span class="sep">›</span>特定商取引法に基づく表記
+    <a href="index.html">ホーム</a><span class="sep">›</span><a href="terms.html">利用規約・各種規定</a><span class="sep">›</span>特定商取引法に基づく表記
   </div>
 </div>
 
@@ -63,46 +114,149 @@
   <div class="page-hero-deco left" data-deco="vine-corner"></div>
   <div class="page-hero-deco right" data-deco="vine-corner"></div>
   <div class="page-hero-inner">
-    <div class="eyebrow fade-up">TOKUTEISHOTORIHIKI</div>
+    <div class="eyebrow fade-up">TOKUTEI-SHOTORIHIKI-HO</div>
     <h1 class="fade-up d1">特定商取引法に基づく表記</h1>
-    <p class="lead fade-up d2">特定商取引に関する法律に基づき、以下のとおり表記いたします。</p>
+    <p class="lead fade-up d2">「くらしのつむぎ」において一般消費者向けに提供する有料サービスについて、特定商取引に関する法律に基づき表示します。</p>
   </div>
 </section>
 
 <section class="legal-body">
   <div class="container">
-    <dl class="tokusho-table">
-      <div class="tokusho-row"><dt>販売業者</dt><dd>Ac・Connect株式会社</dd></div>
-      <div class="tokusho-row"><dt>運営責任者</dt><dd>金子 晃広</dd></div>
-      <div class="tokusho-row"><dt>所在地</dt><dd>〒331-0814<br>埼玉県さいたま市北区東大成町1丁目651-13 加藤ビル 1階</dd></div>
-      <div class="tokusho-row"><dt>電話番号</dt><dd>048-782-5920<br>受付時間：10:00 – 18:00（定休日:水曜日、事前予約制）</dd></div>
-      <div class="tokusho-row" data-cfemail-skip><dt>メールアドレス</dt><dd id="tokusho-email"></dd></div>
-      <script>
-        // Cloudflare Email Obfuscation 対策：JSで動的挿入
-        (function(){
-          var user = 'info';
-          var domain = 'ac-c.co.jp';
-          var addr = user + '\u0040' + domain;
-          var el = document.getElementById('tokusho-email');
-          if (el) {
-            var a = document.createElement('a');
-            a.href = 'mailto:' + addr;
-            a.textContent = addr;
-            el.appendChild(a);
-          }
-        })();
-      </script>
-      <div class="tokusho-row"><dt>販売価格</dt><dd>各サービスページに記載の金額（税込表示）</dd></div>
-      <div class="tokusho-row"><dt>商品代金以外の必要料金</dt><dd>振込手数料はお客様のご負担となります。<br>各種オプションサービスをご利用いただく場合の追加費用は、事前にご案内します。</dd></div>
-      <div class="tokusho-row"><dt>お支払方法</dt><dd>銀行振込／クレジットカード決済</dd></div>
-      <div class="tokusho-row"><dt>支払時期</dt><dd>お申し込み後、当社所定の期日までにお支払いください。詳しくは各サービスのご案内をご確認ください。</dd></div>
-      <div class="tokusho-row"><dt>提供時期</dt><dd>「家づくり見える化プラン」：お申し込み・お支払確認後、3〜4週間以内に納品<br>その他のサービス：個別にご案内</dd></div>
-      <div class="tokusho-row"><dt>返品・キャンセルについて</dt><dd>サービスの性質上、作業開始後のキャンセル・返金はお受けできない場合があります。作業開始前のキャンセルについては、事前にご相談ください。</dd></div>
-    </dl>
+    <div class="legal-content">
+
+      <!-- 1. 事業者情報 -->
+      <div class="tokusho-section">
+        <h2>1．事業者情報</h2>
+        <dl class="tokusho-table">
+          <div class="tokusho-row"><dt>役務提供事業者</dt><dd>Ac・Connect株式会社</dd></div>
+          <div class="tokusho-row"><dt>代表責任者</dt><dd>代表取締役　金子 晃広</dd></div>
+          <div class="tokusho-row"><dt>所在地</dt><dd>〒331-0814<br>埼玉県さいたま市北区東大成町1-651-13 加藤ビル1階</dd></div>
+          <div class="tokusho-row"><dt>電話番号</dt><dd><a href="tel:048-782-5920">048-782-5920</a></dd></div>
+          <div class="tokusho-row" data-cfemail-skip><dt>メールアドレス</dt><dd id="tokusho-email"></dd></div>
+          <div class="tokusho-row"><dt>お問い合わせ</dt><dd>当社Webサイト（<a href="https://kurashinotsumugi.com">https://kurashinotsumugi.com</a>）の<a href="contact.html">お問い合わせフォーム</a>または上記電話番号にて受け付けます。</dd></div>
+        </dl>
+      </div>
+
+      <!-- 2. 家づくり見える化パック -->
+      <div class="tokusho-section">
+        <h2>2．家づくり見える化パック</h2>
+        <table class="price-table">
+          <thead>
+            <tr><th>区分</th><th>料金（税込）</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>基本サービス</td>
+              <td class="price-num">22,000円／1契約</td>
+              <td>参考配置図、参考平面プラン、外観パース、簡易資金計画表</td>
+            </tr>
+            <tr>
+              <td>内観パース</td>
+              <td class="price-num">7,700円／1枚</td>
+              <td>希望する場合に追加可能</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">料金以外に、銀行振込にかかる振込手数料およびインターネット利用に必要な通信料等は利用者の負担となります。</p>
+
+        <dl class="tokusho-table">
+          <div class="tokusho-row"><dt>支払方法</dt><dd>銀行振込（当社発行の請求書に基づく）</dd></div>
+          <div class="tokusho-row"><dt>支払時期</dt><dd>当社が申込内容を確認し承諾した後、請求書を原則として電子メールで送付します。電子メールによる受信が困難な場合は郵送します。請求書発行日から7日以内にお振込みください。</dd></div>
+          <div class="tokusho-row"><dt>制作開始</dt><dd>入金確認および制作に必要な資料・情報がすべて揃った後、当社が制作に着手します。</dd></div>
+          <div class="tokusho-row"><dt>納品時期</dt><dd>制作着手日から原則10日～14日程度で納品します。お申込みの集中、制作状況その他やむを得ない事情により通常よりお時間をいただく場合は、判明次第、予定納品時期をご案内します。</dd></div>
+          <div class="tokusho-row"><dt>契約成立・キャンセル</dt><dd>当社が利用者の申込みを承諾した時点で契約が成立します。契約成立後は、利用者都合による申込みの撤回、キャンセル、契約解除および返金は受け付けません。ただし、法令上利用者に解除その他の権利が認められる場合を除きます。当社が適切な成果物の制作が困難と判断してサービス提供を終了し、既に料金を受領している場合は、当該料金を全額返金します。</dd></div>
+          <div class="tokusho-row"><dt>成果物に関する事項</dt><dd>成果物は住宅計画を検討するための参考資料です。設計図書、確認申請図書、工事図面、融資承認等を保証するものではありません。納品後の利用者都合による修正・変更は原則として行わず、別の土地、間取り、配置その他の条件変更による再作成は新たな申込みとして取り扱います。</dd></div>
+        </dl>
+      </div>
+
+      <!-- 3. つぎの明かり -->
+      <div class="tokusho-section">
+        <h2>3．つぎの明かり</h2>
+        <table class="price-table">
+          <thead>
+            <tr><th>区分</th><th>料金（税込）</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>基本サービス</td>
+              <td class="price-num">月額 5,500円</td>
+              <td>月1回の定期巡回、外部施錠・建物外観・敷地等の確認、写真報告、通常範囲の軽微な除草・ごみ整理</td>
+            </tr>
+            <tr>
+              <td>室内見守り</td>
+              <td class="price-num">月額 +3,300円</td>
+              <td>室内の目視確認、換気、通水、簡易的な異常確認、室内写真。必要に応じて鍵をお預かりします。</td>
+            </tr>
+            <tr>
+              <td>郵便物転送</td>
+              <td class="price-num">月額 +1,100円</td>
+              <td>月1回、通常量の郵便物をまとめて指定先へ転送します。通常量・通常サイズの送料を含みます。</td>
+            </tr>
+            <tr>
+              <td>臨時巡回</td>
+              <td class="price-num">5,500円／回</td>
+              <td>通常巡回とは別に、ご依頼に応じて現地確認・写真報告を行います。</td>
+            </tr>
+            <tr>
+              <td>巡回表示看板</td>
+              <td class="price-num">2,200円／枚</td>
+              <td>当社所定の「定期巡回管理中」等の表示看板を対象物件へ設置します。</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="price-note">
+          郵便物転送は通常量・通常サイズの送料を料金に含みます。大量の郵便物、宅配物、特殊サイズその他通常の取扱範囲を超える場合は、実施前に追加費用をご案内します。<br>
+          草刈り、剪定、伐採、不用品・残置物撤去、専門清掃、廃棄物処理、修繕その他の専門作業は、当社が提供または請け負う有料サービスではありません。利用者の希望により対応可能な協力事業者を紹介する場合がありますが、作業は利用者と紹介先事業者との直接契約とし、作業料金は紹介先事業者が提示し、利用者が同事業者へ直接支払います。
+        </p>
+
+        <dl class="tokusho-table">
+          <div class="tokusho-row"><dt>支払方法</dt><dd>銀行振込（当社発行の請求書に基づく）</dd></div>
+          <div class="tokusho-row"><dt>基本料金・月額オプションの支払時期</dt><dd>毎月1日から末日までを1利用月とし、当月分を当月中に請求します。利用者は当月末日までにお振込みください。請求書は原則として電子メールで送付し、電子メールによる受信が困難な場合は郵送します。</dd></div>
+          <div class="tokusho-row"><dt>スポットサービスの支払時期</dt><dd>臨時巡回、巡回表示看板その他1回ごとに料金が発生するサービスは、実施後に請求書を発行し、請求書発行日から7日以内にお振込みください。</dd></div>
+          <div class="tokusho-row"><dt>料金以外の負担</dt><dd>銀行振込手数料、通常料金に含まれない郵便物の送料・梱包費、鍵返却等の郵送費その他利用者の承諾に基づく実費は、利用者の負担となります。</dd></div>
+          <div class="tokusho-row"><dt>サービス開始時期</dt><dd>利用契約書兼申込書に定める開始日から提供します。開始日の記載がない場合は、契約成立日の属する月の翌月1日を標準とし、鍵の受領、現地確認その他の準備完了後に当社と利用者が合意した日から開始します。以後、原則として月1回の定期巡回を行い、具体的な巡回日は当社の巡回計画に基づきます。</dd></div>
+          <div class="tokusho-row"><dt>月途中から開始する場合</dt><dd>当社と利用者が別途合意し月途中からサービスを開始する場合も、当該開始月の基本料金および月額制オプション料金は日割計算を行わず、1か月分の料金が発生します。</dd></div>
+          <div class="tokusho-row"><dt>契約期間・自動更新</dt><dd>契約期間はサービス開始日から1年間です。期間満了日の1か月前までに当社または利用者から更新しない旨の通知がない場合、同一条件でさらに1年間更新し、その後も同様とします。ただし、料金その他の条件に変更がある場合は、「<a href="terms-tsuginoakari.html">つぎの明かり 利用規約</a>」に定める方法により通知します。</dd></div>
+          <div class="tokusho-row"><dt>中途解約</dt><dd>利用者は、解約を希望する月の前月末日までに当社所定の方法で通知することにより、解約希望月の末日をもって契約を終了できます。中途解約に伴う違約金はありません。解約月は月末日までサービスを提供し、当該月の利用料金は全額発生します。日割計算は行いません。</dd></div>
+          <div class="tokusho-row"><dt>申込みの撤回</dt><dd>契約成立前は申込みを撤回できます。契約成立後の終了は、前項および「<a href="terms-tsuginoakari.html">つぎの明かり 利用規約</a>」に従います。</dd></div>
+          <div class="tokusho-row"><dt>サービスの性質</dt><dd>本サービスは警備、常時監視、建物管理、設備保守、建物診断、修繕、災害防止または犯罪防止を保証するサービスではありません。対象物件の状態、地域、天候、安全性、権利関係、対応地域または法令上の制約等により、申込みを承諾せず、またはサービスの全部もしくは一部を提供できない場合があります。</dd></div>
+        </dl>
+      </div>
+
+      <!-- 4. その他 -->
+      <div class="tokusho-section">
+        <h2>4．その他</h2>
+        <dl class="tokusho-table">
+          <div class="tokusho-row"><dt>申込期間</dt><dd>特に定めはありません。各サービスの受付状況等により、申込みの受付を停止または終了する場合があります。</dd></div>
+          <div class="tokusho-row"><dt>その他の条件</dt><dd>各サービスの詳細な利用条件は、各サービスの利用規約、利用契約書兼申込書、料金表、見積書その他当社が提示する条件によります。「<a href="terms-mieruka.html">家づくり見える化パック 特則</a>」および「<a href="terms-tsuginoakari.html">つぎの明かり 利用規約</a>」、利用契約書兼申込書ならびに料金表もあわせてご確認ください。</dd></div>
+        </dl>
+      </div>
+
+      <div class="sig">
+        <div class="company">Ac・Connect株式会社</div>
+      </div>
+      <div class="updated">最終更新日：2026年9月24日</div>
+
+    </div>
   </div>
 </section>
 
 <div id="site-footer-host"></div>
+<script>
+  // Cloudflare Email Obfuscation 対策：JSで動的挿入
+  (function(){
+    var user = 'info';
+    var domain = 'ac-c.co.jp';
+    var addr = user + '\u0040' + domain;
+    var el = document.getElementById('tokusho-email');
+    if (el) {
+      var a = document.createElement('a');
+      a.href = 'mailto:' + addr;
+      a.textContent = addr;
+      el.appendChild(a);
+    }
+  })();
+</script>
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
