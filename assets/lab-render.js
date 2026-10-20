@@ -57,12 +57,19 @@
   const thumbHtml = (article) => {
     if (article.eyecatch) {
       const alt = article.eyecatchAlt || article.title;
-      return `<img src="${article.eyecatch}" alt="${escapeHtml(alt)}" loading="lazy">`;
+      return `<img src="${escapeHtml(window.KurashiArticleImage(article.eyecatch))}" alt="${escapeHtml(alt)}" loading="lazy">`;
     }
     return fallbackThumb(article);
   };
 
   const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Only the reviewed 3,000万円控除 list-card title is grouped.
+  const listTitleHtml = (article) => {
+    const title = escapeHtml(article.title);
+    if (article.slug !== '3000koujyo' || article.title !== '相続空き家の3,000万円控除、使うべき？やさしく解説') return title;
+    return title.replace('使うべき？', '<span class="card-title-phrase">使うべき？</span>');
+  };
 
   const articleUrl = (article) => `lab-article.html?id=${encodeURIComponent(article.slug)}`;
 
@@ -152,7 +159,7 @@
               <span class="cat">${escapeHtml(cat ? cat.name : '')}</span>
               <span class="date">${formatDate(a.publishedAt)}</span>
             </div>
-            <div class="al-title">${escapeHtml(a.title)}</div>
+            <div class="al-title">${listTitleHtml(a)}</div>
           </div>
         </a>
       `;

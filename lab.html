@@ -2,11 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>住資産再生ラボ｜くらしのつむぎ</title>
 <meta name="description" content="住まいの"未来"を、やさしく学べる場所。空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。">
 <link rel="icon" href="assets/logo-white.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/fonts-local.css">
 <link rel="stylesheet" href="assets/common.css">
 <style>
 .hero-lab { background: linear-gradient(180deg, #F7F9F2 0%, #FBF7F0 100%); }
@@ -29,7 +31,7 @@
   background: #fff;
 }
 .pickup-card .pu-thumb svg,
-.pickup-card .pu-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.pickup-card .pu-thumb img { width: 100%; height: 100%; display: block; object-fit: contain; }
 .pickup-badge {
   display: inline-block;
   background: var(--orange);
@@ -129,7 +131,7 @@
 }
 .al-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .al-thumb { aspect-ratio: 16/10; overflow: hidden; background: var(--beige); }
-.al-thumb svg, .al-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.al-thumb svg, .al-thumb img { width: 100%; height: 100%; display: block; object-fit: contain; }
 .al-body { padding: 24px; }
 .al-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; }
 .al-meta .cat { background: var(--green-soft); color: var(--green-deep); padding: 3px 10px; border-radius: 6px; font-weight: 600; }
@@ -228,6 +230,7 @@
 @keyframes labFadeIn {
   to { opacity: 1; transform: translateY(0); }
 }
+.al-title .card-title-phrase { display: inline-block; white-space: nowrap; }
 </style>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -239,6 +242,7 @@
 </script>
 <!-- OpenAI Q Pixel -->
 <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"GUGE7xwHjrwe94HKxFKpWs",debug:true});</script>
+<link rel="stylesheet" href="assets/mobile-reading.css">
 </head>
 <body data-page="lab">
 <div id="site-header-host"></div>
@@ -255,7 +259,7 @@
   <div class="page-hero-inner">
     <div class="eyebrow fade-up">LAB</div>
     <h1 class="fade-up d1">住資産再生ラボ</h1>
-    <p class="lead fade-up d2">住まいの"未来"を、やさしく学べる場所。<br>空き家、相続、税金、活用事例を、暮らしに寄り添う言葉でお届けします。</p>
+    <p class="lead fade-up d2"><span class="reading-phrase">住まいの"未来"を、</span><span class="reading-phrase">やさしく学べる場所。</span><br><span class="reading-phrase">空き家、相続、税金、</span><span class="reading-phrase">活用事例を、</span><span class="reading-phrase">暮らしに寄り添う言葉で</span><span class="reading-phrase">お届けします。</span></p>
   </div>
 </section>
 

@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>くらしのつむぎ｜これからのすまい、それからのすまい。</title>
 <meta name="description" content="くらしのつむぎは、住まいに関わるすべての時間に、やさしく寄り添う総合相談ブランドです。家づくりから空き家のことまで、いっしょに考えます。">
@@ -9,11 +10,12 @@
 <meta property="og:description" content="住まいのことは、これからのことも、それからのことも。">
 <meta property="og:image" content="assets/logo-white.png">
 <link rel="icon" href="assets/logo-white.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+
+
 <link rel="preload" as="image" href="assets/icons/house-transparent.webp" type="image/webp">
 <link rel="preload" as="image" href="assets/icons/leaf.webp" type="image/webp">
+<link rel="stylesheet" href="assets/fonts-local.css">
 <link rel="stylesheet" href="assets/common.css">
 <style>
 /* ---------- Hero ---------- */
@@ -805,6 +807,7 @@
 </script>
 <!-- OpenAI Q Pixel -->
 <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"GUGE7xwHjrwe94HKxFKpWs",debug:true});</script>
+<link rel="stylesheet" href="assets/phrase-wrap.css">
 </head>
 <body data-page="home">
 
@@ -836,7 +839,7 @@
       <img src="assets/icons/house-transparent.webp" alt="くらしのつむぎ" loading="eager">
     </div>
     <h1 class="hero-brand" id="heroBrand">くらしのつむぎ</h1>
-    <p class="hero-catch" id="heroCatch">これからのすまい、それからのすまい。</p>
+    <p class="hero-catch" id="heroCatch"><span class="wrap-proposal">これからのすまい、</span><span class="wrap-proposal">それからのすまい。</span></p>
     <div class="hero-buttons" id="heroButtons">
       <a href="korekara.html" class="hero-btn korekara">
         <div class="btn-emoji"><img src="assets/icons/house.webp" alt="" loading="eager"></div>
@@ -1242,14 +1245,19 @@ window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('heroBrand').classList.add('show'), 1800);
   // Step 4: Catchcopy letter by letter (starts at 2.4s)
   const catchEl = document.getElementById('heroCatch');
-  const text = catchEl.textContent;
-  catchEl.innerHTML = '';
-  [...text].forEach((c, i) => {
-    const span = document.createElement('span');
-    span.className = 'ch';
-    span.textContent = c;
-    span.style.transitionDelay = (i * 0.06) + 's';
-    catchEl.appendChild(span);
+  // Keep the reviewed phrase boundaries while preserving per-character timing.
+  let characterIndex = 0;
+  [...catchEl.children].forEach(phrase => {
+    const text = phrase.textContent;
+    phrase.textContent = '';
+    [...text].forEach(c => {
+      const span = document.createElement('span');
+      span.className = 'ch';
+      span.textContent = c;
+      span.style.transitionDelay = (characterIndex * 0.06) + 's';
+      characterIndex += 1;
+      phrase.appendChild(span);
+    });
   });
   setTimeout(() => {
     catchEl.querySelectorAll('.ch').forEach(s => s.classList.add('show'));

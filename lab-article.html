@@ -2,11 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>実家を相続したら、まず何から始める？やさしく整理する5つのステップ｜住資産再生ラボ</title>
 <meta name="description" content="実家を継いだあと、いちばん多いご相談は「何から始めればいいのかわからない」というもの。急がず、後悔しない3つのステップをご紹介します。">
 <link rel="icon" href="assets/logo-white.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/fonts-local.css">
 <link rel="stylesheet" href="assets/common.css">
 <style>
 /* ---------- Article Hero ---------- */
@@ -80,7 +82,7 @@
   z-index: 3;
 }
 .article-eyecatch-inner {
-  aspect-ratio: 16/9;
+  aspect-ratio: auto;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(139, 111, 78, 0.15);
@@ -90,9 +92,11 @@
 .article-eyecatch-inner img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
+
+.article-eyecatch-inner img { height: auto; }
 
 /* ---------- Article body ---------- */
 .article-body-sec {
@@ -496,6 +500,8 @@
 </script>
 <!-- OpenAI Q Pixel -->
 <script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"GUGE7xwHjrwe94HKxFKpWs",debug:true});</script>
+<link rel="stylesheet" href="assets/mobile-reading.css">
+<link rel="stylesheet" href="assets/phrase-wrap.css">
 </head>
 <body data-page="lab-article">
 <div id="site-header-host"></div>

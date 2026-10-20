@@ -1,0 +1,11 @@
+/* Trial mobile reading adjustment; font size, weight and content unchanged. */
+@media (max-width: 640px) {
+  .hero-lab .page-hero-inner,
+  .hero-sorekara .page-hero-inner { padding-left: 20px; padding-right: 20px; }
+  .hero-lab .lead .reading-phrase,
+  .hero-sorekara .lead .reading-phrase { display: inline-block; max-width: 100%; }
+  .article-layout { padding-left: 20px; padding-right: 20px; }
+  .article-content p { text-wrap: pretty; }
+  .article-content h2,
+  .article-content h3 { text-wrap: balance; }
+}

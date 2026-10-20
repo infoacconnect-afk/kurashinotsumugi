@@ -46,6 +46,23 @@
   const titleEl = document.querySelector('[data-article="title"]');
   if (titleEl) titleEl.textContent = article.title;
 
+  // Apply only the exact article titles approved in comparison revision 4.
+  const reviewedTitles = {
+  "akiya_kimochi": {
+    "text": "相続した実家、どうする？「売ること」に罪悪感があるときに考えたいこと",
+    "html": "相続した実家、どうする？「<span class=\"review-phrase\">売ること</span>」に罪悪感があるときに考えたいこと"
+  },
+  "koteishisan": {
+    "text": "空き家を放置すると固定資産税が「最大6倍」に？知っておきたい理由と、今からできる対策",
+    "html": "空き家を放置すると固定資産税が「最大6倍」に？<span class=\"review-phrase\">知っておきたい</span>理由と、今からできる対策"
+  }
+};
+  const reviewedTitle = reviewedTitles[slug];
+  if (titleEl && reviewedTitle && titleEl.textContent === reviewedTitle.text) {
+    titleEl.innerHTML = reviewedTitle.html;
+  }
+
+
   // ---- Category ----
   const cat = categoriesMap[article.category];
   const catName = cat ? cat.name : (article.category || '');
@@ -67,7 +84,7 @@
   // ---- Eyecatch ----
   const eye = document.querySelector('[data-article="eyecatch"]');
   if (eye && article.eyecatch) {
-    eye.innerHTML = `<img src="${article.eyecatch}" alt="${escapeHtml(article.eyecatchAlt || article.title)}">`;
+    eye.innerHTML = `<img src="${escapeHtml(window.KurashiArticleImage(article.eyecatch))}" alt="${escapeHtml(article.eyecatchAlt || article.title)}">`;
   }
 
   // ---- Body ----
@@ -75,6 +92,32 @@
   if (body && article.body) {
     // microCMSのリッチエディタはHTMLで届くのでそのまま流し込みます
     body.innerHTML = article.body;
+
+    // Preserve the saved heading ID and wording; group only its reviewed phrases.
+    if (slug === '3000koujyo') {
+      const reviewedHeading = body.querySelector('h1#h80542177e9');
+      if (reviewedHeading && reviewedHeading.textContent === "相続した空き家を売るなら知っておきたい「3,000万円控除」とは？") {
+        reviewedHeading.classList.add('review-heading');
+        reviewedHeading.innerHTML = "<span class=\"review-layout-line\"><span class=\"review-phrase\">相続した</span><span class=\"review-phrase\">空き家を</span><span class=\"review-phrase\">売るなら</span></span><span class=\"review-layout-line\"><span class=\"review-phrase\">知っておきたい</span></span><span class=\"review-layout-line\"><span class=\"review-phrase\">「3,000万円控除」</span><span class=\"review-phrase\">とは？</span></span>";
+      }
+    }
+
+
+    // Only the reviewed opening paragraph of this saved article is grouped.
+    if (slug === '3000koujyo') {
+      const paragraph = [...body.querySelectorAll('p')].find(p =>
+        p.childNodes.length === 1 && p.firstChild.nodeType === 3 &&
+        p.textContent === '親が亡くなり、実家を相続することになった。'
+      );
+      if (paragraph) {
+        const phrase = document.createElement('span');
+        phrase.className = 'wrap-proposal';
+        phrase.textContent = '相続することになった。';
+        paragraph.textContent = '親が亡くなり、実家を';
+        paragraph.appendChild(phrase);
+      }
+    }
+
 
     // 目次を自動生成（本文内の h2 から）
     const tocList = document.querySelector('#toc');
@@ -133,7 +176,7 @@
       return variants[seed % 4];
     };
     const thumbHtml = (a) => a.eyecatch
-      ? `<img src="${escapeHtml(a.eyecatch)}" alt="${escapeHtml(a.eyecatchAlt || a.title)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`
+      ? `<img src="${escapeHtml(window.KurashiArticleImage(a.eyecatch))}" alt="${escapeHtml(a.eyecatchAlt || a.title)}" loading="lazy" style="width:100%;height:100%;object-fit:contain;display:block;">`
       : fallbackThumb(a);
 
     related.innerHTML = relatedArticles.map((a, i) => {

@@ -1,0 +1,13 @@
+/* Reviewed wrap comparison, revision 2, 2026-10-17. */
+@media (max-width: 640px) {
+  .wrap-proposal { display: inline-block; white-space: nowrap; }
+}
+@media (min-width: 641px) {
+  .pc-word { display: inline-block; white-space: nowrap; }
+}
+
+/* Approved comparison revision 4, 2026-10-18. */
+.article-content .review-phrase,.article-title .review-phrase{display:inline-block;white-space:nowrap}.article-content h1.review-heading{text-wrap:balance}@media(min-width:480px){.article-content h1.review-heading .review-layout-line{display:block}}
+@media(min-width:641px){.hero-korekara .lead .review-phrase{display:inline-block;white-space:nowrap}}
+.message-body h2 .review-phrase{display:inline-block;white-space:nowrap}.message-body h2.review-heading{text-wrap:balance}
+.faq-a-inner .review-phrase{display:inline-block;white-space:nowrap}
