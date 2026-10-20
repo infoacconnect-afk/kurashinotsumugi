@@ -151,6 +151,8 @@
       // 同意情報
       agreeTerms: !!fd.get('agreeTerms'),
       agreePrivacy: !!fd.get('agreePrivacy'),
+      // 既存GASが受け取る同意項目。両方の必須同意がある場合のみtrue。
+      agree: !!fd.get('agreeTerms') && !!fd.get('agreePrivacy'),
       agreeThirdParty: !!fd.get('agreeThirdParty'),
       appliedTerms: Array.from(appliedTermsSet),
       consentedAt: new Date().toISOString(),
@@ -185,11 +187,9 @@
         body: JSON.stringify(data),
       });
 
-      let result = {};
-      try { result = await res.json(); } catch (_) {}
-
-      if (!res.ok || result.ok === false) {
-        throw new Error(result.error || 'サーバーエラーが発生しました');
+      const result = await res.json();
+      if (!res.ok || !result || result.ok !== true) {
+        throw new Error((result && result.error) || 'サーバーエラーが発生しました');
       }
 
       // 成功 → サンクス表示
