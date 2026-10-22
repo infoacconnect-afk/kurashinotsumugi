@@ -129,6 +129,8 @@
   // ---------- Submit ----------
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    // Ignore repeated submissions while sending or showing a completed enquiry.
+    if (submitBtn.disabled || form.hidden) return;
     clearError();
 
     // フォームデータを収集
@@ -198,6 +200,15 @@
       thanksView.classList.add('in');
       window.scrollTo({ top: thanksView.offsetTop - 100, behavior: 'smooth' });
 
+      // GA4: count only the server-acknowledged successful enquiry.
+      try {
+        if (typeof window.tsumugiTrackLead === 'function') {
+          window.tsumugiTrackLead();
+        }
+      } catch (e) {
+        console.warn('[analytics] lead measurement failed');
+      }
+
       // OpenAI Q コンバージョン計測: 問い合わせ完了
       try {
         if (typeof window.oaiq === 'function') {
@@ -230,3 +241,4 @@
     });
   }
 })();
+
