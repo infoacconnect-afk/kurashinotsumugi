@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>計測の確認モード｜くらしのつむぎ</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fbf7f0;color:#40362d;font:18px/1.8 system-ui,sans-serif}main{max-width:820px;margin:48px auto;padding:24px}h1{font-size:30px;line-height:1.5}section{margin:24px 0;padding:24px;border:1px solid #d9cdbc;border-radius:16px;background:#fff}h2{font-size:23px;margin-top:0}button,a{font:inherit}button{display:block;width:100%;padding:14px;border:0;border-radius:8px;background:#466650;color:white;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #b76712;outline-offset:4px}.notice{padding:16px;background:#fff0cb;border-radius:8px}#error{color:#9c2626}small{font-size:16px}a{color:#355b40}@media(max-width:500px){main{padding:18px;margin:12px auto}section{padding:18px}}
+</style>
+</head>
+<body><main>
+<p>くらしのつむぎ・担当者用</p>
+<h1>計測の確認モード</h1>
+<p class="notice">このページ自体はGA4へ送信しません。切り替えは、この端末のこのブラウザに適用されます。会社全体の設定を変更するページではありません。</p>
+<p id="current" aria-live="polite"></p>
+<p id="error" role="alert"></p>
+<section><h2>1. 社内でページを確認する</h2>
+<p>GA4へ閲覧・クリック・問い合わせイベントを送りません。設定はブラウザに保存され、解除するまで継続します。</p>
+<p><strong>フォームから送信すると、実際に問い合わせが届きます。</strong>送信練習には下の「送信テスト」を使ってください。</p>
+<button type="button" id="internal">社内確認にしてトップへ</button></section>
+<section><h2>2. 送信まで練習する</h2>
+<p>相談ボタン→入力開始→送信完了を確認できます。GA4・問い合わせ受付先・メールへは送信しません。架空の名前と連絡先を使ってください。</p>
+<p>このタブで継続します。終了後は「通常に戻す」を選んでください。ブラウザのタブ復元で残る場合があります。</p>
+<button type="button" id="test">送信テストにしてトップへ</button></section>
+<section><h2>3. 確認を終える</h2>
+<p>このブラウザの社内確認設定と、このタブの送信テスト設定を解除します。他のタブは再読み込みしてください。他のタブの送信テストは各タブで解除してください。</p>
+<button type="button" id="normal">通常に戻してトップへ</button></section>
+<p><small>別端末・別ブラウザ・シークレットモードでは、個別に設定が必要です。保存情報を削除すると設定も消えます。過去のGA4データは変更されません。これはGA4用の設定で、他の解析サービス全体を停止する機能ではありません。</small></p>
+<p><a href="index.html">設定を変えずにトップへ戻る</a></p>
+</main>
+<script>
+(function () {
+  'use strict';
+  var internalKey = 'tsumugi.analytics.internal.v1';
+  var testKey = 'tsumugi.analytics.test.v1';
+  var error = document.getElementById('error');
+  try {
+    document.getElementById('current').textContent = '現在：' +
+      (sessionStorage.getItem(testKey) === '1' ? '送信テスト' : localStorage.getItem(internalKey) === '1' ? '社内確認' : '通常');
+  } catch (e) { error.textContent = 'ブラウザの保存機能が使えません。切り替えを確認できるまで、テスト送信は行わないでください。'; }
+  function changeMode(value) {
+    try {
+      if (value === 'test') sessionStorage.setItem(testKey, '1');
+      else {
+        sessionStorage.removeItem(testKey);
+        if (value === 'internal') localStorage.setItem(internalKey, '1');
+        else localStorage.removeItem(internalKey);
+      }
+      if (value === 'test' && sessionStorage.getItem(testKey) !== '1') throw new Error('storage');
+      if (value === 'internal' && localStorage.getItem(internalKey) !== '1') throw new Error('storage');
+      location.assign('index.html');
+    } catch (e) { error.textContent = '設定を保存できませんでした。移動せずに止めています。この状態では送信テストを行わないでください。'; }
+  }
+  ['internal', 'test', 'normal'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', function () { changeMode(id); });
+  });
+})();
+</script>
+</body></html>

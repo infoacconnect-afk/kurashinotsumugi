@@ -1,52 +1,44 @@
-const fs = require('node:fs');
-const vm = require('node:vm');
-const assert = require('node:assert/strict');
-const root = require('node:path').resolve(__dirname, '..') + '/';
-const analytics = fs.readFileSync(root+'assets/analytics.js','utf8');
-const contact = fs.readFileSync(root+'assets/contact-form.js','utf8');
-function analyticsEnv(host) {
-  const scripts=[], listeners={};
-  const ctx={window:{location:{hostname:host}},document:{head:{appendChild:s=>scripts.push(s)},createElement:()=>({}),addEventListener:(n,f)=>listeners[n]=f}};
-  vm.createContext(ctx); vm.runInContext(analytics,ctx);
-  return {ctx,scripts,listeners};
+// Real implementation, mocked DOM/storage/transport. Never contacts Google or GAS.
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const analytics=fs.readFileSync(path.join(root,'assets/analytics.js'),'utf8');
+const contact=fs.readFileSync(path.join(root,'assets/contact-form.js'),'utf8');
+let checks=0;
+async function test(name,fn){await fn();checks++;console.log('PASS '+name);}
+function element(){const handlers={};return{handlers,hidden:false,disabled:false,offsetTop:0,style:{},children:[],classList:{add(){},remove(){}},scrollIntoView(){},setAttribute(){},appendChild(el){this.children.push(el);},addEventListener(n,f){(handlers[n]||=[]).push(f);},async fire(n,e={}){return Promise.all((handlers[n]||[]).map(f=>f(e)));},querySelectorAll(){return[];},querySelector(){return null;},reset(){}};}
+function storage(initial={},fail=false){const data={...initial};return{getItem(k){if(fail)throw Error('blocked');return data[k]||null;},setItem(k,v){if(fail)throw Error('blocked');data[k]=v;},removeItem(k){if(fail)throw Error('blocked');delete data[k];}};}
+function env(o={}){
+ const form=element(),button=element(),thanks=element(),error=element(),reset=element(),heading=element(),ps=[element(),element()];
+ thanks.hidden=error.hidden=true;thanks.querySelector=()=>heading;thanks.querySelectorAll=()=>ps;button.querySelector=()=>element();
+ const els={contactForm:form,submitBtn:button,thanksView:thanks,formError:error,resetForm:reset};
+ const scripts=[],doc=element(),body=element(),win=element();doc.body=body;doc.head={appendChild:s=>scripts.push(s)};doc.readyState='complete';doc.referrer=o.referrer||'';doc.title='PRIVATE_TITLE';doc.createElement=()=>element();doc.getElementById=id=>els[id]||body.children.find(x=>x.id===id)||null;
+ win.location=new URL(o.href||'https://kurashinotsumugi.com/contact.html');win.localStorage=storage(o.internal?{'tsumugi.analytics.internal.v1':'1'}:{},o.blockStorage);win.sessionStorage=storage(o.test?{'tsumugi.analytics.test.v1':'1'}:{},o.blockStorage);win.SITE_CONFIG={CONTACT_ENDPOINT:'https://example.invalid/mock'};win.scrollTo=()=>{};
+ let fetches=0,pixels=0;win.oaiq=()=>pixels++;
+ const values={name:'PRIVATE_NAME',furigana:'PRIVATE_KANA',email:'private@example.invalid',tel:'09012345678',message:'PRIVATE_MESSAGE',agreeTerms:'on',agreePrivacy:'on',...o.values};
+ const ctx={window:win,document:doc,URL,Date,navigator:{userAgent:'mock'},console:{warn(){},error(){}},FormData:class{get(k){return values[k]||'';}getAll(){return['other'];}},fetch:async()=>{fetches++;if(o.network)throw Error('network');if(o.delay)await o.delay;return{ok:!o.httpError,json:async()=>{if(o.badJson)throw Error('json');return{ok:!o.appError};}};}};
+ vm.createContext(ctx);if(!o.blockAnalytics)vm.runInContext(analytics,ctx);
+ if(o.throwAnalytics)win.tsumugiTrackFormStart=win.tsumugiTrackLead=win.tsumugiResetFunnel=()=>{throw Error('analytics');};
+ vm.runInContext(contact,ctx);
+ const events=()=>Array.from(win.dataLayer||[]).map(x=>Array.from(x)).filter(x=>x[0]==='event');
+ return{ctx,win,doc,form,button,thanks,error,reset,heading,ps,scripts,values,events,count:n=>events().filter(x=>x[1]===n).length,counts:()=>({fetches,pixels}),submit:()=>form.fire('submit',{preventDefault(){}}),edit:(name='name',extra={})=>form.fire('input',{isTrusted:true,target:{name},...extra}),click:(href,region='',extra={})=>doc.fire('click',{target:{closest:()=>({getAttribute:()=>href,closest:s=>s===region?{}:null})},...extra})};
 }
 (async()=>{
- for (const host of ['localhost','example.netlify.app','kurashinotsumugi.com.example.org']) {
-  const a=analyticsEnv(host); assert.equal(a.scripts.length,0); assert.equal(a.ctx.window.gtag,undefined);
- }
- for (const host of ['kurashinotsumugi.com','www.kurashinotsumugi.com']) {
-  const a=analyticsEnv(host); vm.runInContext(analytics,a.ctx);
-  assert.equal(a.scripts.length,1); assert.equal(a.ctx.window.dataLayer.length,2);
-  a.ctx.window.tsumugiTrackLead();
-  a.listeners.click({target:{closest:()=>({getAttribute:()=> 'tel:0487825920'})}});
-  a.listeners.click({target:{closest:()=>({getAttribute:()=> '/contact'})}});
-  const events=Array.from(a.ctx.window.dataLayer).map(x=>Array.from(x));
-  assert.equal(events.filter(x=>x[1]==='generate_lead').length,1);
-  assert.equal(events.filter(x=>x[1]==='phone_click').length,1);
-  assert(!JSON.stringify(events).includes('0487825920'));
- }
- async function scenario(mode) {
-  let fetches=0, leads=0, pixels=0, submit, reset;
-  const noop=()=>{};
-  const el=()=>({hidden:false,disabled:false,classList:{add:noop,remove:noop},scrollIntoView:noop,offsetTop:0});
-  const form=el(); form.querySelectorAll=()=>[]; form.addEventListener=(n,f)=>submit=f; form.reset=noop;
-  const btn=el();btn.querySelector=()=>el();
-  const thanks=el();thanks.hidden=true;
-  const error=el();error.hidden=true;
-  const resetBtn=el();resetBtn.addEventListener=(n,f)=>reset=f;
-  const els={contactForm:form,submitBtn:btn,thanksView:thanks,formError:error,resetForm:resetBtn};
-  const vals={name:mode==='invalid'?'':'Test',furigana:'テスト',email:'test@example.com',agreeTerms:'on',agreePrivacy:'on',message:'PRIVATE_MESSAGE',tel:'09012345678'};
-  const ctx={console:{warn:noop,error:noop},navigator:{userAgent:'test'},document:{getElementById:id=>els[id]||null,querySelectorAll:()=>[],referrer:''},window:{SITE_CONFIG:{CONTACT_ENDPOINT:'https://example.invalid/test'},scrollTo:noop,oaiq:()=>pixels++},FormData:class{get(k){return vals[k]||''}getAll(){return ['other']}},fetch:async()=>{fetches++; if(mode==='network')throw Error();return{ok:mode!=='http',json:async()=>({ok:mode!=='rejected'})}}};
-  if(mode!=='blocked') ctx.window.tsumugiTrackLead=()=>{if(mode==='throws')throw Error();leads++};
-  vm.createContext(ctx);vm.runInContext(contact,ctx);
-  await Promise.all([submit({preventDefault:noop}),submit({preventDefault:noop})]);
-  if(['success','blocked','throws'].includes(mode)) {
-    assert.equal(fetches,1,mode);assert.equal(thanks.hidden,false,mode);assert.equal(form.hidden,true,mode);
-    assert.equal(pixels,1,mode);assert.equal(leads,mode==='success'?1:0,mode);
-    await submit({preventDefault:noop});assert.equal(fetches,1,mode);
-    reset();await submit({preventDefault:noop});assert.equal(fetches,2,mode);
-  } else {assert.equal(leads,0,mode);assert.equal(thanks.hidden,true,mode);assert.equal(error.hidden,false,mode);}
- }
- for(const mode of ['success','blocked','throws','invalid','rejected','http','network'])await scenario(mode);
- console.log('PASS: production host restriction, single initialization, separate phone clicks, no phone value in analytics, successful enquiries only, duplicate submission guard, retry after reset, validation/HTTP/application/network failures, blocked or throwing analytics preserves form success. No real enquiries sent.');
-})();
+ await test('One loader/config, no duplicate page_view, no visitor banner',()=>{const e=env();vm.runInContext(analytics,e.ctx);assert.equal(e.scripts.length,1);assert.equal(Array.from(e.win.dataLayer).filter(x=>x[0]==='config').length,1);assert.equal(e.count('page_view'),0);assert.equal(e.doc.body.children.length,0);});
+ await test('CTA aliases/regions, foreign/cancelled links ignored, phone separate',async()=>{const e=env();await e.click('/contact','header');await e.click('/contact.html?email=private@example.invalid#form','footer');await e.click('contact.html','.contact-cta');await e.click('/contact/');await e.click('https://other.example/contact');await e.click('/contact-other');await e.click('#top');await e.click('/contact','',{defaultPrevented:true});await e.click('/contact','',{button:2});await e.click('tel:09012345678');assert.equal(e.count('consultation_click'),4);assert.equal(e.count('phone_click'),1);assert.equal(e.count('generate_lead'),0);assert.deepEqual(e.events().filter(x=>x[1]==='consultation_click').map(x=>x[2].cta_position),['header','footer','contact_section','body']);assert(!JSON.stringify(e.events()).includes('private@'));assert(!JSON.stringify(e.events()).includes('09012345678'));});
+ await test('Input start once; focus/prefill/honeypot/hidden ignored; reset allows new attempt',async()=>{const e=env();await e.form.fire('focusin',{target:{name:'name'}});await e.edit('website');await e.edit('name',{isTrusted:false});await e.edit('name',{target:{name:'name',type:'hidden'}});assert.equal(e.count('contact_form_start'),0);await e.edit();await e.edit('email');await e.form.fire('change',{isTrusted:true,target:{name:'inquiry'}});assert.equal(e.count('contact_form_start'),1);await e.submit();await e.edit();assert.equal(e.count('contact_form_start'),1);await e.reset.fire('click');await e.edit();assert.equal(e.count('contact_form_start'),2);});
+ await test('Lead only after acknowledgement; double submits and hook calls deduplicated',async()=>{let release;const delay=new Promise(r=>release=r);const e=env({delay});const first=e.submit();await e.submit();assert.equal(e.count('generate_lead'),0);assert.equal(e.counts().fetches,1);release();await first;await e.submit();e.win.tsumugiTrackLead();assert.equal(e.count('generate_lead'),1);assert.equal(e.counts().fetches,1);assert.equal(e.counts().pixels,1);await e.reset.fire('click');await e.submit();assert.equal(e.count('generate_lead'),2);});
+ for(const[name,o]of Object.entries({validation:{values:{name:''}},http:{httpError:true},application:{appError:true},network:{network:true},json:{badJson:true}}))await test('No lead on '+name+' failure',async()=>{const e=env(o);await e.submit();assert.equal(e.count('generate_lead'),0);assert.equal(e.thanks.hidden,true);assert.equal(e.error.hidden,false);assert.equal(e.counts().pixels,0);});
+ for(const o of[{blockAnalytics:true},{throwAnalytics:true}])await test('Submission survives unavailable/throwing analytics '+JSON.stringify(o),async()=>{const e=env(o);await e.submit();assert.equal(e.counts().fetches,1);assert.equal(e.form.hidden,true);await e.reset.fire('click');assert.equal(e.form.hidden,false);});
+ await test('Internal: no GA4, real form retained, fixed diagnostic events only',async()=>{const e=env({internal:true});await e.click('/contact');await e.edit();await e.submit();assert.equal(e.scripts.length,0);assert.equal(e.events().length,0);assert.equal(e.counts().fetches,1);assert.deepEqual(Array.from(e.win.tsumugiMeasurement.events).map(x=>x.event),['consultation_click','contact_form_start','generate_lead']);});
+ for(const o of[{test:true},{test:true,internal:true},{test:true,blockAnalytics:true},{href:'https://preview.netlify.app/contact.html'},{href:'http://localhost:8080/contact.html'},{href:'https://kurashinotsumugi.com.attacker.invalid/contact.html'}])await test('Test/preview: no GA, no real enquiry/pixel '+JSON.stringify(o),async()=>{const e=env(o);await e.edit();await e.submit();assert.equal(e.scripts.length,0);assert.equal(e.events().length,0);assert.equal(e.counts().fetches,0);assert.equal(e.counts().pixels,0);assert.equal(e.form.hidden,true);assert.match(e.heading.textContent,/送信テスト/);assert.match(e.ps[0].textContent,/模擬送信/);});
+ await test('PII omitted from event payload and automatic page context; reviewed UTMs retained',async()=>{const e=env({href:'https://kurashinotsumugi.com/contact.html?email=private@example.invalid&name=PRIVATE_NAME&message=PRIVATE_MESSAGE&tel=09012345678&utm_source=fb&utm_medium=paid&utm_campaign=120256999058330367&fbclid=PRIVATE_CLICK#PRIVATE_HASH',referrer:'https://search.example/results?q=PRIVATE_SEARCH#PRIVATE_HASH'});await e.edit();await e.submit();const payload=JSON.stringify(e.win.dataLayer);for(const token of['PRIVATE_','private@','09012345678','fbclid'])assert(!payload.includes(token),token);assert(payload.includes('utm_source=fb'));assert(payload.includes('120256999058330367'));assert(payload.includes('https://search.example/'));assert(!payload.includes('/results'));const unknown=env({href:'https://kurashinotsumugi.com/private@example.invalid?utm_campaign=PRIVATE_CAMPAIGN&utm_source=private@example.invalid'});assert(!JSON.stringify(unknown.win.dataLayer).includes('private@'));assert(!JSON.stringify(unknown.win.dataLayer).includes('PRIVATE_'));});
+ await test('Blocked storage does not break normal enquiry',async()=>{const e=env({blockStorage:true});await e.submit();assert.equal(e.scripts.length,1);assert.equal(e.count('generate_lead'),1);});
+ await test('Other tab internal switch mutes existing tab; reload needed to resume',async()=>{const e=env();e.win.localStorage.setItem('tsumugi.analytics.internal.v1','1');await e.win.fire('storage',{key:'tsumugi.analytics.internal.v1'});await e.click('/contact');assert.equal(e.win['ga-disable-G-ZE6KQJMWLZ'],true);assert.equal(e.count('consultation_click'),0);e.win.localStorage.removeItem('tsumugi.analytics.internal.v1');await e.click('/contact');assert.equal(e.count('consultation_click'),0);});
+ await test('Settings page never loads GA',()=>{assert.equal(env({href:'https://kurashinotsumugi.com/measurement-settings.html'}).scripts.length,0);});
+
+ await test('Failed request can retry successfully without an extra start or lead',async()=>{const o={appError:true},e=env(o);await e.edit();await e.submit();assert.equal(e.count('generate_lead'),0);o.appError=false;await e.submit();assert.equal(e.count('generate_lead'),1);assert.equal(e.count('contact_form_start'),1);});
+ const settings=fs.readFileSync(path.join(root,'measurement-settings.html'),'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
+ for(const choice of ['internal','test','normal'])await test('Settings UI applies '+choice+' mode before navigation',async()=>{const ids={};for(const id of ['current','error','internal','test','normal'])ids[id]=element();const local=storage(),session=storage();if(choice==='normal'){local.setItem('tsumugi.analytics.internal.v1','1');session.setItem('tsumugi.analytics.test.v1','1');}let destination='';const ctx={document:{getElementById:id=>ids[id]},localStorage:local,sessionStorage:session,location:{assign:x=>destination=x}};vm.createContext(ctx);vm.runInContext(settings,ctx);await ids[choice].fire('click');assert.equal(destination,'index.html');assert.equal(local.getItem('tsumugi.analytics.internal.v1'),choice==='internal'?'1':null);assert.equal(session.getItem('tsumugi.analytics.test.v1'),choice==='test'?'1':null);});
+ await test('Settings storage failure shows error and does not navigate',async()=>{const ids={};for(const id of ['current','error','internal','test','normal'])ids[id]=element();let navigated=false;const ctx={document:{getElementById:id=>ids[id]},localStorage:storage({},true),sessionStorage:storage({},true),location:{assign:()=>navigated=true}};vm.createContext(ctx);vm.runInContext(settings,ctx);await ids.test.fire('click');assert.equal(navigated,false);assert.match(ids.error.textContent,/保存できません/);});
+ console.log('Completed '+checks+' scenarios. No external requests sent.');
+})().catch(e=>{console.error(e);process.exitCode=1;});
