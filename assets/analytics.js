@@ -136,7 +136,7 @@
     banner.id = 'tsumugi-measurement-banner';
     banner.setAttribute('aria-label', '計測確認モード');
     banner.style.cssText = 'position:relative;z-index:99999;background:#fff3cd;color:#332600;padding:14px;font:16px/1.6 sans-serif;border:2px solid #a87000;';
-    var label = mode() === 'internal' ? '社内確認：GA4計測を停止中。フォームは実際に送信されます。' :
+    var label = production && mode() === 'internal' ? '社内確認：GA4計測を停止中。フォームは実際に送信されます。' :
       '送信テスト／試用環境：GA4計測を停止中。フォームは模擬送信で、メールは届きません。';
     banner.textContent = label + ' この表示は確認用ブラウザだけに出ます。';
     var status = document.createElement('div');
