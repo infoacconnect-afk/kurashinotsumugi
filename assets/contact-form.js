@@ -15,6 +15,26 @@
   const thanksView = document.getElementById('thanksView');
   const resetBtn = document.getElementById('resetForm');
 
+  // Only genuine edits/selections start the funnel; focus, prefills and honeypot do not.
+  const startFields = new Set(['name', 'furigana', 'email', 'tel', 'message', 'inquiry']);
+  const trackStart = (event) => {
+    const field = event.target;
+    if (!event.isTrusted || form.hidden || !field || field.disabled ||
+        !startFields.has(field.name) || field.type === 'hidden') return;
+    try {
+      if (typeof window.tsumugiTrackFormStart === 'function') window.tsumugiTrackFormStart();
+    } catch (error) { /* Analytics cannot break editing. */ }
+  };
+  form.addEventListener('input', trackStart);
+  form.addEventListener('change', trackStart);
+  const isMockSubmission = () => {
+    // Preview hosts never send real enquiries, even when analytics is blocked.
+    if (!/^(www\.)?kurashinotsumugi\.com$/.test(window.location.hostname)) return true;
+    if (window.tsumugiMeasurement && window.tsumugiMeasurement.getMode() === 'test') return true;
+    try { return window.sessionStorage.getItem('tsumugi.analytics.test.v1') === '1'; }
+    catch (error) { return false; }
+  };
+
   // ============================================
   // 適用規約リンクの動的表示
   // ============================================
@@ -172,7 +192,8 @@
 
     // 送信先URLチェック
     const endpoint = (window.SITE_CONFIG && window.SITE_CONFIG.CONTACT_ENDPOINT) || '';
-    if (!endpoint || endpoint.includes('ここに')) {
+    const mockSubmission = isMockSubmission();
+    if (!mockSubmission && (!endpoint || endpoint.includes('ここに'))) {
       showError('お問い合わせフォームの設定が完了していません。<br>お手数ですが、お電話 (048-782-5920) にてお問い合わせください。');
       console.warn('[contact-form] CONTACT_ENDPOINT is not configured in assets/config.js');
       return;
@@ -182,7 +203,7 @@
     setLoading(true);
 
     try {
-      const res = await fetch(endpoint, {
+      const res = mockSubmission ? { ok: true, json: async () => ({ ok: true }) } : await fetch(endpoint, {
         method: 'POST',
         // GASにはtext/plainで送るのがCORS的にスムーズ
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -198,6 +219,13 @@
       form.hidden = true;
       thanksView.hidden = false;
       thanksView.classList.add('in');
+      if (mockSubmission) {
+        const heading = thanksView.querySelector('h2');
+        if (heading) heading.textContent = '送信テストが完了しました';
+        thanksView.querySelectorAll('p').forEach((p, index) => {
+          p.textContent = index === 0 ? '模擬送信です。お問い合わせの受付・メール送信・GA4への送信は行っていません。' : '';
+        });
+      }
       window.scrollTo({ top: thanksView.offsetTop - 100, behavior: 'smooth' });
 
       // GA4: count only the server-acknowledged successful enquiry.
@@ -211,7 +239,7 @@
 
       // OpenAI Q コンバージョン計測: 問い合わせ完了
       try {
-        if (typeof window.oaiq === 'function') {
+        if (!mockSubmission && typeof window.oaiq === 'function') {
           window.oaiq('measure', 'registration_completed', { type: 'customer_action' });
         }
       } catch (e) {
@@ -237,8 +265,12 @@
       thanksView.hidden = true;
       setLoading(false);
       clearError();
+      try {
+        if (typeof window.tsumugiResetFunnel === 'function') window.tsumugiResetFunnel();
+      } catch (error) { /* Reset must work even if analytics is unavailable. */ }
       window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
     });
   }
 })();
+
 
