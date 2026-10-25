@@ -338,6 +338,13 @@
   margin: 0 6px;
   color: var(--orange-deep);
 }
+.mieruka-intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+.mieruka-intro-line { display: block; }
+.mieruka-intro-phrase { display: inline-block; white-space: nowrap; }
 .mieruka-card {
   max-width: 880px;
   margin: 0 auto;
@@ -969,7 +976,9 @@
     </div>
 
     <div class="mieruka-intro fade-up">
-      <span class="ornament">＼</span> さらに、もう一歩踏み込みたい方へ <span class="ornament">／</span>
+      <span class="ornament" aria-hidden="true">＼</span>
+      <span class="mieruka-intro-copy"><span class="mieruka-intro-line"><span class="mieruka-intro-phrase">住宅会社に</span><wbr><span class="mieruka-intro-phrase">相談する前に、</span></span> <span class="mieruka-intro-line"><span class="mieruka-intro-phrase">住まいのイメージを</span><wbr><span class="mieruka-intro-phrase">描いてみたい方へ</span></span></span>
+      <span class="ornament" aria-hidden="true">／</span>
     </div>
 
     <div class="mieruka-card fade-up">

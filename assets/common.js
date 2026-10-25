@@ -254,8 +254,12 @@
  function install(refresh){
   let timer,running=false;const callback=refresh||apply,observer=new MutationObserver(()=>schedule()),observe=()=>observer.observe(document.body,{childList:true,subtree:true,characterData:true});
   const run=()=>{if(running)return;running=true;observer.disconnect();try{callback();}finally{running=false;observe();}},schedule=()=>{clearTimeout(timer);timer=setTimeout(run,150);};
-  addEventListener('resize',schedule);document.addEventListener('click',schedule);document.fonts?.addEventListener?.('loadingdone',schedule);observe();schedule();
-  return ()=>{clearTimeout(timer);observer.disconnect();removeEventListener('resize',schedule);document.removeEventListener('click',schedule);document.fonts?.removeEventListener?.('loadingdone',schedule);};
+  // Mobile browser bars change viewport height while scrolling. Rewrap only
+  // when the layout width changes; content and font updates still schedule above.
+  let layoutWidth=document.documentElement.clientWidth;
+  const onResize=()=>{const width=document.documentElement.clientWidth;if(width===layoutWidth)return;layoutWidth=width;schedule();};
+  addEventListener('resize',onResize);document.addEventListener('click',schedule);document.fonts?.addEventListener?.('loadingdone',schedule);observe();schedule();
+  return ()=>{clearTimeout(timer);observer.disconnect();removeEventListener('resize',onResize);document.removeEventListener('click',schedule);document.fonts?.removeEventListener?.('loadingdone',schedule);};
  }
  window.SiteReading={rawParse,phrases,splitLong,protectedOffsets,permitted,apply,inspect,install,hardTerms,crossesLine};
 })();
