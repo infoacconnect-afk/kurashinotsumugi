@@ -9,7 +9,7 @@
   var production = /^(www\.)?kurashinotsumugi\.com$/.test(window.location.hostname);
   var settingsPage = /^\/measurement-settings(?:\.html)?\/?$/.test(window.location.pathname);
   var pages = ['index', 'sorekara', 'korekara', 'contact', 'company', 'faq', 'lab',
-    'lab-article', 'mieruka-plan', 'akiya-shindan', 'privacy', 'privacy-kurashinotsumugi',
+    'lab-article', 'mieruka-plan', 'tsuginoakari', 'akiya-shindan', 'privacy', 'privacy-kurashinotsumugi',
     'sitemap', 'terms', 'terms-common', 'terms-korekara', 'terms-kurashinotsumugi',
     'terms-lab', 'terms-mieruka', 'terms-sorekara', 'terms-tsuginoakari', 'tokushoho'];
 
