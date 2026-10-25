@@ -32,7 +32,12 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* Keep mobile text at the authored size; user zoom remains available. */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
