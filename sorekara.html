@@ -65,6 +65,25 @@
   text-align: left;
   max-width: 100%;
 }
+@media (min-width: 641px) {
+  .hero-sorekara .lead .lead-ending { display: inline-block; }
+}
+.hero-sorekara .hero-consultation { margin-top: 24px; }
+.hero-sorekara .consultation-note { margin-bottom: 20px; }
+.hero-sorekara .hero-consultation .btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+.hero-sorekara .consultation-label { min-width: 0; }
+.hero-sorekara .consultation-label > span { display: inline-block; }
+.hero-sorekara .hero-consultation .btn:focus-visible {
+  outline: 2px solid var(--brown-deep);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .hero-sorekara .hero-consultation .btn { width: 100%; }
+}
 @media (max-width: 900px) {
   .hero-sorekara .page-hero-inner {
     grid-template-columns: 1fr;
@@ -75,6 +94,7 @@
   .hero-sorekara .hero-text { order: 1; }
   .hero-sorekara h1, .hero-sorekara .lead { text-align: center; }
   .hero-sorekara .eyebrow { display: block; text-align: center; }
+  .hero-sorekara .hero-consultation { text-align: center; }
 }
 
 .push-sec {
@@ -239,7 +259,11 @@
     <div class="hero-text">
       <div class="eyebrow">FOR AFTER LIFE</div>
       <h1>それからのすまい</h1>
-      <p class="lead"><span class="reading-phrase">その家の、この後を、</span><span class="reading-phrase">いっしょに考える。</span><br><span class="reading-phrase">空き家、実家、</span><span class="reading-phrase">相続後の住まいに、</span><span class="reading-phrase">寄り添う7つの</span><span class="reading-phrase">サービスがあります。</span></p>
+      <p class="lead"><span class="reading-phrase">その家の、この後を、</span><span class="reading-phrase">いっしょに考える。</span><br><span class="reading-phrase">空き家、実家、</span><span class="reading-phrase">相続後の住まいに、</span><span class="reading-phrase">寄り添う7つの</span><span class="reading-phrase">サービスが<span class="lead-ending">あります。</span></span></p>
+      <div class="hero-consultation">
+        <p class="lead consultation-note"><span class="reading-phrase">ご相談は無料です。</span><br><span class="reading-phrase">まだどうするか</span><span class="reading-phrase">決まっていなくても、</span><span class="reading-phrase">ご相談いただけます。</span></p>
+        <a href="contact.html" class="btn btn-primary"><span class="consultation-label"><span class="reading-phrase">空き家・実家について</span><span class="reading-phrase">無料相談する</span></span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -410,4 +434,5 @@
 <script src="assets/common.js"></script>
 </body>
 </html>
+
 
