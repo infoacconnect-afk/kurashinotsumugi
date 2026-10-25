@@ -637,3 +637,20 @@ section { padding: 100px 0; }
   .site-header.scrolled .site-logo img { height: 54px; }}
 @media (min-width:1001px){.site-nav a{white-space:nowrap;flex-shrink:0}.site-logo{flex-shrink:0}}
 @media (min-width:1001px) and (max-width:1199px){.header-inner{padding-left:24px;padding-right:24px;gap:16px}.site-nav{gap:12px}}
+
+/* Trademark marks in visible titles only. Original title font sizes are retained. */
+.brand-trademark {
+  display: inline;
+  white-space: nowrap;
+}
+.brand-trademark::after {
+  content: "™";
+  display: inline-block;
+  margin-left: 0.05em;
+  font-family: Arial, sans-serif;
+  font-size: 0.45em;
+  font-weight: 500;
+  line-height: 0;
+  letter-spacing: 0;
+  vertical-align: super;
+}
