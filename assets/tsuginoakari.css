@@ -68,3 +68,6 @@
 @media (min-width: 901px) {
   .akari-page .akari-audience-summary { display: block; }
 }
+
+/* Show the service name above its catchphrase in the introduction heading. */
+.akari-intro .akari-intro-name { display: block; margin-bottom: 8px; }
