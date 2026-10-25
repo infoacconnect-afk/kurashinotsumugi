@@ -163,7 +163,7 @@
  const segmenter=new Intl.Segmenter('ja',{granularity:'word'}),cache=new Map();
  const hardTerms=['専門家','空き家','実家','相続','固定資産税','都市計画税','不動産','所有者','借上げ','転貸','家づくり','見える化','住資産','再生ラボ','セルフチェック','ケーススタディ','プライバシーポリシー','お問い合わせ','お申し込み','ありがとうございます','ございません','いただけます','いただきます','いたします','ください','できます','できません','ありません','なります','おります','思います','考えます','考える','考えたい','知っておきたい','使うべき','売ること','いっしょに考える','その他','全体像','可能性','急がない','取扱い','取引','個人情報','住宅ローン','設計事務所','司法書士','宅地建物取引業','反社会的勢力','利用規約','利用特則','免責','損害賠償','準拠法','不可抗力','電磁的方法','定期巡回','臨時巡回','郵便物転送','室内見守り','巡回表示看板','基本サービス','内観パース','外観パース','参考配置図','参考平面プラン','資金計画','3,000万円','3,000万円控除','3000万円','30秒','5つのステップ','Vol.1','Ac・Connect','Miqrova'];
  const excluded='script,style,noscript,textarea,input,select,option,svg,canvas,pre,code,[contenteditable="true"],[data-reading-ignore],.hp-field,.site-nav,.site-logo,.nav-toggle,.arrow,.ornament,.price-num';
- const protectedPhrase='.wrap-proposal,.pc-word,.review-phrase,.card-title-phrase,.reading-phrase,.semantic-review-phrase,.r6-phrase,.r7-atomic,[data-tail-guard]';
+ const protectedPhrase='.brand-trademark,.wrap-proposal,.pc-word,.review-phrase,.card-title-phrase,.reading-phrase,.semantic-review-phrase,.r6-phrase,.r7-atomic,[data-tail-guard]';
  let audit=[],summary={};
  function rawParse(text){
   const s=Array.from(text);if(!s.length)return [];const out=[s[0]],get=(g,t)=>model[g]?.[t]||0;
@@ -294,6 +294,7 @@
       const fits=part=>{
         const probe=document.createElement('span');probe.textContent=part;
         probe.style.whiteSpace='nowrap';el.appendChild(probe);
+        markBrandTitleText(probe);
         const width=probe.getBoundingClientRect().width;probe.remove();return width<=available+0.5;
       };
       for(const group of groups){
@@ -310,9 +311,44 @@
   window.SemanticTitleReview={apply,definitions,selector};
 })();
 
+
+ /* Add display-only trademark marks to titles, keeping original text intact
+    for the existing Japanese phrase matching and CMS title data. */
+ function markBrandTitleText(root) {
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
+  let node;
+  while((node=walker.nextNode())){
+   if(/つぎの明かり|住資産/.test(node.nodeValue)&&
+      !node.parentElement.closest('.brand-trademark,script,style,svg,[data-reading-ignore]'))nodes.push(node);
+  }
+  for(const textNode of nodes){
+   const text=textNode.nodeValue,fragment=document.createDocumentFragment();
+   let at=0,changed=false;
+   for(const match of text.matchAll(/(?:つぎの明かり|住資産)(?!™)/g)){
+    fragment.append(document.createTextNode(text.slice(at,match.index)));
+    const brand=document.createElement('span');
+    brand.className='brand-trademark';
+    brand.textContent=match[0];
+    fragment.append(brand);
+    at=match.index+match[0].length;
+    changed=true;
+   }
+   if(changed){
+    fragment.append(document.createTextNode(text.slice(at)));
+    textNode.replaceWith(fragment);
+   }
+  }
+ }
+ function markBrandTitles() {
+  for(const title of document.querySelectorAll('h1,h2,h3,h4,h5,h6,.article-title,.al-title,.ra-title')){
+   if(!title.closest('.site-header,.site-footer,nav'))markBrandTitleText(title);
+  }
+ }
+
  function refresh() {
   window.TargetedReading.apply();
   window.SemanticTitleReview.apply();
+  markBrandTitles();
   window.SiteReading.apply();
  }
  const domReady = document.readyState === 'loading'
