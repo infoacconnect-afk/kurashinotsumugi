@@ -43,6 +43,7 @@
               <li><a href="korekara.html">これからのすまい</a></li>
               <li><a href="mieruka-plan.html">家づくり見える化プラン</a></li>
               <li><a href="sorekara.html">それからのすまい</a></li>
+              <li><a href="tsuginoakari.html">つぎの明かり（空き家の見守り）</a></li>
               <li><a href="akiya-shindan.html">空き家負担ゼロ診断</a></li>
               <li><a href="lab.html">住資産再生ラボ</a></li>
             </ul>
@@ -89,3 +90,4 @@
   if (headerHost) headerHost.outerHTML = headerHTML;
   if (footerHost) footerHost.outerHTML = footerHTML;
 })();
+
