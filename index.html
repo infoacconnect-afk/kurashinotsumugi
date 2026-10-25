@@ -469,6 +469,18 @@
   font-weight: 500;
   cursor: default;
 }
+
+/* Keep the two-line service name and surrounding tags evenly balanced. */
+.sorekara-sec .tag-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 72px;
+  padding-block: 8px;
+  text-align: center;
+}
+.sorekara-sec .tag-item-akari > span { white-space: nowrap; }
+
 .sorekara-ctas {
   display: flex;
   gap: 16px;
@@ -1001,7 +1013,7 @@
     <div class="tag-cloud fade-up d1">
       <span class="tag-item">空き家負担ゼロ診断</span>
       <span class="tag-item">借上げ・転貸</span>
-      <span class="tag-item">管理</span>
+      <span class="tag-item tag-item-akari"><span>空き家の見守り</span><span>『つぎの明かり』</span></span>
       <span class="tag-item">改修・賃貸活用</span>
       <span class="tag-item">解体・駐車場活用</span>
       <span class="tag-item">維持負担軽減</span>
