@@ -17,7 +17,7 @@
 .pickup-sec { background: #fff; padding: 80px 0; }
 .pickup-card {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 48px;
   align-items: center;
   background: linear-gradient(135deg, #FBF7F0 0%, #F5E8D0 100%);
@@ -25,6 +25,7 @@
   padding: 48px;
   overflow: hidden;
 }
+.pickup-card > * { min-width: 0; max-width: 100%; }
 .pickup-card .pu-thumb {
   aspect-ratio: 4/3;
   border-radius: 20px;
@@ -82,7 +83,7 @@
   font-size: 14px;
 }
 @media (max-width: 800px) {
-  .pickup-card { grid-template-columns: 1fr; padding: 32px; }
+  .pickup-card { grid-template-columns: minmax(0, 1fr); padding: 32px; }
 }
 
 .category-nav {
