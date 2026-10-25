@@ -6,7 +6,7 @@
     <header class="site-header">
       <div class="header-inner">
         <a href="index.html" class="site-logo" aria-label="くらしのつむぎ トップへ">
-          <img src="assets/logo-transparent.png" alt="くらしのつむぎ">
+          <img src="assets/logo-header-tm.svg" alt="くらしのつむぎ">
         </a>
         <button class="nav-toggle" aria-label="メニュー">
           <span></span><span></span><span></span>
