@@ -41,6 +41,26 @@
   text-align: left;
   max-width: 100%;
 }
+.hero-korekara .hero-consultation { margin-top: 24px; }
+.hero-korekara .consultation-note { margin-bottom: 20px; }
+.hero-korekara .consultation-phrase { display: inline-block; white-space: nowrap; }
+.hero-korekara .hero-consultation .btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+.hero-korekara .consultation-label { min-width: 0; }
+.hero-korekara .hero-consultation .btn:focus-visible {
+  outline: 2px solid var(--brown-deep);
+  outline-offset: 4px;
+}
+@media (max-width: 900px) {
+  .hero-korekara .hero-consultation { text-align: center; }
+}
+@media (max-width: 640px) {
+  .hero-korekara .hero-consultation .btn { width: 100%; }
+}
+
 .hero-korekara .hero-photo {
   position: relative;
   z-index: 1;
@@ -282,6 +302,10 @@
       <div class="eyebrow">FOR NEW HOME</div>
       <h1>これからのすまい</h1>
       <p class="lead"><span class="wrap-proposal">家づくりの</span><span class="wrap-proposal">"はじめの一歩"を、</span><span class="wrap-proposal">いっしょに。</span><br><span class="wrap-proposal">予算、</span><span class="wrap-proposal">ローン、</span><span class="wrap-proposal">土地、</span><span class="wrap-proposal">住宅会社選びまで、</span><span class="wrap-proposal review-phrase">まずはご相談ください。</span></p>
+      <div class="hero-consultation">
+        <p class="lead consultation-note"><span class="consultation-phrase">ご相談は無料です。</span><br><span class="consultation-phrase">建てるか買うか、</span><span class="consultation-phrase">まだ決まっていなくても</span><span class="consultation-phrase">大丈夫です。</span></p>
+        <a href="contact.html" class="btn btn-primary"><span class="consultation-label"><span class="consultation-phrase">家づくり・住宅購入の</span><span class="consultation-phrase">無料相談</span></span></a>
+      </div>
     </div>
     <div class="hero-photo">
       <picture>
