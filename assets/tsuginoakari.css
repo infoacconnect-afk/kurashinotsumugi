@@ -2,7 +2,7 @@
 .akari-phrase { display: inline-block; max-width: 100%; }
 .akari-intro { background: linear-gradient(135deg, #EEF2E5, #FBF7F0); }
 .akari-intro-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-.akari-intro .section-title { margin-bottom: 20px; }
+.akari-intro .section-title { margin-bottom: 8px; }
 .akari-intro .section-lead { margin-bottom: 24px; }
 .akari-price-card { background: #fff; border: 1px solid var(--line-soft); border-radius: 24px; padding: 32px; }
 .akari-price-card h3, .akari-service-card h3, .akari-note h3 { font-size: 20px; margin-bottom: 16px; }
@@ -70,4 +70,14 @@
 }
 
 /* Show the service name above its catchphrase in the introduction heading. */
-.akari-intro .akari-intro-name { display: block; margin-bottom: 8px; }
+.akari-intro .akari-intro-name { display: block; }
+
+/* Keep the catchphrase between the service title and body copy in visual emphasis. */
+.akari-intro .akari-intro-tagline {
+  font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+  font-size: clamp(22px, 2vw, 26px);
+  line-height: 1.6;
+  color: var(--brown-deep);
+  letter-spacing: 0.04em;
+  margin: 0 0 24px;
+}
