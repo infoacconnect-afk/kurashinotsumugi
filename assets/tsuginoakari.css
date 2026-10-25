@@ -63,3 +63,8 @@
   margin: 0 0 24px;
 }
 .akari-art-note { margin-top: 16px; color: var(--text-soft); }
+
+/* Keep the final audience sentence on its own line on desktop. */
+@media (min-width: 901px) {
+  .akari-page .akari-audience-summary { display: block; }
+}
