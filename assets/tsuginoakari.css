@@ -17,7 +17,7 @@
 .akari-intro a:focus-visible, .akari-page a:focus-visible { outline: 2px solid var(--brown-deep); outline-offset: 4px; }
 .svc7-card .akari-card-link { display: inline-block; margin-top: 16px; padding: 8px 0; min-height: 44px; color: var(--green-deep); font-size: 14px; text-decoration: underline; text-underline-offset: 5px; }
 .hero-akari { background: linear-gradient(180deg, #EEF2E5, #FBF7F0); }
-.hero-akari .akari-hero-icon { width: 68px; height: 68px; margin: 0 auto 16px; }
+.hero-akari .akari-hero-icon { width: 68px; height: 68px; margin: 0 auto 16px; mix-blend-mode: multiply; }
 .hero-akari .akari-hero-price { margin: 24px 0 16px; }
 .hero-akari .akari-hero-actions { margin-top: 24px; }
 .akari-page .akari-soft { background: var(--ivory); }
