@@ -28,7 +28,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img src="assets/logo-transparent.png" alt="くらしのつむぎ">
+            <img src="assets/logo-header-tm.svg" alt="くらしのつむぎ">
             <div class="company">
               Ac・Connect株式会社<br>
               〒331-0814<br>
