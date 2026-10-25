@@ -6,7 +6,7 @@
     <header class="site-header">
       <div class="header-inner">
         <a href="index.html" class="site-logo" aria-label="くらしのつむぎ トップへ">
-          <img src="assets/logo-transparent.png" alt="くらしのつむぎ">
+          <img src="assets/logo-header-tm.svg" alt="くらしのつむぎ">
         </a>
         <button class="nav-toggle" aria-label="メニュー">
           <span></span><span></span><span></span>
@@ -28,7 +28,7 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img src="assets/logo-transparent.png" alt="くらしのつむぎ">
+            <img src="assets/logo-header-tm.svg" alt="くらしのつむぎ">
             <div class="company">
               Ac・Connect株式会社<br>
               〒331-0814<br>
@@ -43,6 +43,7 @@
               <li><a href="korekara.html">これからのすまい</a></li>
               <li><a href="mieruka-plan.html">家づくり見える化プラン</a></li>
               <li><a href="sorekara.html">それからのすまい</a></li>
+              <li><a href="tsuginoakari.html">つぎの明かり（空き家の見守り）</a></li>
               <li><a href="akiya-shindan.html">空き家負担ゼロ診断</a></li>
               <li><a href="lab.html">住資産再生ラボ</a></li>
             </ul>
@@ -89,3 +90,4 @@
   if (headerHost) headerHost.outerHTML = headerHTML;
   if (footerHost) footerHost.outerHTML = footerHTML;
 })();
+

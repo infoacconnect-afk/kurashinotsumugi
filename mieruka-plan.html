@@ -418,6 +418,26 @@
   .mini-cta .mc-text { text-align: center; }
   .mini-cta .mc-actions { justify-content: center; }
 }
+
+/* Service terms remain readable beside the application guidance. */
+.plan-terms { background: #fff; }
+.plan-terms .container { max-width: 900px; }
+.plan-terms p { font-size: 17px; line-height: 2; color: var(--text); }
+.plan-terms-links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 24px; }
+.plan-terms-links a {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: .35em;
+  min-height: 44px;
+  max-width: 100%;
+  font-size: 17px;
+  color: var(--brown-deep);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.plan-terms-links a span { white-space: nowrap; }
+.plan-terms-links a:focus-visible { outline: 2px solid var(--brown-deep); outline-offset: 4px; }
 </style>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -581,7 +601,7 @@
         <span class="price-unit">円</span>
       </div>
       <div class="price-tax">（税込）</div>
-      <div class="price-sub">お申し込みから納品まで、およそ3〜4週間</div>
+      <div class="price-sub">お申し込みから納品まで、およそ1〜2週間</div>
     </div>
 
     <div class="mini-cta fade-up" style="margin-top:48px; background: #fff; border-color: var(--line);">
@@ -607,9 +627,9 @@
       <h2 class="section-title fade-up d1">ご利用の流れ</h2>
     </div>
     <div class="flow-steps">
-      <div class="flow-step fade-up d1"><div class="flow-num">1</div><h4>お申し込み</h4><p>フォームからお申し込みください</p></div>
-      <div class="flow-step fade-up d2"><div class="flow-num">2</div><h4>ヒアリング</h4><p>ご希望や候補地の詳細を伺います</p></div>
-      <div class="flow-step fade-up d3"><div class="flow-num">3</div><h4>作成・チェック</h4><p>参考資料の作成とプランのチェック（目安3〜4週間）</p></div>
+      <div class="flow-step fade-up d1"><div class="flow-num">1</div><h4>ご相談</h4><p>フォームからご相談内容をお送りください</p></div>
+      <div class="flow-step fade-up d2"><div class="flow-num">2</div><h4>内容の確認</h4><p>ご希望や候補地を伺い、サービス内容・料金・利用条件をご案内します</p></div>
+      <div class="flow-step fade-up d3"><div class="flow-num">3</div><h4>作成・チェック</h4><p>参考資料の作成とプランのチェック（目安1〜2週間）</p></div>
       <div class="flow-step fade-up d4"><div class="flow-num">4</div><h4>ご説明・お渡し</h4><p>資料をご説明しながらお渡しします</p></div>
     </div>
   </div>
@@ -645,7 +665,20 @@
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">この資料を使って、他の住宅会社に見積もり依頼できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">はい、可能です。むしろ複数社を比較検討する共通のたたき台として、多くの方にご活用いただいています。ただし、その会社の建築仕様に合わせて改めての設計・積算が必要になります。</div></div></div>
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">土地がまだ決まっていなくても申し込めますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">複数の候補地でご検討中の場合は、まずはメインの候補地を1つお決めいただいてのお申し込みとなります。土地選び自体のご相談は「これからのすまい」の無料相談でも承っています。</div></div></div>
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">プランは何パターンつくってもらえますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">基本セットでは1パターンをお作りします。修正・別案のご相談は個別に対応いたしますので、まずはお気軽にお問い合わせください。</div></div></div>
-      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">申し込み後、キャンセルはできますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">作業開始前であればキャンセル可能です。作業開始後のキャンセルについては、進捗に応じて対応させていただきます。詳しくはお申し込み時にご案内します。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">申し込み後、キャンセルはできますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">契約成立後のお客様のご都合によるキャンセルは、原則としてお受けしておりません。ただし、法令上認められる解除・取消し等は除きます。詳しくは<a href="terms-mieruka.html#art-14">専用特則のキャンセル条件</a>をご確認ください。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="plan-terms" aria-labelledby="plan-terms-title">
+  <div class="container">
+    <h2 class="section-title" id="plan-terms-title">詳しい利用条件</h2>
+    <p>お申し込み前に、サービス内容・料金・お支払い・キャンセルなどの条件を、専用特則および特定商取引法に基づく表記でご確認ください。ご不明な点は、お申し込み前にお問い合わせください。</p>
+    <p>ご相談後、サービス内容・料金・利用条件をご確認のうえお申し込みください。当社担当者の承諾通知がお客様に届いた時点で契約が成立します。ただし、当社が事前にサービス内容・料金・利用条件を確定し、申込みにより契約が成立する旨をご案内した場合は、Web上でのサービス申込みを当社が受信した時点、または対面でサービス申込書を当社担当者が受け取った時点で契約が成立します。</p>
+    <p>なお、お問い合わせフォームの送信のみでは契約は成立しません。</p>
+    <div class="plan-terms-links">
+      <a href="terms-mieruka.html"><span>家づくり見える化パック</span><span>特則</span></a>
+      <a href="tokushoho.html"><span>特定商取引法に基づく表記</span></a>
     </div>
   </div>
 </section>
@@ -653,10 +686,10 @@
 <section class="contact-cta">
   <div class="container">
     <div class="contact-cta-inner">
-      <h2 class="fade-up">家づくり見える化プランを、お申し込みいただけます。</h2>
+      <h2 class="fade-up">家づくり見える化プランについて、ご相談ください。</h2>
       <p class="cta-sub fade-up d1">ご不明な点は、お気軽にご相談ください。</p>
       <div class="contact-cta-buttons fade-up d2">
-        <a href="contact.html" class="btn btn-primary btn-large">📩 お申し込み・お問い合わせ</a>
+        <a href="contact.html" class="btn btn-primary btn-large">📩 ご相談・お問い合わせ</a>
         <a href="tel:0487825920" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
