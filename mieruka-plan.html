@@ -14,6 +14,24 @@
 <style>
 .hero-mieruka { background: linear-gradient(180deg, #F7EFDF 0%, #FBF7F0 100%); }
 .hero-mieruka .plan-intro-phrase { display: inline-block; white-space: nowrap; }
+.hero-mieruka .materials-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  max-width: 100%;
+  margin-top: 20px;
+  padding: 6px 12px;
+  color: var(--brown-deep);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  white-space: nowrap;
+}
+.hero-mieruka .materials-link:focus-visible {
+  outline: 2px solid var(--brown-deep);
+  outline-offset: 4px;
+}
+#plan-materials { scroll-margin-top: 96px; }
 
 .for-whom-sec { background: #fff; padding: 100px 0; }
 .for-whom-grid {
@@ -428,6 +446,7 @@
     <div class="eyebrow fade-up" style="color:var(--orange-deep)">SPECIAL PLAN</div>
     <h1 class="fade-up d1">家づくり見える化プラン</h1>
     <p class="lead fade-up d2">住宅会社を選ぶ前に、"住まいの姿"を見る。<br><span class="plan-intro-phrase">思い描く住まいを、</span><span class="plan-intro-phrase">画にしてみませんか。</span></p>
+    <a href="#plan-materials" class="materials-link">作成する資料を見る <span aria-hidden="true">↓</span></a>
   </div>
 </section>
 
@@ -459,7 +478,7 @@
   </div>
 </section>
 
-<section class="plan-detail">
+<section class="plan-detail" id="plan-materials">
   <div class="container">
     <div class="section-head center">
       <div class="section-eyebrow fade-up">BASIC SET</div>
