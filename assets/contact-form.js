@@ -56,6 +56,12 @@
       { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
       { href: 'terms-sorekara.html', title: 'それからのすまい 利用特則' },
     ],
+    tsuginoakari: [
+      { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
+      { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
+      { href: 'terms-sorekara.html', title: 'それからのすまい 利用特則' },
+      { href: 'terms-tsuginoakari.html', title: 'つぎの明かり 利用規約' },
+    ],
     shindan: [
       { href: 'terms-common.html', title: 'Ac・Connect株式会社 共通利用規約' },
       { href: 'terms-kurashinotsumugi.html', title: 'くらしのつむぎ 利用規約' },
@@ -72,7 +78,7 @@
   };
 
   // どのサービス選択で第三者提供同意欄を表示するか
-  const THIRD_PARTY_SERVICES = new Set(['korekara', 'mieruka', 'sorekara', 'shindan']);
+  const THIRD_PARTY_SERVICES = new Set(['korekara', 'mieruka', 'sorekara', 'tsuginoakari', 'shindan']);
 
   const appliedTermsList = document.getElementById('appliedTermsList');
   const thirdPartyBox = document.getElementById('thirdPartyAgreementBox');
@@ -167,7 +173,8 @@
       furigana: fd.get('furigana'),
       email: fd.get('email'),
       tel: fd.get('tel'),
-      inquiryTypes: inquiryTypes,
+      // Keep existing service codes; send the new service as a readable label for the current receiver.
+      inquiryTypes: inquiryTypes.map(type => type === 'tsuginoakari' ? 'つぎの明かり（空き家の見守り）' : type),
       message: fd.get('message'),
       website: fd.get('website'), // honeypot
       // 同意情報
