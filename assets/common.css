@@ -142,6 +142,8 @@ a:hover { opacity: 0.75; }
   box-shadow: 0 4px 14px rgba(232, 155, 91, 0.28);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
+/* Preserve the header button's horizontal breathing room over nav link styles. */
+.site-nav a.header-cta { padding-inline: 24px; }
 .header-cta:hover {
   transform: translateY(-2px);
   opacity: 1 !important;
