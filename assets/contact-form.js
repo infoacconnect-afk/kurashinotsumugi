@@ -113,6 +113,15 @@
     }
   }
 
+  // Carry only the explicitly chosen service into the consultation form.
+  // Consent is never preselected; prefills do not emit analytics or submit.
+  const requestedService = new URLSearchParams(window.location.search).get('service');
+  if (['korekara', 'sorekara', 'tsuginoakari', 'mieruka', 'shindan'].includes(requestedService)) {
+    const field = Array.from(form.querySelectorAll('input[name="inquiry"]'))
+      .find(input => input.value === requestedService);
+    if (field) field.checked = true;
+  }
+
   // 初期表示 & チェック変更時
   updateAppliedTerms();
   form.querySelectorAll('input[name="inquiry"]').forEach(el => {
@@ -268,6 +277,7 @@
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       form.reset();
+      updateAppliedTerms();
       form.hidden = false;
       thanksView.hidden = true;
       setLoading(false);

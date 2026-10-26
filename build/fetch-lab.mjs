@@ -34,6 +34,7 @@
 import { writeFileSync, mkdirSync, existsSync, statSync, rmSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderSeo, validateArticles } from './render-seo.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);
@@ -137,6 +138,7 @@ const normalizeArticle = (a) => {
   log(`Received ${raw.length} article(s).`);
 
   const articles = raw.map(normalizeArticle);
+  validateArticles(articles);
 
   const output = {
     generatedAt: new Date().toISOString(),
@@ -178,5 +180,6 @@ const normalizeArticle = (a) => {
   }
   log(`Wrote ${articles.length} detail JSON(s) to data/articles/`);
 
+  await renderSeo({ root: ROOT });
   log('Done ✓');
 })().catch(err => die(err.stack || err.message));

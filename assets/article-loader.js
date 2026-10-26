@@ -9,7 +9,10 @@
 
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('id');
-  if (!slug) return; // ID指定なしならプレビュー表示のまま
+  // Built pages already contain the reviewed title, body, image and related links.
+  const renderedSlug = document.documentElement.dataset.prerenderedArticle;
+  if (renderedSlug && (!slug || renderedSlug === slug)) return;
+  if (!slug) return;
 
   // 一括で並列取得（categoriesMap と 記事本体）
   let categoriesMap = {};
