@@ -316,9 +316,9 @@
 })();
 
 
- /* Add display-only trademark marks to titles, keeping original text intact
-    for the existing Japanese phrase matching and CMS title data. */
- function markBrandTitleText(root) {
+ /* Display-only marks: 住資産 on its first title per page, and つぎの明かり
+    only on the approved Sorekara section title. Keep original text intact. */
+ function markBrandTitleText(root, seen = new Set()) {
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
   let node;
   while((node=walker.nextNode())){
@@ -329,6 +329,10 @@
    const text=textNode.nodeValue,fragment=document.createDocumentFragment();
    let at=0,changed=false;
    for(const match of text.matchAll(/(?:つぎの明かり|住資産)(?!™)/g)){
+    if(match[0]==='つぎの明かり' &&
+       !root.closest('body[data-page="sorekara"] #tsuginoakari h2.section-title'))continue;
+    if(seen.has(match[0]))continue;
+    seen.add(match[0]);
     fragment.append(document.createTextNode(text.slice(at,match.index)));
     const brand=document.createElement('span');
     brand.className='brand-trademark';
@@ -344,8 +348,15 @@
   }
  }
  function markBrandTitles() {
+  // Recompute in document order after CMS updates and responsive rewrapping.
+  document.querySelectorAll('.brand-trademark').forEach(mark=>{
+   const parent=mark.parentNode;
+   mark.replaceWith(...mark.childNodes);
+   parent.normalize();
+  });
+  const seen=new Set();
   for(const title of document.querySelectorAll('h1,h2,h3,h4,h5,h6,.article-title,.al-title,.ra-title')){
-   if(!title.closest('.site-header,.site-footer,nav'))markBrandTitleText(title);
+   if(!title.closest('.site-header,.site-footer,nav'))markBrandTitleText(title,seen);
   }
  }
 

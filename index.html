@@ -66,6 +66,22 @@
   transition: all 1.2s var(--ease) 0.3s;
 }
 .hero-brand.show { opacity: 1; transform: translateY(0); }
+
+/* Disclose image production in the first view, without delaying the notice. */
+.hero-ai-note {
+  margin: 0 auto 24px;
+  max-width: 640px;
+  color: var(--text-soft);
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.hero-ai-note .ai-note-phrase {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .hero-catch {
   font-family: 'Zen Maru Gothic', sans-serif;
   font-weight: 500;
@@ -862,6 +878,7 @@
     </div>
     <h1 class="hero-brand" id="heroBrand">くらしのつむぎ</h1>
     <p class="hero-catch" id="heroCatch"><span class="wrap-proposal">これからのすまい、</span><span class="wrap-proposal">それからのすまい。</span></p>
+    <p class="hero-ai-note"><span class="ai-note-phrase">当サイトでは、</span><wbr><span class="ai-note-phrase">一部のイメージ画像に</span><wbr><span class="ai-note-phrase">AI生成画像を使用しています。</span></p>
     <div class="hero-buttons" id="heroButtons">
       <a href="korekara.html" class="hero-btn korekara">
         <div class="btn-emoji"><img src="assets/icons/house.webp" alt="" loading="eager"></div>
