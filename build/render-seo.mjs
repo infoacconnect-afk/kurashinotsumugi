@@ -5,7 +5,6 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync } f
 import { resolve, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readOrganization, enrichSearch } from './enrich-search.mjs';
-import { addArticleServiceLink } from './article-services.mjs';
 
 export const ORIGIN = 'https://kurashinotsumugi.com';
 const xml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -95,7 +94,6 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
       if (!body?.textContent.trim() || d.querySelector('[data-article="title"]')?.textContent !== article.title) {
         throw new Error(`Article rendering failed: ${article.slug}`);
       }
-      addArticleServiceLink(d, article);
       const description = (article.excerpt || body.textContent).replace(/\s+/g, ' ').trim().slice(0, 160);
       metadata(d, 'meta[name="description"]', 'meta', { name: 'description', content: description });
       metadata(d, 'link[rel="canonical"]', 'link', { rel: 'canonical', href: url });

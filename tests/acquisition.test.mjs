@@ -57,27 +57,3 @@ test('service links preselect the right consultation, without consent, events or
     } finally { dom.window.close(); }
   }
 });
-
-
-test('article service guidance follows the reviewed topic, never a blanket watch promotion', async () => {
-  const { addArticleServiceLink, reviewedArticleServices } = await import('../build/article-services.mjs');
-  for (const [slug, rule] of Object.entries(reviewedArticleServices)) {
-    const dom = new JSDOM(read('lab-article.html'));
-    try {
-      const d = dom.window.document;
-      addArticleServiceLink(d, { slug, title: rule.title });
-      addArticleServiceLink(d, { slug, title: rule.title });
-      assert.equal(d.querySelectorAll('[data-contextual-service]').length, 1);
-      const link = d.querySelector('[data-contextual-service]');
-      assert.equal(link.dataset.contextualService, rule.intent);
-      if (rule.intent === 'lease') assert.equal(link.getAttribute('href'), 'sorekara.html#lease-use');
-      if (rule.intent === 'sale') assert.equal(link.getAttribute('href'), 'sorekara.html#sale-consultation');
-      assert(d.querySelector('.contact-cta a[href="sorekara.html"]'));
-      assert(d.querySelector('.contact-cta a[href="contact.html"]'));
-      addArticleServiceLink(d, { slug, title: '内容が変更された未確認の記事' });
-      assert.equal(d.querySelectorAll('[data-contextual-service]').length, 0);
-      addArticleServiceLink(d, { slug: 'unknown', title: rule.title });
-      assert.equal(d.querySelectorAll('[data-contextual-service]').length, 0);
-    } finally { dom.window.close(); }
-  }
-});
