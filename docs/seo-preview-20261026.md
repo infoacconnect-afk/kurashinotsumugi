@@ -13,7 +13,7 @@ This change repairs metadata and makes the existing CMS content available in the
 - All canonical URLs refer to `https://kurashinotsumugi.com/`. The article backing files have the same canonical as the original query URL.
 - Production robots.txt allows crawling and announces the XML sitemap. Preview/branch contexts receive robots disallow plus HTML and HTTP noindex controls.
 - Header/footer links and the initial home/lab article cards are included in HTML. Existing client interactions still run; the article loader skips the already-rendered body.
-- No fonts, CSS, images, visible source copy, GA4 loader or inquiry submission code are changed.
+- Fonts, CSS, images, existing body copy and the GA4 loader are preserved. The acquisition follow-up updates search titles/descriptions, adds an article service link and prefills only the selected consultation subject; see search-acquisition-20261026.md. Consent and real submission rules remain unchanged.
 
 ## Validation
 
@@ -25,4 +25,4 @@ Deploy-preview checks must verify the actual Netlify query rewrites (including e
 
 ## Scope limits
 
-Structured data is limited to facts present in the articles. Company/service schema expansion, Search Console URL inspection, Core Web Vitals and actual AI citations are separate work. Do not submit preview URLs to search engines.
+Structured data uses existing article facts, visible company details and service-page descriptions. Search Console URL inspection, real-user Core Web Vitals and actual AI citations remain unverified. Do not submit preview URLs to search engines.

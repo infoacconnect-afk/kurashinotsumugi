@@ -15,7 +15,7 @@ function env(o={}){
  win.location=new URL(o.href||'https://kurashinotsumugi.com/contact.html');win.localStorage=storage(o.internal?{'tsumugi.analytics.internal.v1':'1'}:{},o.blockStorage);win.sessionStorage=storage(o.test?{'tsumugi.analytics.test.v1':'1'}:{},o.blockStorage);win.SITE_CONFIG={CONTACT_ENDPOINT:'https://example.invalid/mock'};win.scrollTo=()=>{};
  let fetches=0,pixels=0;win.oaiq=()=>pixels++;
  const values={name:'PRIVATE_NAME',furigana:'PRIVATE_KANA',email:'private@example.invalid',tel:'09012345678',message:'PRIVATE_MESSAGE',agreeTerms:'on',agreePrivacy:'on',...o.values};
- const ctx={window:win,document:doc,URL,Date,navigator:{userAgent:'mock'},console:{warn(){},error(){}},FormData:class{get(k){return values[k]||'';}getAll(){return['other'];}},fetch:async()=>{fetches++;if(o.network)throw Error('network');if(o.delay)await o.delay;return{ok:!o.httpError,json:async()=>{if(o.badJson)throw Error('json');return{ok:!o.appError};}};}};
+ const ctx={window:win,document:doc,URL,URLSearchParams,Date,navigator:{userAgent:'mock'},console:{warn(){},error(){}},FormData:class{get(k){return values[k]||'';}getAll(){return['other'];}},fetch:async()=>{fetches++;if(o.network)throw Error('network');if(o.delay)await o.delay;return{ok:!o.httpError,json:async()=>{if(o.badJson)throw Error('json');return{ok:!o.appError};}};}};
  vm.createContext(ctx);if(!o.blockAnalytics)vm.runInContext(analytics,ctx);
  if(o.throwAnalytics)win.tsumugiTrackFormStart=win.tsumugiTrackLead=win.tsumugiResetFunnel=()=>{throw Error('analytics');};
  vm.runInContext(contact,ctx);

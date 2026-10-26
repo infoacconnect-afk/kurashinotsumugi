@@ -4,6 +4,7 @@ import { JSDOM } from 'jsdom';
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync } from 'node:fs';
 import { resolve, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readOrganization, enrichSearch } from './enrich-search.mjs';
 
 export const ORIGIN = 'https://kurashinotsumugi.com';
 const xml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -32,6 +33,9 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   const data = JSON.parse(read(join(root, 'data/articles.json')));
   validateArticles(data.articles);
   const preview = context !== 'production';
+  const companyDom = new JSDOM(read(join(root, 'company.html')));
+  const organization = readOrganization(companyDom.window.document, ORIGIN);
+  companyDom.window.close();
   const common = read(join(root, 'assets/common.js'));
   // Keep the exact reviewed image mapping as the single source of truth.
   const imageMarker = '/* Production: reuse reviewed image bytes without changing live CMS content. */';
@@ -40,7 +44,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   const articlesBySlug = new Map(data.articles.map(a => [a.slug, a]));
   const urls = [];
   const excluded = new Set(['.git', 'node_modules', 'dist', 'build', 'tests',
-    'package.json', 'package-lock.json', 'netlify.toml', 'fetch-lab.mjs', '.gitignore']);
+    'package.json', 'package-lock.json', 'netlify.toml', 'fetch-lab.mjs', '.gitignore', 'AGENTS.md', 'docs']);
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   for (const entry of readdirSync(root)) {
@@ -68,6 +72,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   function finish(dom) {
     const d = dom.window.document;
     dom.window.eval(read(join(root, 'assets/partials.js')));
+    enrichSearch(d, { origin: ORIGIN, organization });
     if (preview) metadata(d, 'meta[name="robots"]', 'meta', { name: 'robots', content: 'noindex, nofollow' });
     // Existing animations are kept for JS users; text remains readable without JS.
     const noscript = d.createElement('noscript');
@@ -104,6 +109,8 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
       };
       if (article.publishedAt) schema.datePublished = article.publishedAt;
       if (article.updatedAt) schema.dateModified = article.updatedAt;
+      const author = d.querySelector('[data-article="author"]')?.textContent.trim();
+      if (author) schema.author = { '@type': author === 'くらしのつむぎ編集部' ? 'Organization' : 'Person', name: author };
       if (article.eyecatch) schema.image = new URL(dom.window.KurashiArticleImage(article.eyecatch), ORIGIN).href;
       const jsonld = d.createElement('script'); jsonld.type = 'application/ld+json';
       jsonld.textContent = JSON.stringify(schema).replace(/</g, '\\u003c'); d.head.append(jsonld);
