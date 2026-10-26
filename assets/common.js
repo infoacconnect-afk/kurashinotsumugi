@@ -316,8 +316,8 @@
 })();
 
 
- /* Add display-only trademark marks to the first title for each brand per page, keeping original text intact
-    for the existing Japanese phrase matching and CMS title data. */
+ /* Display-only marks: 住資産 on its first title per page, and つぎの明かり
+    only on the approved Sorekara section title. Keep original text intact. */
  function markBrandTitleText(root, seen = new Set()) {
   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];
   let node;
@@ -329,6 +329,8 @@
    const text=textNode.nodeValue,fragment=document.createDocumentFragment();
    let at=0,changed=false;
    for(const match of text.matchAll(/(?:つぎの明かり|住資産)(?!™)/g)){
+    if(match[0]==='つぎの明かり' &&
+       !root.closest('body[data-page="sorekara"] #tsuginoakari h2.section-title'))continue;
     if(seen.has(match[0]))continue;
     seen.add(match[0]);
     fragment.append(document.createTextNode(text.slice(at,match.index)));
