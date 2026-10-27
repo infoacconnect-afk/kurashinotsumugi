@@ -102,7 +102,7 @@
           <div style="font-size: 48px; margin-bottom: 16px;">🌱</div>
           <h2 style="font-size: 22px; color: var(--brown-deep); margin-bottom: 12px;">記事の準備中です</h2>
           <p style="color: var(--text-soft); line-height: 2; font-size: 15px;">
-            住まいのこれからとそれからに寄り添う情報を、<br>
+            住まいの未来に寄り添う情報を、<br>
             近日中に、こちらでお届けしてまいります。
           </p>
         </div>

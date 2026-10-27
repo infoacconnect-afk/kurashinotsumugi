@@ -35,6 +35,7 @@ import { writeFileSync, mkdirSync, existsSync, statSync, rmSync } from 'node:fs'
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderSeo, validateArticles } from './render-seo.mjs';
+import { articleCopy } from './editorial-copy.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);
@@ -137,7 +138,7 @@ const normalizeArticle = (a) => {
   const raw = await fetchArticles();
   log(`Received ${raw.length} article(s).`);
 
-  const articles = raw.map(normalizeArticle);
+  const articles = raw.map(normalizeArticle).map(articleCopy);
   validateArticles(articles);
 
   const output = {
