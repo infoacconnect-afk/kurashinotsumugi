@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>空き家の維持負担と活用方法を整理｜無料の空き家負担ゼロ診断</title>
-<meta name="description" content="空き家や実家を持ち続ける負担と、これからの活用を考える無料診断。約30秒の質問で、その家に合う選択肢と負担軽減策を整理します。診断後のご相談も承ります。">
+<meta name="description" content="空き家や実家を持ち続ける負担と、今後の活用を考える無料診断。約30秒の質問で、その家に合う選択肢と負担軽減策を整理します。診断後のご相談も承ります。">
 <link rel="icon" href="assets/logo-white.png">
 
 <link rel="stylesheet" href="assets/fonts-local.css">
@@ -441,7 +441,7 @@
 <section class="contact-cta">
   <div class="container">
     <div class="contact-cta-inner">
-      <h2 class="fade-up">その家の"これから"、いっしょに考えませんか。</h2>
+      <h2 class="fade-up">その家の"未来"、いっしょに考えませんか。</h2>
       <p class="cta-sub fade-up d1">診断結果を見ながら、じっくりお話ししましょう。</p>
       <div class="contact-cta-buttons fade-up d2">
         <a href="contact.html?service=shindan" class="btn btn-primary btn-large">📩 相談のお申し込み</a>
@@ -504,7 +504,7 @@ const questions = [
   },
   {
     name: '今後の希望',
-    q: 'その家、これからどうしていきたいですか？',
+    q: 'その家、今後どうしていきたいですか？',
     options: [
       { label: '手放すことも含めて整理したい', v: 'sell' },
       { label: 'できれば持ち続けたい', v: 'keep' },
@@ -572,7 +572,7 @@ function showResult() {
   const vals = questions.map((q,i) => q.options[answers[i]].v);
   const [loc, cond, use, burden, future] = vals;
 
-  let emoji = '🌱', title = 'あなたに合う"これから"が見えてきました', lead = '', suggestions = [];
+  let emoji = '🌱', title = 'あなたに合う選択肢が見えてきました', lead = '', suggestions = [];
 
   if (future === 'keep' && burden !== 'heavy') {
     emoji = '🏠';
@@ -592,7 +592,7 @@ function showResult() {
   } else if (cond === 'poor' || cond === 'unknown') {
     emoji = '🔧';
     title = 'まずは"家の状態を知る"ところから';
-    lead = 'その家の"今"を丁寧に見ることから、これからが見えてきます。負担なく現状を把握する方法があります。';
+    lead = 'その家の"今"を丁寧に見ることから、今後の選択肢が見えてきます。負担なく現状を把握する方法があります。';
     suggestions = ['現地確認・簡易診断のご案内', '改修 or 解体の判断材料をご提供', '状況を見てから複数の選択肢を比較'];
   } else {
     emoji = '💬';
