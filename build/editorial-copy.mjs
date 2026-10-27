@@ -1,4 +1,6 @@
-// Site-wide wording policy requested on 2026-10-27.
+// Reviewed empty-house article wording approved on 2026-10-27.
+// General use of これから is allowed in content about これからのすまい.
+// Do not apply this migration indiscriminately to future articles.
 // microCMS remains the article source. Apply this presentation policy once,
 // before producing list/detail JSON, HTML and search metadata, on every build.
 // Service names, URLs, images, IDs and other article fields remain untouched.
@@ -10,7 +12,15 @@ export function housingCopy(text) {
     .replace(/これから(?!のすまい)/g, '今後');
 }
 
+// Only the ten articles included in the approved preview are migrated.
+const reviewedSlugs = new Set([
+  'jikka-itsukanohanashi', 'jikka-sorekara1', 'jikka-kataduke',
+  'akiya-selfcheck', 'akiya_kimochi', 'casestudy01', 'souzoku5step',
+  'koteishisan', 'fusainishinai', '3000koujyo',
+]);
+
 export function articleCopy(article) {
+  if (!reviewedSlugs.has(article.slug)) return { ...article };
   const result = { ...article };
   for (const field of ['title', 'excerpt', 'eyecatchAlt']) {
     if (typeof result[field] === 'string') result[field] = housingCopy(result[field]);
