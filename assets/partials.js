@@ -54,6 +54,7 @@
               <li><a href="company.html">会社概要</a></li>
               <li><a href="faq.html">よくある質問</a></li>
               <li><a href="contact.html">お問い合わせ</a></li>
+              <li><a href="https://lin.ee/tItRFB8" target="_blank" rel="noopener noreferrer" aria-label="LINEで相談する（友だち追加・新しいタブで開きます）">LINEで相談する</a></li>
               <li><a href="sitemap.html">サイトマップ</a></li>
             </ul>
           </div>

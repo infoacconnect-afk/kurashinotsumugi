@@ -238,6 +238,16 @@ a:hover { opacity: 0.75; }
   opacity: 1;
   box-shadow: 0 14px 30px rgba(122, 144, 104, 0.4);
 }
+.btn-line {
+  background: #fff;
+  color: #176c37;
+  border: 1.5px solid #06c755;
+  white-space: nowrap;
+}
+.btn-line:hover { background: #edf9f1; color: #12562c; opacity: 1; }
+.btn-line:focus-visible { outline: 3px solid #176c37; outline-offset: 4px; }
+.line-cta { margin-top: 24px; }
+.line-cta p { margin-top: 12px; font-size: 14px; color: var(--text-soft); }
 .btn-large { padding: 22px 44px; font-size: 17px; }
 .btn-sm { padding: 12px 22px; font-size: 14px; }
 .btn .arrow { transition: transform .3s var(--ease); }
