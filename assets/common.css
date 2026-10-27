@@ -248,6 +248,7 @@ a:hover { opacity: 0.75; }
 .btn-line:focus-visible { outline: 3px solid #176c37; outline-offset: 4px; }
 .line-cta { margin-top: 24px; }
 .line-cta p { margin-top: 12px; font-size: 14px; color: var(--text-soft); }
+.line-cta .line-announcement { margin: 0 0 16px; font-size: 17px; color: var(--brown-deep); }
 .btn-large { padding: 22px 44px; font-size: 17px; }
 .btn-sm { padding: 12px 22px; font-size: 14px; }
 .btn .arrow { transition: transform .3s var(--ease); }
