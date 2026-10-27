@@ -29,6 +29,14 @@
   transition: all .3s var(--ease);
   font-family: inherit;
 }
+.faq-tab span { display: inline-block; white-space: nowrap; }
+@media (max-width: 1100px) {
+  .faq-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .faq-tab { padding: 12px; }
+}
+@media (max-width: 640px) {
+  .faq-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .faq-tab.active { background: var(--brown); color: #fff; border-color: var(--brown); }
 .faq-tab:hover:not(.active) { border-color: var(--brown-soft); background: var(--beige); }
 
@@ -95,7 +103,7 @@
     <div class="faq-tabs">
       <button class="faq-tab active" data-cat="general">サービス全般</button>
       <button class="faq-tab" data-cat="korekara">これからのすまい</button>
-      <button class="faq-tab" data-cat="mieruka">見える化プラン</button>
+      <button class="faq-tab" data-cat="mieruka"><span>家づくり</span><wbr><span>見える化プラン</span></button>
       <button class="faq-tab" data-cat="sorekara">それからのすまい</button>
       <button class="faq-tab" data-cat="tsuginoakari">つぎの明かり</button>
       <button class="faq-tab" data-cat="shindan">空き家診断</button>
@@ -113,7 +121,7 @@
         <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">遠方に住んでいます。相談できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">オンライン（Zoom等）でのご相談も承っています。全国どちらからでもお気軽に<span class="review-phrase">お問い合わせください。</span></div></div></div>
         <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">無理に契約を勧められませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">押し売りは一切いたしません。ご相談中に「今の段階では動かないほうが良い」という結論になることもあります。それも大切なご提案のひとつと考えています。</div></div></div>
         <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">ご家族と一緒に相談できますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">はい、大歓迎です。住まいのことはご家族全員に関わることですので、ぜひご一緒にお越しください。オンライン相談でも、複数拠点からの参加が可能です。</div></div></div>
-        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">土日や夜間の相談はできますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">10:00〜18:00（水曜定休）を基本とし、事前予約制で対応可能です。土日祝日や夜間のご相談も、ご希望に応じて調整いたします。</div></div></div>
+        <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">土日や夜間の相談はできますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">営業時間は10:00〜19:00です。水曜定休で、土日祝日も水曜日以外は営業しています。<br>※面談予約最終受付18:00（完全予約制）</div></div></div>
       </div>
     </div>
 
@@ -137,6 +145,8 @@
         <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">プランは何パターンつくってもらえますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">基本セットでは1パターンをお作りします。修正・別案のご相談は個別に対応いたしますので、まずはお気軽にお問い合わせください。</div></div></div>
         <div class="faq-item"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">納品までどのくらいかかりますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">お申し込みから納品まで、およそ1〜2週間が目安です。ヒアリングの内容や設計事務所の作業状況により前後する場合があります。</div></div></div>
       </div>
+      <p class="mt-24"><a href="mieruka-plan.html">家づくり見える化プランのサービス内容・料金を見る</a></p>
+      <p class="mt-24"><a href="terms-mieruka.html">家づくり見える化パック 特則</a> ／ <a href="tokushoho.html">特定商取引法に基づく表記</a></p>
     </div>
 
     <!-- Sorekara -->
@@ -188,7 +198,7 @@
         <a href="tel:0487825920" class="tel-btn">
           <span class="tel-label">📞 お電話でのご相談</span>
           <span class="tel-num">048-782-5920</span>
-          <span class="tel-hours">平日 10:00 - 18:00（水曜定休）</span>
+          <span class="tel-hours">10:00〜19:00（水曜定休）</span>
         </a>
       </div>
     </div>

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>お問い合わせ｜くらしのつむぎ</title>
-<meta name="description" content="くらしのつむぎへのお問い合わせ。相談は無料、お気軽にご連絡ください。">
+<meta name="description" content="くらしのつむぎへのお問い合わせ。家づくり・空き家のご相談をフォーム・電話・LINEで受け付けています。相談は無料です。">
 <link rel="icon" href="assets/logo-white.png">
 
 <link rel="stylesheet" href="assets/fonts-local.css">
@@ -301,6 +301,27 @@
 @media (max-width: 640px) {
   .thanks-view { padding: 40px 24px; }
 }
+.line-consultation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 32px 36px;
+  background: #f0f6ee;
+  border: 1px solid var(--green-soft);
+  border-radius: 24px;
+}
+.line-consultation h2 { font-size: 24px; color: var(--brown-deep); margin-bottom: 12px; }
+.line-consultation p { color: var(--text-soft); font-size: 14px; line-height: 1.9; }
+.line-consultation .line-hours { margin-top: 12px; }
+.line-consultation-actions { min-width: 0; text-align: center; }
+.line-consultation-actions p { margin-top: 10px; }
+@media (max-width: 900px) {
+  .line-consultation { grid-template-columns: minmax(0, 1fr); padding: 28px 24px; gap: 20px; }
+  .line-consultation-actions { text-align: left; }
+}
 .form-contract-note { font-size: 17px; line-height: 1.9; color: var(--text); margin-bottom: 28px; }
 </style>
 <!-- Microsoft Clarity -->
@@ -336,6 +357,17 @@
 
 <section class="contact-main">
   <div class="container">
+    <div class="line-consultation" id="line-consultation" aria-labelledby="line-consultation-title">
+      <div>
+        <h2 id="line-consultation-title">LINEでもご相談受付を始めました。</h2>
+        <p>家づくりも、空き家のことも。「くらしのつむぎ」のLINEでご相談いただけます。<br>友だち追加後、トークからご相談内容をお送りください。</p>
+        <p class="line-hours">LINE対応時間：10:00〜19:00／水曜定休<br>祝日も水曜日以外は対応しています。<br>営業時間外のメッセージには、営業開始後に担当者より順次返信いたします。</p>
+      </div>
+      <div class="line-consultation-actions">
+        <a href="https://lin.ee/tItRFB8" class="btn btn-line" target="_blank" rel="noopener noreferrer" aria-label="LINEで相談する（友だち追加・新しいタブで開きます）">LINEで相談する</a>
+        <p>友だち追加して相談を始める<br>LINE ID：@906sjnuu</p>
+      </div>
+    </div>
     <div class="contact-layout">
       <form id="contactForm" class="form-wrap fade-up" novalidate>
         <h2>お問い合わせフォーム</h2>
@@ -454,7 +486,11 @@
           <div class="icon-lg">📞</div>
           <h3>お電話でのご相談</h3>
           <a class="tel-big" href="tel:0487825920" aria-label="048-782-5920に電話で相談する">048-782-5920</a>
-          <p>10:00 – 18:00（定休日:水曜日、事前予約制）<br>「くらしのつむぎのサイトを見た」とお伝えください。</p>
+          <p>10:00〜19:00（水曜定休）<br>「くらしのつむぎのサイトを見た」とお伝えください。</p>
+        </div>
+        <div class="side-card">
+          <h3>来店相談について</h3>
+          <p>営業時間：10:00〜19:00<br>※面談予約最終受付18:00（完全予約制）<br>水曜定休。祝日も水曜日以外は営業しています。</p>
         </div>
         <div class="side-card green">
           <div class="icon-lg"><img class="hd-icon" src="assets/icons/speech.webp" alt="" style="width:56px;height:56px;"></div>
