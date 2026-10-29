@@ -50,7 +50,12 @@ test('the three intro elements wait for fonts, the house image and line breaking
     assert(!e.d.querySelector('#heroButtons').closest('.hero-intro-item'));
     const delays = [...e.d.querySelectorAll('.hero-deco-bg .leaf-dot')]
       .map(dot => parseFloat(dot.style.getPropertyValue('--dot-delay'))).sort((a, b) => a - b);
-    assert.deepEqual(delays, [200, 450, 700, 950, 1200, 1450, 1700], 'each dot has a distinct entrance slot');
+    assert.equal(delays.length, 7);
+    assert.equal(delays[0], 100);
+    for (let i = 1; i < delays.length; i++) {
+      const gap = delays[i] - delays[i - 1];
+      assert(gap >= 550 && gap <= 750, 'individual 450ms fades must not overlap');
+    }
     assert(!css.includes('homeReveal'), 'no page-wide opacity animation');
     assert.match(e.d.querySelector('#home-first-paint').textContent, /background: #FBF7F0/);
     assert(e.d.querySelector('#home-first-paint').compareDocumentPosition(e.d.querySelector('script')) & 4,
