@@ -33,6 +33,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   const data = JSON.parse(read(join(root, 'data/articles.json')));
   validateArticles(data.articles);
   const preview = context !== 'production';
+  const fontManifest = JSON.parse(read(join(root, 'assets/fonts/subsets-manifest.json')));
   const companyDom = new JSDOM(read(join(root, 'company.html')));
   const organization = readOrganization(companyDom.window.document, ORIGIN);
   companyDom.window.close();
@@ -69,10 +70,25 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
     return dom;
   }
 
+  function prepareFonts(d) {
+    const stylesheet = d.querySelector('link[href$="assets/fonts-local.css"]');
+    if (!stylesheet) return;
+    // Only the shared body, navigation and heading weights. Do not preload
+    // every weight or the uncommon-character shards: images need bandwidth too.
+    for (const href of fontManifest.preloads) {
+      if (d.querySelector(`link[rel="preload"][href="${href}"]`)) continue;
+      const link = d.createElement('link');
+      link.rel = 'preload'; link.setAttribute('as', 'font'); link.type = 'font/woff2';
+      link.href = href; link.crossOrigin = 'anonymous';
+      d.head.insertBefore(link, stylesheet);
+    }
+  }
+
   function finish(dom) {
     const d = dom.window.document;
     dom.window.eval(read(join(root, 'assets/partials.js')));
     enrichSearch(d, { origin: ORIGIN, organization });
+    prepareFonts(d);
     if (preview) metadata(d, 'meta[name="robots"]', 'meta', { name: 'robots', content: 'noindex, nofollow' });
     // Existing animations are kept for JS users; text remains readable without JS.
     const noscript = d.createElement('noscript');
@@ -143,7 +159,10 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
 
   // Unknown/deleted article IDs must not return a sample article with HTTP 200.
   const notFound = '<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, follow"><title>ページが見つかりません｜くらしのつむぎ</title><link rel="stylesheet" href="/assets/fonts-local.css"><link rel="stylesheet" href="/assets/common.css"></head><body><main class="container" style="padding-block:80px"><h1>お探しのページが見つかりませんでした。</h1><p><a href="/lab.html">記事一覧へ戻る</a></p><p><a href="/">トップページへ戻る</a></p></main></body></html>';
-  writeFileSync(join(out, '404.html'), notFound);
+  const notFoundDom = new JSDOM(notFound);
+  prepareFonts(notFoundDom.window.document);
+  writeFileSync(join(out, '404.html'), notFoundDom.serialize());
+  notFoundDom.window.close();
   for (const path of ['/lab-article.html', '/lab-article']) {
     redirects.push(`${path} id=:id /404.html 404!`, `${path} /404.html 404!`);
   }
@@ -154,7 +173,11 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   writeFileSync(join(out, 'robots.txt'), preview
     ? 'User-agent: *\nDisallow: /\n'
     : 'User-agent: *\nAllow: /\n\nSitemap: ' + ORIGIN + '/sitemap.xml\n');
-  writeFileSync(join(out, '_headers'), preview ? '/*\n  X-Robots-Tag: noindex, nofollow\n' : '');
+  // Only content-addressed font files receive an immutable lifetime. The CSS
+  // must revalidate so a font update is not trapped in an old browser cache.
+  writeFileSync(join(out, '_headers'), (preview ? '/*\n  X-Robots-Tag: noindex, nofollow\n' : '') +
+    '/assets/fonts/subsets/*\n  Cache-Control: public, max-age=31536000, immutable\n' +
+    '/assets/fonts-local.css\n  Cache-Control: public, max-age=0, must-revalidate\n');
   console.log(`[render-seo] ${data.articles.length} articles, ${unique.length} sitemap URLs; ${context}`);
   return { articles: data.articles.length, urls: unique.length };
 }
