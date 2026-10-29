@@ -35,8 +35,8 @@ font cache headers, and preview GA4 exclusion. Keep real-device checks separate
 from desktop browser checks. Production requires approval of the final preview.
 
 The homepage uses an ivory (#FBF7F0) canvas from the early head styles onward.
-Only its upper house illustration, brand name and catchcopy fade together over
-2 seconds with linear timing. The background, header, service buttons and
+The upper house illustration fades in over 2 seconds; the brand name and
+catchcopy then fade in together over the next 2 seconds, using linear timing. The background, header, service buttons and
 image notice remain visible. The three intro elements wait for fonts, the house
 image and initial line breaking, with a 2.5-second deadline. Releasing the pause
 never recreates the animation; late readiness cannot hide or replay content.

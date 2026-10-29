@@ -46,6 +46,9 @@ body[data-page="home"] { background: var(--ivory); }
 .hero-intro-item {
   animation: heroIntroReveal 2s linear backwards;
 }
+/* Finish the house illustration first, then reveal both text lines together. */
+.hero-brand.hero-intro-item,
+.hero-catch.hero-intro-item { animation-delay: 2s; }
 html.home-intro-pending .hero-intro-item {
   animation-play-state: paused;
 }
