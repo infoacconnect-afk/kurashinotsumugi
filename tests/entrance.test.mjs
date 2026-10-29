@@ -45,9 +45,17 @@ test('the three intro elements wait for fonts, the house image and line breaking
     assert.equal(e.d.querySelector('.home-opening'), null, 'no partial-page animation wrapper');
     const css = [...e.d.querySelectorAll('style')].map(el => el.textContent).join('\n');
     assert.match(css, /\.hero-intro-item\s*\{\s*animation: heroIntroReveal 2s linear backwards;/);
-    assert.match(css, /html\.home-intro-pending \.hero-intro-item\s*\{\s*animation-play-state: paused;\s*\}/);
+    assert.match(css, /html\.home-intro-pending \.hero-intro-item,\s*html\.home-intro-pending \.hero-deco-bg \.leaf-dot\s*\{\s*animation-play-state: paused;\s*\}/);
     assert.deepEqual([...e.d.querySelectorAll('.hero-intro-item')].map(el => el.id), ['heroLogo', 'heroBrand', 'heroCatch']);
     assert(!e.d.querySelector('#heroButtons').closest('.hero-intro-item'));
+    const delays = [...e.d.querySelectorAll('.hero-deco-bg .leaf-dot')]
+      .map(dot => parseFloat(dot.style.getPropertyValue('--dot-delay'))).sort((a, b) => a - b);
+    assert.equal(delays.length, 7);
+    assert.equal(delays[0], 100);
+    for (let i = 1; i < delays.length; i++) {
+      const gap = delays[i] - delays[i - 1];
+      assert(gap >= 550 && gap <= 750, 'individual 450ms fades must not overlap');
+    }
     assert(!css.includes('homeReveal'), 'no page-wide opacity animation');
     assert.match(e.d.querySelector('#home-first-paint').textContent, /background: #FBF7F0/);
     assert(e.d.querySelector('#home-first-paint').compareDocumentPosition(e.d.querySelector('script')) & 4,
