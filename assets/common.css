@@ -431,6 +431,14 @@ section { padding: 100px 0; }
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
+@media (prefers-reduced-motion: reduce) {
+  .hero-korekara .hero-text > .fade-up,
+  .hero-sorekara .hero-text > .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
 
 /* ========== FAQ Accordion ========== */
 .faq-list { max-width: 820px; margin: 0 auto; }

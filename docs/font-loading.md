@@ -24,7 +24,7 @@ receive one-year immutable caching; the font stylesheet must revalidate.
 
 `font-display: block` briefly waits for the requested font instead of showing
 the system font immediately. This uses the browser's bounded block period;
-there is no JavaScript page-hiding gate. On very slow or failed connections
+there is no site-wide JavaScript page-hiding gate. On very slow or failed connections
 the browser can still show a fallback so the page remains readable. The
 change reduces the normal font swap; it does not guarantee zero swaps on
 every network. Do not replace it with an unbounded font-ready/visibility gate.
@@ -33,3 +33,10 @@ Checks before publishing: first use of the new font URLs, navigation between
 pages, existing font sizes/line wrapping, current and uncommon CMS characters,
 font cache headers, and preview GA4 exclusion. Keep real-device checks separate
 from desktop browser checks. Production requires approval of the final preview.
+
+The homepage entrance, separately requested by the owner, hides only the header
+and hero before their shared 0.9-second fade. It waits for fonts and hero images
+with a 2.5-second deadline, then stays visible even if loading finishes later.
+Reduced-motion users see the first view immediately. Other pages do not use
+this entrance gate. Service headings use the existing fade-up effect without
+changing their final positions.
