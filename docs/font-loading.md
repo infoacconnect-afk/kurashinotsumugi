@@ -34,9 +34,12 @@ pages, existing font sizes/line wrapping, current and uncommon CMS characters,
 font cache headers, and preview GA4 exclusion. Keep real-device checks separate
 from desktop browser checks. Production requires approval of the final preview.
 
-The homepage entrance, separately requested by the owner, hides only the header
-and hero before their shared 0.9-second fade. It waits for fonts and hero images
-with a 2.5-second deadline, then stays visible even if loading finishes later.
-Reduced-motion users see the first view immediately. Other pages do not use
-this entrance gate. Service headings use the existing fade-up effect without
-changing their final positions.
+The homepage entrance, separately requested by the owner, is one 1.2-second
+opacity animation on the entire body (including the header, background and
+footer). Its first frame is paused until fonts, first-view images and the initial
+reviewed line-breaking pass settle, with a 2.5-second deadline. Releasing the
+pause never recreates the animation. Opacity preserves layout measurements;
+visibility is not toggled. Late readiness cannot hide or replay the page.
+Reduced-motion users see the page immediately. Other pages do not use this gate.
+Page and section titles share the existing upward fade without changing final
+positions; the inquiry form and its body copy remain immediately visible.

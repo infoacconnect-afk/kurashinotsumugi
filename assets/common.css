@@ -432,8 +432,7 @@ section { padding: 100px 0; }
   transform: translateY(0) !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-korekara .hero-text > .fade-up,
-  .hero-sorekara .hero-text > .fade-up {
+  .fade-up {
     opacity: 1;
     transform: none;
     transition: none;
