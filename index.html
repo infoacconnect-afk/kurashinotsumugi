@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<script src="assets/analytics.js"></script>
 <meta charset="UTF-8">
+<style id="home-first-paint">html, body { background: #FBF7F0; }</style>
+<script src="assets/analytics.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script id="home-entrance">
-// Pause one whole-page fade before its first frame; never restart it.
+// Only the upper illustration and two text lines fade; the page stays visible.
 (function () {
   const root = document.documentElement;
   const reveal = () => root.classList.remove('home-intro-pending');
-  // Loading failures must not leave the page transparent indefinitely.
+  // Loading failures must not leave the three intro elements transparent indefinitely.
   const deadline = window.setTimeout(reveal, 2500);
   root.classList.add('home-intro-pending');
   document.addEventListener('DOMContentLoaded', () => {
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
     const reading = window.KurashiReading?.ready || Promise.resolve();
-    const images = [...document.querySelectorAll('.site-header img, .hero img')].map(img =>
+    const images = [...document.querySelectorAll('#heroLogo img')].map(img =>
       typeof img.decode === 'function' ? img.decode() : Promise.resolve());
     Promise.allSettled([fonts, reading, ...images]).then(() => {
       window.clearTimeout(deadline);
@@ -40,29 +41,26 @@
 <link rel="stylesheet" href="assets/common.css">
 <style>
 /* ---------- Hero ---------- */
-/* One animation for the entire page, including its fixed header and background.
-   Opacity keeps layout/line-breaking measurable while the first frame is paused. */
-body[data-page="home"] {
-  animation: homeReveal 1.2s var(--ease) backwards;
+/* Keep the ivory canvas and service buttons visible from the first paint. */
+body[data-page="home"] { background: var(--ivory); }
+.hero-intro-item {
+  animation: heroIntroReveal 2s linear backwards;
 }
-html.home-intro-pending body[data-page="home"] {
+html.home-intro-pending .hero-intro-item {
   animation-play-state: paused;
 }
-@keyframes homeReveal {
+@keyframes heroIntroReveal {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body[data-page="home"] {
-    opacity: 1;
-    animation: none;
-  }
+  .hero-intro-item { opacity: 1; animation: none; }
 }
 .hero {
   min-height: 100vh;
   position: relative;
   padding: 140px 0 80px;
-  background: linear-gradient(180deg, #FBF7F0 0%, #FFFFFF 60%, #F5F0E4 100%);
+  background: var(--ivory);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -97,7 +95,7 @@ html.home-intro-pending body[data-page="home"] {
   margin-bottom: 32px;
 }
 
-/* The notice joins the same first-view reveal as the brand and buttons. */
+/* The notice stays visible with the two service buttons. */
 .hero-ai-note {
   margin: 0 auto 24px;
   max-width: 640px;
@@ -880,11 +878,11 @@ html.home-intro-pending body[data-page="home"] {
     </svg>
   </div>
   <div class="hero-inner">
-    <div class="hero-logo-mark" id="heroLogo">
+    <div class="hero-logo-mark hero-intro-item" id="heroLogo">
       <img src="assets/icons/house-transparent.webp" alt="くらしのつむぎ" loading="eager">
     </div>
-    <h1 class="hero-brand" id="heroBrand">くらしのつむぎ</h1>
-    <p class="hero-catch" id="heroCatch"><span class="wrap-proposal">これからのすまい、</span><span class="wrap-proposal">それからのすまい。</span></p>
+    <h1 class="hero-brand hero-intro-item" id="heroBrand">くらしのつむぎ</h1>
+    <p class="hero-catch hero-intro-item" id="heroCatch"><span class="wrap-proposal">これからのすまい、</span><span class="wrap-proposal">それからのすまい。</span></p>
     <p class="hero-ai-note"><span class="ai-note-phrase">当サイトでは、</span><wbr><span class="ai-note-phrase">一部のイメージ画像に</span><wbr><span class="ai-note-phrase">AI生成画像を使用しています。</span></p>
     <div class="hero-buttons" id="heroButtons">
       <a href="korekara.html" class="hero-btn korekara">

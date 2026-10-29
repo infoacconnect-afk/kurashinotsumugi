@@ -34,12 +34,12 @@ pages, existing font sizes/line wrapping, current and uncommon CMS characters,
 font cache headers, and preview GA4 exclusion. Keep real-device checks separate
 from desktop browser checks. Production requires approval of the final preview.
 
-The homepage entrance, separately requested by the owner, is one 1.2-second
-opacity animation on the entire body (including the header, background and
-footer). Its first frame is paused until fonts, first-view images and the initial
-reviewed line-breaking pass settle, with a 2.5-second deadline. Releasing the
-pause never recreates the animation. Opacity preserves layout measurements;
-visibility is not toggled. Late readiness cannot hide or replay the page.
-Reduced-motion users see the page immediately. Other pages do not use this gate.
-Page and section titles share the existing upward fade without changing final
-positions; the inquiry form and its body copy remain immediately visible.
+The homepage uses an ivory (#FBF7F0) canvas from the early head styles onward.
+Only its upper house illustration, brand name and catchcopy fade together over
+2 seconds with linear timing. The background, header, service buttons and
+image notice remain visible. The three intro elements wait for fonts, the house
+image and initial line breaking, with a 2.5-second deadline. Releasing the pause
+never recreates the animation; late readiness cannot hide or replay content.
+Reduced-motion users see the intro immediately. Other pages have no such gate.
+Page and section titles share the upward fade, except the contact page: its
+titles, text and form all display immediately, as requested by the owner.

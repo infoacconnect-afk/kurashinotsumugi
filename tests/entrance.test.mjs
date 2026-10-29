@@ -20,7 +20,7 @@ async function entrance() {
   const fonts = deferred(), image = deferred(), reading = deferred();
   w.KurashiReading = { ready: reading.promise };
   Object.defineProperty(d, 'fonts', { value: { ready: fonts.promise } });
-  for (const img of d.querySelectorAll('.site-header img, .hero img')) img.decode = () => image.promise;
+  for (const img of d.querySelectorAll('#heroLogo img')) img.decode = () => image.promise;
   let deadline, duration, cleared = false;
   w.setTimeout = (fn, ms) => { deadline = fn; duration = ms; return 1; };
   w.clearTimeout = id => { assert.equal(id, 1); cleared = true; };
@@ -32,7 +32,7 @@ async function entrance() {
   return { dom, d, fonts, image, reading, pending, catchcopy, deadline, duration, cleared: () => cleared };
 }
 
-test('whole-page fade waits for fonts, first-view images and line breaking without rewriting the catchcopy', async () => {
+test('the three intro elements wait for fonts, the house image and line breaking without rewriting text', async () => {
   const e = await entrance();
   try {
     e.fonts.resolve(); await flush();
@@ -43,9 +43,15 @@ test('whole-page fade waits for fonts, first-view images and line breaking witho
     assert(!e.pending()); assert(e.cleared());
     assert.equal(e.d.querySelector('#heroCatch').innerHTML, e.catchcopy);
     assert.equal(e.d.querySelector('.home-opening'), null, 'no partial-page animation wrapper');
-    const css = e.d.querySelector('style').textContent;
-    assert.match(css, /body\[data-page="home"\]\s*\{\s*animation: homeReveal/);
-    assert.match(css, /html\.home-intro-pending body\[data-page="home"\]\s*\{\s*animation-play-state: paused;\s*\}/);
+    const css = [...e.d.querySelectorAll('style')].map(el => el.textContent).join('\n');
+    assert.match(css, /\.hero-intro-item\s*\{\s*animation: heroIntroReveal 2s linear backwards;/);
+    assert.match(css, /html\.home-intro-pending \.hero-intro-item\s*\{\s*animation-play-state: paused;\s*\}/);
+    assert.deepEqual([...e.d.querySelectorAll('.hero-intro-item')].map(el => el.id), ['heroLogo', 'heroBrand', 'heroCatch']);
+    assert(!e.d.querySelector('#heroButtons').closest('.hero-intro-item'));
+    assert(!css.includes('homeReveal'), 'no page-wide opacity animation');
+    assert.match(e.d.querySelector('#home-first-paint').textContent, /background: #FBF7F0/);
+    assert(e.d.querySelector('#home-first-paint').compareDocumentPosition(e.d.querySelector('script')) & 4,
+      'ivory canvas is defined before any blocking script');
     assert(!css.includes('visibility: hidden'), 'line breaking can measure all initial text');
   } finally { e.dom.window.close(); }
 });
@@ -80,7 +86,7 @@ test('without JavaScript, the homepage keeps its content and has no pending visi
 });
 
 // These are page/section titles, not card labels or legal/article body headings.
-test('public page and section titles share the upward entrance, including contact and Tsuginoakari', () => {
+test('public page and section titles share the upward entrance, with the requested contact-page exception', () => {
   const files = ['index.html', 'korekara.html', 'sorekara.html', 'tsuginoakari.html',
     'mieruka-plan.html', 'akiya-shindan.html', 'contact.html', 'company.html',
     'faq.html', 'lab.html', 'lab-article.html', 'sitemap.html'];
@@ -89,12 +95,12 @@ test('public page and section titles share the upward entrance, including contac
     try {
       const d = dom.window.document;
       for (const title of d.querySelectorAll('h1, h2, .section-eyebrow, .eyebrow')) {
-        if (title.closest('.hero, .article-content, [hidden]')) continue;
+        if (filename === 'contact.html' || title.closest('.hero, .article-content, [hidden]')) continue;
         assert(title.closest('.fade-up'), filename + ': ' + title.textContent);
       }
       if (filename === 'contact.html') {
         assert(!d.querySelector('#contactForm').closest('.fade-up'));
-        assert.equal(d.querySelectorAll('#contactForm .fade-up:not(h2), .hero-contact .lead.fade-up').length, 0);
+        assert.equal(d.querySelectorAll('.fade-up').length, 0, 'contact titles and form must all be immediate');
         assert(d.querySelector('#thanksView').hidden);
       }
     } finally { dom.window.close(); }
