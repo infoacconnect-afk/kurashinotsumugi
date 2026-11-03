@@ -51,6 +51,9 @@ test('the text and six circles wait for fonts, photo images and line breaking wi
     const delays = [...e.d.querySelectorAll('.hero-photo')]
       .map(dot => parseFloat(dot.style.getPropertyValue('--photo-delay'))).sort((a, b) => a - b);
     assert.equal(delays.length, 6);
+    const order = [...e.d.querySelectorAll('.hero-photo')].sort((a,b) =>
+      parseFloat(a.style.getPropertyValue('--photo-delay')) - parseFloat(b.style.getPropertyValue('--photo-delay')));
+    assert.notEqual(order[0].dataset.service, order[1].dataset.service, 'entrance must not begin with a sweep along one side');
     assert(delays[0] >= 80 && delays[0] <= 260);
     for (let i = 1; i < delays.length; i++) {
       const gap = delays[i] - delays[i - 1];
