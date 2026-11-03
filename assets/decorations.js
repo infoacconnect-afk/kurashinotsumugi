@@ -75,12 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const waves = document.createElement('div');
     waves.className = 'page-top-waves';
     waves.setAttribute('aria-hidden', 'true');
-    waves.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-      <path class="page-top-wave page-top-wave--top" transform="translate(0 -120)" pathLength="1" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
-      <path class="page-top-wave page-top-wave--top" transform="translate(0 -120)" pathLength="1" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
-      <path class="page-top-wave page-top-wave--bottom" transform="translate(0 100)" pathLength="1" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
-      <path class="page-top-wave page-top-wave--bottom" transform="translate(0 100)" pathLength="1" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
-    </svg>`;
+    waves.innerHTML = `<div class="wave-reveal wave-reveal--top"><svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path class="page-top-wave page-top-wave--top" transform="translate(0 -120)" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
+      <path class="page-top-wave page-top-wave--top" transform="translate(0 -120)" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
+    </svg></div>
+    <div class="wave-reveal wave-reveal--bottom"><svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path class="page-top-wave page-top-wave--bottom" transform="translate(0 100)" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
+      <path class="page-top-wave page-top-wave--bottom" transform="translate(0 100)" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
+    </svg></div>`;
     hero.prepend(waves);
   });
 });

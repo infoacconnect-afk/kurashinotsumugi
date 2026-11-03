@@ -691,20 +691,24 @@ section { padding: 100px 0; }
   html.has-leaf-pointer .leaf-pointer { opacity:1; }
 }
 
-/* Inner-page openings: same colors, directions and timing as the homepage FV. */
+/* Reveal complete, solid curves through a viewport-sized clip.
+   Avoid pathLength/dash scaling with non-scaling strokes on responsive SVGs. */
+.wave-reveal {
+  position:absolute; inset:0; pointer-events:none;
+  animation:waveReveal 1.6s cubic-bezier(.25,.1,.25,1) .1s backwards;
+}
+.wave-reveal--top { --wave-clip:inset(0 0 0 100%); }
+.wave-reveal--bottom { --wave-clip:inset(0 100% 0 0); animation-delay:.2s; }
+@keyframes waveReveal {
+  from { clip-path:var(--wave-clip); }
+  to { clip-path:inset(0 0 0 0); }
+}
 .page-top-waves { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
 .page-top-waves svg { display:block; position:absolute; left:50%; transform:translateX(-50%); width:100%; min-width:900px; height:100%; }
 .page-top-wave {
   fill:none; stroke-width:2; stroke-linecap:round; opacity:.5;
-  vector-effect:non-scaling-stroke; stroke-dasharray:1;
-  animation:pageTopWaveDraw 3.6s cubic-bezier(.4,0,.2,1) .15s backwards;
-}
-.page-top-wave--top { --wave-start:-1; }
-.page-top-wave--bottom { --wave-start:1; animation-delay:.45s; }
-@keyframes pageTopWaveDraw {
-  from { stroke-dashoffset:var(--wave-start); }
-  to { stroke-dashoffset:0; }
+  vector-effect:non-scaling-stroke;
 }
 @media(prefers-reduced-motion:reduce) {
-  .page-top-wave { animation:none; stroke-dashoffset:0; }
+  .wave-reveal { animation:none; clip-path:none; }
 }

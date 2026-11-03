@@ -199,12 +199,8 @@ html.home-intro-pending .hero-photo {
   stroke-width: 2;
   opacity: 0.5;
 }
-/* Draw the top pair from right to left, and the bottom pair left to right. */
-.hero-wave { stroke-dasharray:1; animation:heroWaveDraw 3.6s cubic-bezier(.4,0,.2,1) .15s backwards; }
-.hero-wave--top { --wave-start:-1; }
-.hero-wave--bottom { --wave-start:1; animation-delay:.45s; }
-html.home-intro-pending .hero-wave { animation-play-state:paused; }
-@keyframes heroWaveDraw { from { stroke-dashoffset:var(--wave-start); } to { stroke-dashoffset:0; } }
+/* The shared viewport reveal avoids cropped or repeated stroke segments. */
+html.home-intro-pending .wave-reveal { animation-play-state:paused; }
 /* Six real-photo circles with feathered edges and independent soft entrances. */
 .hero-photo-field { position:absolute; inset:0; z-index:1; pointer-events:none; }
 .hero-photo {
@@ -258,8 +254,7 @@ html.home-intro-pending .hero-wave { animation-play-state:paused; }
   .hero-photo--engawa { --photo-size:clamp(50px,15vw,66px); right:36%; top:217px; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .hero-intro-item, .hero-photo, .hero-wave { opacity:1; animation:none; }
-  .hero-wave { opacity:.5; stroke-dashoffset:0; }
+  .hero-intro-item, .hero-photo { opacity:1; animation:none; }
 }
 
 /* ---------- Section: About ---------- */
@@ -937,14 +932,18 @@ html.home-intro-pending .hero-wave { animation-play-state:paused; }
 
 <!-- ========== 02 Hero ========== -->
 <section class="hero">
-  <div class="hero-deco-bg">
-    <!-- Preserve the background curves without decorative dots. -->
+  <div class="hero-deco-bg" aria-hidden="true">
+    <!-- Preserve the curves; reveal the upper and lower pairs independently. -->
+    <div class="wave-reveal wave-reveal--top">
     <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
-      <path class="vine-line hero-wave hero-wave--top" pathLength="1" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
-      <path class="vine-line hero-wave hero-wave--top" pathLength="1" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
-      <path class="vine-line hero-wave hero-wave--bottom" pathLength="1" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
-      <path class="vine-line hero-wave hero-wave--bottom" pathLength="1" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
-    </svg>
+      <path class="vine-line hero-wave hero-wave--top" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
+      <path class="vine-line hero-wave hero-wave--top" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
+    </svg></div>
+    <div class="wave-reveal wave-reveal--bottom">
+    <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
+      <path class="vine-line hero-wave hero-wave--bottom" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
+      <path class="vine-line hero-wave hero-wave--bottom" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
+    </svg></div>
   </div>
   <div class="hero-photo-field" aria-hidden="true">
     <figure class="hero-photo hero-photo--family" data-service="korekara" style="--photo-delay:100ms"><img src="assets/fv-photos/family.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
