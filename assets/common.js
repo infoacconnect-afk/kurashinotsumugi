@@ -432,17 +432,6 @@
         event.target.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"]),iframe')) {
       hide(); return;
     }
-    // Keep the requested green on light surfaces and pure white on dark ones.
-    let surface = event.target, dark = false;
-    while (surface instanceof Element) {
-      const color = getComputedStyle(surface).backgroundColor.match(/[\d.]+/g)?.map(Number);
-      if (color && (color.length < 4 || color[3] >= 0.9)) {
-        dark = (color[0] * .2126 + color[1] * .7152 + color[2] * .0722) < 145;
-        break;
-      }
-      surface = surface.parentElement;
-    }
-    leaf.style.backgroundColor = dark ? '#FFFFFF' : '#5D853F';
     // The leaf tip is the actual click point, with no trailing animation.
     leaf.style.transform = `translate3d(${event.clientX - 17.5}px,${event.clientY - 1.7}px,0)`;
     root.classList.add('has-leaf-pointer');
