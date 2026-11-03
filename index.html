@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script id="home-entrance">
-// The central introduction and decorative dots fade; the page stays visible.
+// Text and six photo circles fade; the page and service links stay visible.
 (function () {
   const root = document.documentElement;
   const reveal = () => root.classList.remove('home-intro-pending');
@@ -17,21 +17,33 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Shuffle only while paused so a late DOM cannot restart visible decorations.
     if (root.classList.contains('home-intro-pending')) {
-      const dots = [...document.querySelectorAll('.hero-deco-bg .leaf-dot')];
-      for (let i = dots.length - 1; i > 0; i--) {
+      const photos = [...document.querySelectorAll('.hero-photo')];
+      for (let i = photos.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [dots[i], dots[j]] = [dots[j], dots[i]];
+        [photos[i], photos[j]] = [photos[j], photos[i]];
       }
-      // Leave a visible gap between each 450ms fade, with irregular start times.
-      let delay = 100;
-      dots.forEach(dot => {
-        dot.style.setProperty('--dot-delay', `${delay}ms`);
-        delay += 550 + Math.floor(Math.random() * 201);
+      // Avoid a right-to-left (or left-to-right) sweep: the first two
+      // appearances always come from different sides; neither side starts fixed.
+      if (photos[0].dataset.service === photos[1].dataset.service) {
+        const alternatives = photos.map((photo, i) => i).filter(i =>
+          photos[i].dataset.service !== photos[0].dataset.service);
+        const swap = alternatives[Math.floor(Math.random() * alternatives.length)];
+        [photos[1], photos[swap]] = [photos[swap], photos[1]];
+      }
+      // Each visit gets a different rhythm, softness and small floating entrance.
+      let delay = 80 + Math.floor(Math.random() * 181);
+      photos.forEach(photo => {
+        photo.style.setProperty('--photo-delay', `${delay}ms`);
+        photo.style.setProperty('--photo-duration', `${1800 + Math.floor(Math.random() * 1101)}ms`);
+        photo.style.setProperty('--photo-drift-x', `${Math.round(Math.random() * 16 - 8)}px`);
+        photo.style.setProperty('--photo-drift-y', `${10 + Math.floor(Math.random() * 15)}px`);
+        photo.style.setProperty('--photo-scale', (0.94 + Math.random() * 0.04).toFixed(3));
+        delay += 200 + Math.floor(Math.random() * 481);
       });
     }
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
     const reading = window.KurashiReading?.ready || Promise.resolve();
-    const images = [...document.querySelectorAll('#heroLogo img')].map(img =>
+    const images = [...document.querySelectorAll('.hero-photo img')].map(img =>
       typeof img.decode === 'function' ? img.decode() : Promise.resolve());
     Promise.allSettled([fonts, reading, ...images]).then(() => {
       window.clearTimeout(deadline);
@@ -49,7 +61,7 @@
 
 
 
-<link rel="preload" as="image" href="assets/icons/house-transparent.webp" type="image/webp">
+
 <link rel="preload" as="image" href="assets/icons/leaf.webp" type="image/webp">
 <link rel="stylesheet" href="assets/fonts-local.css">
 <link rel="stylesheet" href="assets/common.css">
@@ -60,11 +72,11 @@ body[data-page="home"] { background: var(--ivory); }
 .hero-intro-item {
   animation: heroIntroReveal 2s linear backwards;
 }
-/* Start both text lines when the two-second house fade reaches 20%. */
+/* Preserve the gentle text introduction alongside the photographs. */
 .hero-brand.hero-intro-item,
 .hero-catch.hero-intro-item { animation-delay: 0.4s; }
 html.home-intro-pending .hero-intro-item,
-html.home-intro-pending .hero-deco-bg .leaf-dot {
+html.home-intro-pending .hero-photo {
   animation-play-state: paused;
 }
 @keyframes heroIntroReveal {
@@ -96,12 +108,6 @@ html.home-intro-pending .hero-deco-bg .leaf-dot {
   text-align: center;
   width: 100%;
 }
-.hero-logo-mark {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 24px;
-}
-.hero-logo-mark img { width: 100%; height: 100%; object-fit: contain; }
 .hero-brand {
   font-family: 'Zen Maru Gothic', sans-serif;
   font-weight: 500;
@@ -193,22 +199,62 @@ html.home-intro-pending .hero-deco-bg .leaf-dot {
   stroke-width: 2;
   opacity: 0.5;
 }
-.leaf-dot {
-  opacity: 0.7;
-  transform: scale(1);
-  transform-origin: center;
+/* The shared viewport reveal avoids cropped or repeated stroke segments. */
+html.home-intro-pending .wave-reveal { animation-play-state:paused; }
+/* Six real-photo circles with feathered edges and independent soft entrances. */
+.hero-photo-field { position:absolute; inset:0; z-index:1; pointer-events:none; }
+.hero-photo {
+  position:absolute; width:var(--photo-size); aspect-ratio:1;
+  border-radius:50%; overflow:hidden; margin:0;
+  -webkit-mask-image:radial-gradient(circle closest-side, #000 80%, rgba(0,0,0,.92) 86%, rgba(0,0,0,.5) 94%, transparent 100%);
+  mask-image:radial-gradient(circle closest-side, #000 80%, rgba(0,0,0,.92) 86%, rgba(0,0,0,.5) 94%, transparent 100%);
+  animation:heroPhotoReveal var(--photo-duration, 2300ms) cubic-bezier(.22,.61,.36,1) var(--photo-delay, 100ms) backwards;
 }
-
-.hero-deco-bg .leaf-dot {
-  animation: heroDotReveal 450ms ease-out var(--dot-delay) backwards;
+.hero-photo img { display:block; width:100%; height:100%; object-fit:cover; }
+/* Scatter large and small circles across different heights, not matching rows. */
+.hero-photo--family { --photo-size:clamp(210px,18vw,270px); left:3%; top:18%; }
+.hero-photo--new-house { --photo-size:clamp(175px,14.5vw,218px); left:8%; bottom:20%; }
+.hero-photo--living { --photo-size:clamp(90px,8vw,120px); left:29%; top:14%; }
+.hero-photo--existing-house { --photo-size:clamp(145px,12vw,180px); right:18%; top:12%; }
+.hero-photo--keys { --photo-size:clamp(220px,19vw,285px); right:2%; bottom:4%; }
+.hero-photo--engawa { --photo-size:clamp(120px,10vw,150px); right:3%; top:42%; }
+.hero-photo--family img { object-position:50% 50%; }
+.hero-photo--existing-house img { object-position:50% 50%; }
+@keyframes heroPhotoReveal {
+  from {
+    opacity:0;
+    transform:translate(var(--photo-drift-x, 0px), var(--photo-drift-y, 18px)) scale(var(--photo-scale, .96));
+    filter:blur(3px);
+  }
+  to { opacity:1; transform:translate(0,0) scale(1); filter:blur(0); }
 }
-@keyframes heroDotReveal {
-  from { opacity: 0; }
-  to { opacity: 0.7; }
+@media(min-width:1201px) {
+  .hero { min-height:900px; padding-top:230px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .hero-intro-item { opacity: 1; animation: none; }
-  .hero-deco-bg .leaf-dot { opacity: 0.7; animation: none; }
+/* Compact screens reserve a separate, irregular photo area above the copy. */
+@media(max-width:1200px) {
+  .hero { min-height:100vh; padding-top:390px; padding-bottom:70px; align-items:flex-start; }
+  .hero-photo-field { height:370px; }
+  .hero-photo--family { --photo-size:145px; left:5%; top:125px; }
+  .hero-photo--new-house { --photo-size:110px; left:27%; top:245px; bottom:auto; }
+  .hero-photo--living { --photo-size:72px; left:36%; top:107px; }
+  .hero-photo--existing-house { --photo-size:98px; right:18%; top:118px; }
+  .hero-photo--keys { --photo-size:155px; right:4%; top:215px; bottom:auto; }
+  .hero-photo--engawa { --photo-size:76px; right:38%; top:210px; }
+}
+@media(max-width:600px) {
+  .hero { padding-top:375px; padding-bottom:55px; }
+  .hero-inner { padding-left:18px; padding-right:18px; }
+  .hero-photo-field { height:355px; }
+  .hero-photo--family { --photo-size:clamp(84px,27vw,120px); left:3%; top:125px; }
+  .hero-photo--new-house { --photo-size:clamp(72px,23vw,100px); left:12%; top:253px; }
+  .hero-photo--living { --photo-size:clamp(40px,12.5vw,60px); left:36%; top:109px; }
+  .hero-photo--existing-house { --photo-size:clamp(58px,18vw,80px); right:15%; top:131px; }
+  .hero-photo--keys { --photo-size:clamp(96px,30vw,115px); right:2%; top:240px; }
+  .hero-photo--engawa { --photo-size:clamp(50px,15vw,66px); right:36%; top:217px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .hero-intro-item, .hero-photo { opacity:1; animation:none; }
 }
 
 /* ---------- Section: About ---------- */
@@ -886,29 +932,28 @@ html.home-intro-pending .hero-deco-bg .leaf-dot {
 
 <!-- ========== 02 Hero ========== -->
 <section class="hero">
-  <div class="hero-deco-bg">
-    <!-- Vines stay visible; dots fade in random order with the central introduction. -->
+  <div class="hero-deco-bg" aria-hidden="true">
+    <!-- Preserve the curves; reveal the upper and lower pairs independently. -->
+    <div class="wave-reveal wave-reveal--top">
     <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
-      <path class="vine-line" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
-      <path class="vine-line" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
-      <path class="vine-line" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
-      <path class="vine-line" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
-      <!-- leaves -->
-      <g>
-        <ellipse class="leaf-dot" style="--dot-delay: 100ms" cx="200" cy="180" rx="8" ry="4" fill="#9CAF88" transform="rotate(-30 200 180)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 2650ms" cx="500" cy="260" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(20 500 260)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 750ms" cx="900" cy="220" rx="8" ry="4" fill="#9CAF88" transform="rotate(-25 900 220)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 4050ms" cx="1200" cy="200" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(30 1200 200)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 1400ms" cx="300" cy="720" rx="8" ry="4" fill="#9CAF88" transform="rotate(30 300 720)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 3350ms" cx="700" cy="680" rx="9" ry="4.5" fill="#9CAF88" transform="rotate(-20 700 680)"/>
-        <ellipse class="leaf-dot" style="--dot-delay: 2000ms" cx="1050" cy="720" rx="8" ry="4" fill="#9CAF88" transform="rotate(25 1050 720)"/>
-      </g>
-    </svg>
+      <path class="vine-line hero-wave hero-wave--top" d="M-50,200 Q200,120 400,220 T800,240 T1250,180 T1500,220" stroke="#B99A78"/>
+      <path class="vine-line hero-wave hero-wave--top" d="M-50,260 Q220,190 420,290 T820,310 T1270,250 T1500,290" stroke="#9CAF88"/>
+    </svg></div>
+    <div class="wave-reveal wave-reveal--bottom">
+    <svg width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;">
+      <path class="vine-line hero-wave hero-wave--bottom" d="M-50,680 Q200,760 400,660 T800,640 T1250,700 T1500,660" stroke="#B99A78"/>
+      <path class="vine-line hero-wave hero-wave--bottom" d="M-50,740 Q220,820 420,720 T820,700 T1270,760 T1500,720" stroke="#9CAF88"/>
+    </svg></div>
+  </div>
+  <div class="hero-photo-field" aria-hidden="true">
+    <figure class="hero-photo hero-photo--family" data-service="korekara" style="--photo-delay:100ms"><img src="assets/fv-photos/family.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
+    <figure class="hero-photo hero-photo--new-house" data-service="korekara" style="--photo-delay:520ms"><img src="assets/fv-photos/new-house.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
+    <figure class="hero-photo hero-photo--living" data-service="korekara" style="--photo-delay:940ms"><img src="assets/fv-photos/living.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
+    <figure class="hero-photo hero-photo--existing-house" data-service="sorekara" style="--photo-delay:1360ms"><img src="assets/fv-photos/existing-house.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
+    <figure class="hero-photo hero-photo--engawa" data-service="sorekara" style="--photo-delay:1780ms"><img src="assets/fv-photos/engawa.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
+    <figure class="hero-photo hero-photo--keys" data-service="sorekara" style="--photo-delay:2200ms"><img src="assets/fv-photos/keys.webp" alt="" width="480" height="480" loading="eager" decoding="async"></figure>
   </div>
   <div class="hero-inner">
-    <div class="hero-logo-mark hero-intro-item" id="heroLogo">
-      <img src="assets/icons/house-transparent.webp" alt="くらしのつむぎ" loading="eager">
-    </div>
     <h1 class="hero-brand hero-intro-item" id="heroBrand">くらしのつむぎ</h1>
     <p class="hero-catch hero-intro-item" id="heroCatch"><span class="wrap-proposal">これからのすまい、</span><span class="wrap-proposal">それからのすまい。</span></p>
     <p class="hero-ai-note"><span class="ai-note-phrase">当サイトでは、</span><wbr><span class="ai-note-phrase">一部のイメージ画像に</span><wbr><span class="ai-note-phrase">AI生成画像を使用しています。</span></p>

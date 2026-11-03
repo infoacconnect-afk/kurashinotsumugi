@@ -20,7 +20,7 @@ async function entrance() {
   const fonts = deferred(), image = deferred(), reading = deferred();
   w.KurashiReading = { ready: reading.promise };
   Object.defineProperty(d, 'fonts', { value: { ready: fonts.promise } });
-  for (const img of d.querySelectorAll('#heroLogo img')) img.decode = () => image.promise;
+  for (const img of d.querySelectorAll('.hero-photo img')) img.decode = () => image.promise;
   let deadline, duration, cleared = false;
   w.setTimeout = (fn, ms) => { deadline = fn; duration = ms; return 1; };
   w.clearTimeout = id => { assert.equal(id, 1); cleared = true; };
@@ -32,7 +32,7 @@ async function entrance() {
   return { dom, d, fonts, image, reading, pending, catchcopy, deadline, duration, cleared: () => cleared };
 }
 
-test('the three intro elements wait for fonts, the house image and line breaking without rewriting text', async () => {
+test('the text and six circles wait for fonts, photo images and line breaking without rewriting text', async () => {
   const e = await entrance();
   try {
     e.fonts.resolve(); await flush();
@@ -45,16 +45,23 @@ test('the three intro elements wait for fonts, the house image and line breaking
     assert.equal(e.d.querySelector('.home-opening'), null, 'no partial-page animation wrapper');
     const css = [...e.d.querySelectorAll('style')].map(el => el.textContent).join('\n');
     assert.match(css, /\.hero-intro-item\s*\{\s*animation: heroIntroReveal 2s linear backwards;/);
-    assert.match(css, /html\.home-intro-pending \.hero-intro-item,\s*html\.home-intro-pending \.hero-deco-bg \.leaf-dot\s*\{\s*animation-play-state: paused;\s*\}/);
-    assert.deepEqual([...e.d.querySelectorAll('.hero-intro-item')].map(el => el.id), ['heroLogo', 'heroBrand', 'heroCatch']);
+    assert.match(css, /html\.home-intro-pending \.hero-intro-item,\s*html\.home-intro-pending \.hero-photo\s*\{\s*animation-play-state: paused;\s*\}/);
+    assert.deepEqual([...e.d.querySelectorAll('.hero-intro-item')].map(el => el.id), ['heroBrand', 'heroCatch']);
     assert(!e.d.querySelector('#heroButtons').closest('.hero-intro-item'));
-    const delays = [...e.d.querySelectorAll('.hero-deco-bg .leaf-dot')]
-      .map(dot => parseFloat(dot.style.getPropertyValue('--dot-delay'))).sort((a, b) => a - b);
-    assert.equal(delays.length, 7);
-    assert.equal(delays[0], 100);
+    const delays = [...e.d.querySelectorAll('.hero-photo')]
+      .map(dot => parseFloat(dot.style.getPropertyValue('--photo-delay'))).sort((a, b) => a - b);
+    assert.equal(delays.length, 6);
+    const order = [...e.d.querySelectorAll('.hero-photo')].sort((a,b) =>
+      parseFloat(a.style.getPropertyValue('--photo-delay')) - parseFloat(b.style.getPropertyValue('--photo-delay')));
+    assert.notEqual(order[0].dataset.service, order[1].dataset.service, 'entrance must not begin with a sweep along one side');
+    assert(delays[0] >= 80 && delays[0] <= 260);
     for (let i = 1; i < delays.length; i++) {
       const gap = delays[i] - delays[i - 1];
-      assert(gap >= 550 && gap <= 750, 'individual 450ms fades must not overlap');
+      assert(gap >= 200 && gap <= 680, 'photo fade starts must remain gently staggered');
+    }
+    for (const photo of e.d.querySelectorAll('.hero-photo')) {
+      const duration = parseFloat(photo.style.getPropertyValue('--photo-duration'));
+      assert(duration >= 1800 && duration <= 2900, 'each floating fade must stay within a gentle, bounded duration');
     }
     assert(!css.includes('homeReveal'), 'no page-wide opacity animation');
     assert.match(e.d.querySelector('#home-first-paint').textContent, /background: #FBF7F0/);

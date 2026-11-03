@@ -677,3 +677,38 @@ section { padding: 100px 0; }
   letter-spacing: 0;
   vertical-align: super;
 }
+
+/* The leaf keeps the same yellow-green on every background. */
+.leaf-pointer { display:none; }
+@media (hover:hover) and (pointer:fine) and (forced-colors:none) {
+  html.has-leaf-pointer, html.has-leaf-pointer * { cursor:none !important; }
+  .leaf-pointer {
+    display:block; position:fixed; left:0; top:0; width:20px; height:24px;
+    z-index:2147483647; pointer-events:none; opacity:0;
+    /* 0.7 SVG units: approximately 0.6 CSS px at this cursor size. */
+    background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2028%22%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%20d%3D%22M7%2018L3%2025%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke%3D%22%239ACD32%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20d%3D%22M7%2018L3%2025%22%2F%3E%3Cpath%20fill%3D%22%239ACD32%22%20stroke%3D%22%23000%22%20stroke-width%3D%220.7%22%20stroke-linejoin%3D%22round%22%20fill-rule%3D%22evenodd%22%20d%3D%22M21%202C9%201%201%208%204%2017C8%2024%2021%2019%2021%202ZM6%2018L17%206L9%2018Z%22%2F%3E%3C%2Fsvg%3E") center/contain no-repeat;
+  }
+  html.has-leaf-pointer .leaf-pointer { opacity:1; }
+}
+
+/* Reveal complete, solid curves through a viewport-sized clip.
+   Avoid pathLength/dash scaling with non-scaling strokes on responsive SVGs. */
+.wave-reveal {
+  position:absolute; inset:0; pointer-events:none;
+  animation:waveReveal 1.6s cubic-bezier(.25,.1,.25,1) .1s backwards;
+}
+.wave-reveal--top { --wave-clip:inset(0 0 0 100%); }
+.wave-reveal--bottom { --wave-clip:inset(0 100% 0 0); animation-delay:.2s; }
+@keyframes waveReveal {
+  from { clip-path:var(--wave-clip); }
+  to { clip-path:inset(0 0 0 0); }
+}
+.page-top-waves { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.page-top-waves svg { display:block; position:absolute; left:50%; transform:translateX(-50%); width:100%; min-width:900px; height:100%; }
+.page-top-wave {
+  fill:none; stroke-width:2; stroke-linecap:round; opacity:.5;
+  vector-effect:non-scaling-stroke;
+}
+@media(prefers-reduced-motion:reduce) {
+  .wave-reveal { animation:none; clip-path:none; }
+}

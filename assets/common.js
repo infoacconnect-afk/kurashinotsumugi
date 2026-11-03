@@ -413,3 +413,31 @@
 ]);
   window.KurashiArticleImage = url => images.get(url) || url;
 })();
+
+/* Desktop mouse only; native cursors remain available for editing and touch. */
+(function () {
+  if (typeof window.matchMedia !== 'function' || !window.CSS?.supports) return;
+  const finePointer = window.matchMedia('(hover:hover) and (pointer:fine) and (forced-colors:none)');
+  if (!finePointer.matches ||
+      !(CSS.supports('mask-image', 'linear-gradient(black,black)') ||
+        CSS.supports('-webkit-mask-image', 'linear-gradient(black,black)'))) return;
+  const leaf = document.createElement('span');
+  leaf.className = 'leaf-pointer';
+  leaf.setAttribute('aria-hidden', 'true');
+  document.body.append(leaf);
+  const root = document.documentElement;
+  const hide = () => root.classList.remove('has-leaf-pointer');
+  document.addEventListener('pointermove', event => {
+    if (!finePointer.matches || event.pointerType !== 'mouse' ||
+        event.target.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"]),iframe')) {
+      hide(); return;
+    }
+    // The leaf tip is the actual click point, with no trailing animation.
+    leaf.style.transform = `translate3d(${event.clientX - 17.5}px,${event.clientY - 1.7}px,0)`;
+    root.classList.add('has-leaf-pointer');
+  }, { passive:true });
+  document.addEventListener('pointerout', event => { if (!event.relatedTarget) hide(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Tab') hide(); });
+  window.addEventListener('blur', hide);
+  finePointer.addEventListener('change', hide);
+})();

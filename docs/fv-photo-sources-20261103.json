@@ -1,0 +1,63 @@
+{
+  "verified_date": "2026-11-03",
+  "license_summary": "Pexels allows free website and commercial promotion use, cropping/editing, no attribution required. Do not imply endorsements or depict stock people as actual clients.",
+  "photos": [
+    {
+      "file": "family.webp",
+      "source_url": "https://www.pexels.com/photo/family-walking-on-a-grass-field-8301242/",
+      "author": "Kindel Media",
+      "real_photo_evidence": "Taken 2021-05-14, published 2021-06-11; camera not displayed on source page.",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "640px WebP; crop [395,90,1045,740] from 1200x800 derivative, then resize/compress only; three family members and joined hands within circle.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
+    },
+    {
+      "file": "new-house.webp",
+      "source_url": "https://www.pexels.com/photo/modern-house-exterior-design-8134821/",
+      "author": "Max Vakhtbovych",
+      "real_photo_evidence": "Not displayed on source page; 2021-05-30",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "640px WebP; Rightmost square; main two story body and roof preserved, some adjoining garage cropped.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
+    },
+    {
+      "file": "living.webp",
+      "source_url": "https://www.pexels.com/photo/1643383/",
+      "photo_id": 1643383,
+      "author": "Viaceslav Kat",
+      "real_photo_evidence": "Pexels original page downloaded, creator metadata verified; published before 2020 (page updated_at 2020-04-23)",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "existing-house.webp",
+      "source_url": "https://www.pexels.com/photo/exterior-of-a-house-14430794/",
+      "photo_id": 14430794,
+      "author": "SHIMADA MASAKI",
+      "real_photo_evidence": "NIKON D5200; taken 2022-11-08",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "engawa.webp",
+      "source_url": "https://www.pexels.com/photo/sunlight-on-traditional-japanese-interior-scene-32911574/",
+      "author": "Paolo Sanchez",
+      "real_photo_evidence": "iPhone 16 Pro; 2025-05-18",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "640px WebP; Bottom square includes sunlit tatami and shoji.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
+    },
+    {
+      "file": "keys.webp",
+      "source_url": "https://www.pexels.com/photo/handing-the-keys-of-a-new-house-7641904/",
+      "photo_id": 7641904,
+      "author": "Alena Darmel",
+      "real_photo_evidence": "Canon EOS 5D Mark IV; taken 2021-04-14",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    }
+  ]
+}
