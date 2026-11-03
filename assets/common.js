@@ -418,7 +418,7 @@
 (function () {
   if (typeof window.matchMedia !== 'function' || !window.CSS?.supports) return;
   const finePointer = window.matchMedia('(hover:hover) and (pointer:fine) and (forced-colors:none)');
-  if (!finePointer.matches || !CSS.supports('mix-blend-mode', 'difference') ||
+  if (!finePointer.matches ||
       !(CSS.supports('mask-image', 'linear-gradient(black,black)') ||
         CSS.supports('-webkit-mask-image', 'linear-gradient(black,black)'))) return;
   const leaf = document.createElement('span');
@@ -432,8 +432,7 @@
         event.target.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"]),iframe')) {
       hide(); return;
     }
-    // Solid dark surfaces use pure white; difference blending also keeps
-    // the leaf visible while it crosses photographs or mixed backgrounds.
+    // Keep the requested green on light surfaces and pure white on dark ones.
     let surface = event.target, dark = false;
     while (surface instanceof Element) {
       const color = getComputedStyle(surface).backgroundColor.match(/[\d.]+/g)?.map(Number);
@@ -443,7 +442,7 @@
       }
       surface = surface.parentElement;
     }
-    leaf.style.mixBlendMode = dark ? 'normal' : 'difference';
+    leaf.style.backgroundColor = dark ? '#FFFFFF' : '#5D853F';
     // The leaf tip is the actual click point, with no trailing animation.
     leaf.style.transform = `translate3d(${event.clientX - 17.5}px,${event.clientY - 1.7}px,0)`;
     root.classList.add('has-leaf-pointer');
