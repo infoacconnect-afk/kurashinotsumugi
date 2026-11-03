@@ -432,16 +432,30 @@
   leaf.setAttribute('aria-hidden', 'true');
   document.body.append(leaf);
   const root = document.documentElement;
-  const hide = () => root.classList.remove('has-leaf-pointer');
-  document.addEventListener('pointermove', event => {
-    if (!finePointer.matches || event.pointerType !== 'mouse' ||
-        event.target.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"]),iframe')) {
+  const hide = () => {
+    root.classList.remove('has-leaf-pointer');
+    leaf.classList.remove('is-interactive');
+  };
+  const actions = 'a[href],button,summary,[role="button"],[role="link"],.faq-q,input:is([type="button"],[type="submit"],[type="reset"],[type="checkbox"],[type="radio"])';
+  const update = event => {
+    const target = event.target instanceof Element ? event.target : null;
+    const label = target?.closest('label');
+    const control = label?.control;
+    const action = target?.closest(actions) || (control?.matches(actions) ? control : null);
+    const disabled = target?.closest('[inert],[aria-disabled="true"],:disabled') ||
+      action?.matches(':disabled,[aria-disabled="true"]');
+    const editing = target?.closest('textarea,select,[contenteditable]:not([contenteditable="false"]),iframe') ||
+      (target?.closest('input') && !action);
+    if (!finePointer.matches || event.pointerType !== 'mouse' || !target || disabled || editing) {
       hide(); return;
     }
-    // The leaf tip is the actual click point, with no trailing animation.
+    // Both shapes use the existing 20 × 24 px box without a trailing animation.
+    leaf.classList.toggle('is-interactive', Boolean(action));
     leaf.style.transform = `translate3d(${event.clientX - 17.5}px,${event.clientY - 1.7}px,0)`;
     root.classList.add('has-leaf-pointer');
-  }, { passive:true });
+  };
+  document.addEventListener('pointermove', update, { passive:true });
+  document.addEventListener('pointerover', update, { passive:true });
   document.addEventListener('pointerout', event => { if (!event.relatedTarget) hide(); });
   document.addEventListener('keydown', event => { if (event.key === 'Tab') hide(); });
   window.addEventListener('blur', hide);
