@@ -1,0 +1,66 @@
+{
+  "verified_date": "2026-11-03",
+  "license_summary": "Pexels allows free website and commercial promotion use, cropping/editing, no attribution required. Do not imply endorsements or depict stock people as actual clients.",
+  "photos": [
+    {
+      "file": "family.webp",
+      "source_url": "https://www.pexels.com/photo/happy-ethnic-family-with-kid-on-sofa-7936747/",
+      "photo_id": 7936747,
+      "author": "Tran Nhu Tuan",
+      "real_photo_evidence": "Canon EOS 5D Mark III; taken 2021-05-10",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "new-house.webp",
+      "source_url": "https://www.pexels.com/photo/modern-house-exterior-7587880/",
+      "photo_id": 7587880,
+      "author": "Max Vakhtbovych",
+      "real_photo_evidence": "NIKON D800; taken 2018-07-15",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "living.webp",
+      "source_url": "https://www.pexels.com/photo/1643383/",
+      "photo_id": 1643383,
+      "author": "Viaceslav Kat",
+      "real_photo_evidence": "Pexels original page downloaded, creator metadata verified; published before 2020 (page updated_at 2020-04-23)",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "existing-house.webp",
+      "source_url": "https://www.pexels.com/photo/exterior-of-a-house-14430794/",
+      "photo_id": 14430794,
+      "author": "SHIMADA MASAKI",
+      "real_photo_evidence": "NIKON D5200; taken 2022-11-08",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    },
+    {
+      "file": "engawa.webp",
+      "source_url": "https://www.pexels.com/photo/traditional-japanese-room-with-tatami-and-lamp-31153872/",
+      "photo_id": 31153872,
+      "author": "CochraneStreet Studio",
+      "real_photo_evidence": "iPhone 15 Pro; taken 2024-08-23",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Traditional room with warm lamp; visually somewhat dim, but attractive and intact. Not a managed property or case study."
+    },
+    {
+      "file": "keys.webp",
+      "source_url": "https://www.pexels.com/photo/handing-the-keys-of-a-new-house-7641904/",
+      "photo_id": 7641904,
+      "author": "Alena Darmel",
+      "real_photo_evidence": "Canon EOS 5D Mark IV; taken 2021-04-14",
+      "license_url": "https://www.pexels.com/license/",
+      "transform": "480px square crop and WebP compression only; no AI editing",
+      "note": "Illustrative stock image, not actual client or managed property."
+    }
+  ]
+}
