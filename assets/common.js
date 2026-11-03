@@ -212,11 +212,17 @@
    if(!active||active.root!==root){active={root,nodes:[],text:''};runs.push(active);}active.nodes.push(n);active.text+=n.nodeValue;
   }return runs.filter(r=>/[\u3040-\u9fff]/.test(r.text));
  }
+ const measureCache=new Map();
  function measureFor(root){
-  const ctx=document.createElement('canvas').getContext('2d'),s=getComputedStyle(root);ctx.font=s.font||[s.fontStyle,s.fontWeight,s.fontSize,s.fontFamily].join(' ');const spacing=parseFloat(s.letterSpacing)||0;
-  return text=>{const t=text.replace(/\s+/g,' ');return ctx.measureText(t).width+Array.from(t).length*spacing;};
+  const s=getComputedStyle(root),font=s.font||[s.fontStyle,s.fontWeight,s.fontSize,s.fontFamily].join(' '),spacing=parseFloat(s.letterSpacing)||0,key=font+'|'+spacing;
+  if(measureCache.has(key))return measureCache.get(key);
+  const ctx=document.createElement('canvas').getContext('2d'),widths=new Map();ctx.font=font;
+  const measure=text=>{const t=text.replace(/\s+/g,' ');if(!widths.has(t))widths.set(t,ctx.measureText(t).width+Array.from(t).length*spacing);return widths.get(t);};
+  measureCache.set(key,measure);return measure;
  }
  function apply(){
+  // Reuse measurements within this pass only; resize/font updates recalculate.
+  measureCache.clear();
   document.querySelectorAll('wbr[data-reading-break]').forEach(e=>e.remove());wrapFlexLabels();audit=[];let count=0,phraseCount=0,oversize=0;
   for(const {root,text,nodes} of collectRuns()){
    root.classList.add('reading-flow');const s=getComputedStyle(root),available=Math.max(1,root.clientWidth-(parseFloat(s.paddingLeft)||0)-(parseFloat(s.paddingRight)||0)),measure=measureFor(root),fits=t=>measure(t)<=available+0.75;

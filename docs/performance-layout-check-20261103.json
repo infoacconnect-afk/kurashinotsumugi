@@ -1,0 +1,130 @@
+[
+  {
+    "page": "index.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "faq.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "korekara.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "sorekara.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "contact.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "company.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "lab.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "privacy.html",
+    "width": 1366,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "index.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "faq.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "korekara.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "sorekara.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "contact.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "company.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "lab.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  },
+  {
+    "page": "privacy.html",
+    "width": 360,
+    "breaksEqual": true,
+    "textEqual": true,
+    "overflow": false,
+    "changes": []
+  }
+]
