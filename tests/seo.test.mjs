@@ -42,7 +42,7 @@ test('published HTML contains article text without JS, preserves URLs and exclud
     assert.equal(preloads.length, 3);
     assert.equal(new Set(preloads.map(el => el.href)).size, 3);
     for (const link of preloads) {
-      assert.match(link.getAttribute('href'), /^\/assets\/fonts\/subsets\/[a-f0-9]{20}\.woff2$/);
+      assert.match(link.getAttribute('href'), /^\/assets\/fonts\/(?:subsets|fast)\/[a-f0-9]{20}\.woff2$/);
       assert.equal(link.crossOrigin, 'anonymous');
       assert.equal(link.type, 'font/woff2');
       assert(link.compareDocumentPosition(d.querySelector('link[href="assets/fonts-local.css"]')) & 4);
@@ -61,7 +61,7 @@ test('published HTML contains article text without JS, preserves URLs and exclud
     assert.match(readFileSync(join(root, 'dist/_redirects'), 'utf8'), /\/lab-article\.html id=sample_1 \/lab-rendered\/sample_1\.html 200!/);
     assert.match(readFileSync(join(root, 'dist/_redirects'), 'utf8'), /id=:id \/404\.html 404!/);
     assert(!readFileSync(join(root, 'dist/_headers'), 'utf8').includes('noindex'));
-    assert.match(readFileSync(join(root, 'dist/_headers'), 'utf8'), /\/assets\/fonts\/subsets\/\*\n  Cache-Control: public, max-age=31536000, immutable/);
+    assert.match(readFileSync(join(root, 'dist/_headers'), 'utf8'), /\/assets\/fonts\/(?:subsets|fast)\/\*\n  Cache-Control: public, max-age=31536000, immutable/);
     assert.match(readFileSync(join(root, 'dist/_headers'), 'utf8'), /\/assets\/fonts-local\.css\n  Cache-Control: public, max-age=0, must-revalidate/);
     assert.match(readFileSync(join(root, 'dist/lab.html'), 'utf8'), /href="lab-article.html\?id=sample_1"/);
   } finally { rmSync(root, { recursive: true, force: true }); }

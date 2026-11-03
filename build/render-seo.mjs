@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync } f
 import { resolve, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readOrganization, enrichSearch } from './enrich-search.mjs';
+import { optimizeDelivery } from './optimize-delivery.mjs';
 
 export const ORIGIN = 'https://kurashinotsumugi.com';
 const xml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
@@ -88,6 +89,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
     const d = dom.window.document;
     dom.window.eval(read(join(root, 'assets/partials.js')));
     enrichSearch(d, { origin: ORIGIN, organization });
+    optimizeDelivery(d);
     prepareFonts(d);
     if (preview) metadata(d, 'meta[name="robots"]', 'meta', { name: 'robots', content: 'noindex, nofollow' });
     // Existing animations are kept for JS users; text remains readable without JS.
@@ -177,6 +179,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   // must revalidate so a font update is not trapped in an old browser cache.
   writeFileSync(join(out, '_headers'), (preview ? '/*\n  X-Robots-Tag: noindex, nofollow\n' : '') +
     '/assets/fonts/subsets/*\n  Cache-Control: public, max-age=31536000, immutable\n' +
+    '/assets/fonts/fast/*\n  Cache-Control: public, max-age=31536000, immutable\n' +
     '/assets/fonts-local.css\n  Cache-Control: public, max-age=0, must-revalidate\n');
   console.log(`[render-seo] ${data.articles.length} articles, ${unique.length} sitemap URLs; ${context}`);
   return { articles: data.articles.length, urls: unique.length };

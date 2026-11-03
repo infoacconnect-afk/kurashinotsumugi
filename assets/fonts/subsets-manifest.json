@@ -427,7 +427,44 @@
   ],
   "preloads": [
     "/assets/fonts/subsets/5ed71d7d659b217af412.woff2",
-    "/assets/fonts/subsets/c2d03b4e8e4488481ed4.woff2",
-    "/assets/fonts/subsets/8b3391ab34cf8cc5ddb8.woff2"
+    "/assets/fonts/fast/addfc86dbd5a1fde2dca.woff2",
+    "/assets/fonts/fast/003b39cf968bc1b4e527.woff2"
+  ],
+  "fast": [
+    {
+      "family": "Noto Sans JP",
+      "weight": 400,
+      "bytes": 241824,
+      "file": "5ed71d7d659b217af412.woff2",
+      "sharedCore": true
+    },
+    {
+      "family": "Noto Sans JP",
+      "weight": 500,
+      "bytes": 57568,
+      "file": "addfc86dbd5a1fde2dca.woff2",
+      "characters": 312
+    },
+    {
+      "family": "Noto Sans JP",
+      "weight": 700,
+      "bytes": 186992,
+      "file": "ca5155de0542b8c38104.woff2",
+      "characters": 1074
+    },
+    {
+      "family": "Zen Maru Gothic",
+      "weight": 500,
+      "bytes": 81276,
+      "file": "003b39cf968bc1b4e527.woff2",
+      "characters": 425
+    },
+    {
+      "family": "Zen Maru Gothic",
+      "weight": 700,
+      "bytes": 85708,
+      "file": "eaf33287dcc25f5c9757.woff2",
+      "characters": 432
+    }
   ]
 }

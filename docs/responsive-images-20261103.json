@@ -1,0 +1,50 @@
+[
+  {
+    "source": "assets/fv-photos/existing-house.webp",
+    "sourceBytes": 48260,
+    "small": "assets/fv-photos/existing-house-320.webp",
+    "smallBytes": 30828
+  },
+  {
+    "source": "assets/fv-photos/family.webp",
+    "sourceBytes": 100134,
+    "small": "assets/fv-photos/family-320.webp",
+    "smallBytes": 33364
+  },
+  {
+    "source": "assets/fv-photos/engawa.webp",
+    "sourceBytes": 71624,
+    "small": "assets/fv-photos/engawa-320.webp",
+    "smallBytes": 22102
+  },
+  {
+    "source": "assets/fv-photos/keys.webp",
+    "sourceBytes": 13422,
+    "small": "assets/fv-photos/keys-320.webp",
+    "smallBytes": 11074
+  },
+  {
+    "source": "assets/fv-photos/living.webp",
+    "sourceBytes": 30068,
+    "small": "assets/fv-photos/living-320.webp",
+    "smallBytes": 19592
+  },
+  {
+    "source": "assets/fv-photos/new-house.webp",
+    "sourceBytes": 48956,
+    "small": "assets/fv-photos/new-house-320.webp",
+    "smallBytes": 18498
+  },
+  {
+    "source": "assets/hero/korekara-hero.webp",
+    "sourceBytes": 272982,
+    "small": "assets/hero/korekara-hero-800.webp",
+    "smallBytes": 101646
+  },
+  {
+    "source": "assets/hero/sorekara-hero.webp",
+    "sourceBytes": 239390,
+    "small": "assets/hero/sorekara-hero-800.webp",
+    "smallBytes": 92484
+  }
+]
