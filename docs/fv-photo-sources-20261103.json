@@ -4,23 +4,21 @@
   "photos": [
     {
       "file": "family.webp",
-      "source_url": "https://www.pexels.com/photo/happy-ethnic-family-with-kid-on-sofa-7936747/",
-      "photo_id": 7936747,
-      "author": "Tran Nhu Tuan",
-      "real_photo_evidence": "Canon EOS 5D Mark III; taken 2021-05-10",
+      "source_url": "https://www.pexels.com/photo/a-happy-family-walking-at-the-park-together-while-holding-hands-8015560/",
+      "author": "Sofia Shultz",
+      "real_photo_evidence": "Olympus E-M1MarkII; 2020-10-17",
       "license_url": "https://www.pexels.com/license/",
-      "transform": "480px square crop and WebP compression only; no AI editing",
-      "note": "Illustrative stock image, not actual client or managed property."
+      "transform": "640px WebP; Square x60..810 of 1000x750 original derivative; all four faces and joined hands visible in circle.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
     },
     {
       "file": "new-house.webp",
-      "source_url": "https://www.pexels.com/photo/modern-house-exterior-7587880/",
-      "photo_id": 7587880,
+      "source_url": "https://www.pexels.com/photo/modern-house-exterior-design-8134821/",
       "author": "Max Vakhtbovych",
-      "real_photo_evidence": "NIKON D800; taken 2018-07-15",
+      "real_photo_evidence": "Not displayed on source page; 2021-05-30",
       "license_url": "https://www.pexels.com/license/",
-      "transform": "480px square crop and WebP compression only; no AI editing",
-      "note": "Illustrative stock image, not actual client or managed property."
+      "transform": "640px WebP; Rightmost square; main two story body and roof preserved, some adjoining garage cropped.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
     },
     {
       "file": "living.webp",
@@ -44,13 +42,12 @@
     },
     {
       "file": "engawa.webp",
-      "source_url": "https://www.pexels.com/photo/traditional-japanese-room-with-tatami-and-lamp-31153872/",
-      "photo_id": 31153872,
-      "author": "CochraneStreet Studio",
-      "real_photo_evidence": "iPhone 15 Pro; taken 2024-08-23",
+      "source_url": "https://www.pexels.com/photo/sunlight-on-traditional-japanese-interior-scene-32911574/",
+      "author": "Paolo Sanchez",
+      "real_photo_evidence": "iPhone 16 Pro; 2025-05-18",
       "license_url": "https://www.pexels.com/license/",
-      "transform": "480px square crop and WebP compression only; no AI editing",
-      "note": "Traditional room with warm lamp; visually somewhat dim, but attractive and intact. Not a managed property or case study."
+      "transform": "640px WebP; Bottom square includes sunlit tatami and shoji.",
+      "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
     },
     {
       "file": "keys.webp",
