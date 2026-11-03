@@ -16,9 +16,11 @@ export function readOrganization(document, origin) {
   if (!facts.get('会社名') || !facts.get('所在地') || !facts.get('電話番号')) {
     throw new Error('Company name, address and telephone must be visible in company.html');
   }
+  const corporateWebsite = document.querySelector('[data-corporate-website]')?.getAttribute('href');
   return {
     '@type': 'Organization', '@id': origin + '/#organization',
     name: facts.get('会社名'), url: origin + '/company.html',
+    ...(corporateWebsite ? { sameAs: [absolute(corporateWebsite, origin)] } : {}),
     address: facts.get('所在地'), telephone: facts.get('電話番号'),
     brand: { '@id': origin + '/#brand' },
     contactPoint: { '@type': 'ContactPoint', telephone: facts.get('電話番号'),
