@@ -353,6 +353,8 @@
         </div>
         <p class="result-note">この診断は費用や借上げ賃料を計算するものではありません。借上げの可否、費用の分担、負担をゼロにできるかは、調査と個別の条件確認を経て判断します。</p>
         <div class="result-actions">
+          <p class="result-note">下のボタンから、5つの回答と診断結果を問い合わせに添付できます。送信前に確認・取り外しができます。</p>
+          <p id="diagnosisTransferError" role="alert" hidden></p>
           <a href="contact.html?service=shindan" class="btn btn-primary btn-large" id="resultConsult">📩 くわしく相談する</a>
           <div style="margin-top:20px"><button class="sim-back" id="restart" style="color:var(--orange-deep)">診断をもう一度やってみる ↻</button></div>
         </div>
@@ -437,7 +439,7 @@
       <h2 class="section-title fade-up d1">よくある質問</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断結果は保存されますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断結果はブラウザ内で表示するのみで、サーバーに送信・保存されません。個人情報の入力も不要です。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断結果は保存されますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断中の回答はサーバーに送信されず、個人情報の入力も不要です。結果画面から相談へ進む場合のみ、回答と結果をブラウザ内に一時保存し、同じタブの問い合わせフォームへ引き継ぎます。有効期限は30分です。添付内容は送信前に確認・取り外しができ、問い合わせを送信した場合に限り当社へ送信されます。</div></div></div>
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">結果と実際の状況にズレはありませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断はあくまで方向性を示すもので、負担がゼロになることや借上げの可否を判定するものではありません。実際のご相談では、家の状態やご家族のご意向を詳しく伺い、お宅に合った選択肢を丁寧にご提案します。</div></div></div>
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断後、必ず相談しないといけませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">いいえ、まったくそのようなことはありません。診断だけをお試しいただき、必要なタイミングでお問い合わせください。</div></div></div>
     </div>
@@ -465,6 +467,7 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
+<script src="assets/diagnosis-transfer.js"></script>
 <script src="assets/diagnosis.js"></script>
 </body>
 </html>

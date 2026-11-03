@@ -141,16 +141,36 @@
     byId('resultTitle').textContent = result.title;
     byId('resultLead').textContent = result.lead;
     byId('resultReason').textContent = result.reason;
-    byId('resultConsult').textContent = result.action;
+    byId('resultConsult').textContent = result.action + '（診断結果を添付）';
     byId('resultSuggestions').replaceChildren(...result.checks.map(text => {
       const li = document.createElement('li'); li.textContent = text; return li;
     }));
   }
+  byId('resultConsult').addEventListener('click', event => {
+    if (answers.length !== questions.length) return;
+    const result = resultFor(questions.map((q, i) => q.options[answers[i]].v));
+    const text = ['【空き家負担ゼロ診断】',
+      ...questions.map((q, i) => `${i + 1}. ${q.q}\n回答：${q.options[answers[i]].label}`),
+      '', '【診断結果】', result.title, result.lead, result.reason,
+      '【確認すること】', ...result.checks.map(x => '・' + x),
+      '', byId('simResult').querySelector('.result-note').textContent].join('\n');
+    if (window.tsumugiDiagnosisTransfer?.save(text)) {
+      byId('resultConsult').href = 'contact.html?service=shindan&diagnosis=1';
+    } else {
+      event.preventDefault();
+      const error = byId('diagnosisTransferError');
+      error.hidden = false;
+      error.textContent = '診断結果を引き継げませんでした。ブラウザの保存設定をご確認いただくか、結果をコピーしてお問い合わせください。';
+    }
+  });
   byId('simBack').addEventListener('click', () => {
     if (timer === null && current > 0) { current--; renderStep(); }
   });
   byId('restart').addEventListener('click', () => {
     clearTimeout(timer); timer = null; current = 0; answers = [];
+    window.tsumugiDiagnosisTransfer?.clear();
+    byId('diagnosisTransferError').hidden = true;
+    byId('resultConsult').href = 'contact.html?service=shindan';
     byId('simResult').classList.remove('active');
     byId('simBody').style.display = 'block'; renderStep();
   });

@@ -11,6 +11,7 @@ function env(o={}){
  const form=element(),button=element(),thanks=element(),error=element(),reset=element(),heading=element(),ps=[element(),element()];
  thanks.hidden=error.hidden=true;thanks.querySelector=()=>heading;thanks.querySelectorAll=()=>ps;button.querySelector=()=>element();
  const els={contactForm:form,submitBtn:button,thanksView:thanks,formError:error,resetForm:reset};
+ for (const id of ['diagnosisAttachment','diagnosisAttachmentStatus','diagnosisAttachmentText','removeDiagnosis']) els[id]=element();
  const scripts=[],doc=element(),body=element(),win=element();doc.body=body;doc.head={appendChild:s=>scripts.push(s)};doc.readyState='complete';doc.referrer=o.referrer||'';doc.title='PRIVATE_TITLE';doc.createElement=()=>element();doc.getElementById=id=>els[id]||body.children.find(x=>x.id===id)||null;
  win.location=new URL(o.href||'https://kurashinotsumugi.com/contact.html');win.localStorage=storage(o.internal?{'tsumugi.analytics.internal.v1':'1'}:{},o.blockStorage);win.sessionStorage=storage(o.test?{'tsumugi.analytics.test.v1':'1'}:{},o.blockStorage);win.SITE_CONFIG={CONTACT_ENDPOINT:'https://example.invalid/mock'};win.scrollTo=()=>{};
  let fetches=0,pixels=0;win.oaiq=()=>pixels++;

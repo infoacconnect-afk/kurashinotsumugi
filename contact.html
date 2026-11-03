@@ -416,6 +416,17 @@
           <textarea id="fMessage" name="message" placeholder="お困りごとや、聞いてみたいことをお気軽にご記入ください（例:実家を相続したが、何から始めればいいかわからない など）"></textarea>
         </div>
 
+        <div id="diagnosisAttachment" role="region" class="form-field" hidden aria-labelledby="diagnosisAttachmentTitle">
+          <h3 id="diagnosisAttachmentTitle">添付する診断結果</h3>
+          <p>以下の回答と結果を、ご相談内容と一緒に送信します。不要な場合は取り外せます。</p>
+          <details open>
+            <summary>回答・診断結果を確認する</summary>
+            <div id="diagnosisAttachmentText" style="white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9;margin:16px 0"></div>
+          </details>
+          <button type="button" id="removeDiagnosis" class="btn btn-outline">診断結果を取り外す</button>
+        </div>
+        <p id="diagnosisAttachmentStatus" role="status" hidden></p>
+
         <div class="hp-field" aria-hidden="true">
           <label>Website (Do not fill)</label>
           <input type="text" name="website" tabindex="-1" autocomplete="off">
@@ -519,6 +530,7 @@
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
 <script src="assets/config.js"></script>
+<script src="assets/diagnosis-transfer.js"></script>
 <script src="assets/contact-form.js"></script>
 </body>
 </html>
