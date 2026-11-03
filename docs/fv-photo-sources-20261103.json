@@ -4,11 +4,11 @@
   "photos": [
     {
       "file": "family.webp",
-      "source_url": "https://www.pexels.com/photo/a-happy-family-walking-at-the-park-together-while-holding-hands-8015560/",
-      "author": "Sofia Shultz",
-      "real_photo_evidence": "Olympus E-M1MarkII; 2020-10-17",
+      "source_url": "https://www.pexels.com/photo/family-walking-on-a-grass-field-8301242/",
+      "author": "Kindel Media",
+      "real_photo_evidence": "Taken 2021-05-14, published 2021-06-11; camera not displayed on source page.",
       "license_url": "https://www.pexels.com/license/",
-      "transform": "640px WebP; Square x60..810 of 1000x750 original derivative; all four faces and joined hands visible in circle.",
+      "transform": "640px WebP; crop [395,90,1045,740] from 1200x800 derivative, then resize/compress only; three family members and joined hands within circle.",
       "note": "Illustrative stock photo, not an actual customer, managed property or construction example."
     },
     {

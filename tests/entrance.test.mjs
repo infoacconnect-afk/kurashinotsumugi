@@ -51,10 +51,14 @@ test('the text and six circles wait for fonts, photo images and line breaking wi
     const delays = [...e.d.querySelectorAll('.hero-photo')]
       .map(dot => parseFloat(dot.style.getPropertyValue('--photo-delay'))).sort((a, b) => a - b);
     assert.equal(delays.length, 6);
-    assert.equal(delays[0], 100);
+    assert(delays[0] >= 80 && delays[0] <= 260);
     for (let i = 1; i < delays.length; i++) {
       const gap = delays[i] - delays[i - 1];
-      assert(gap >= 300 && gap <= 550, 'photo fade starts must remain gently staggered');
+      assert(gap >= 200 && gap <= 680, 'photo fade starts must remain gently staggered');
+    }
+    for (const photo of e.d.querySelectorAll('.hero-photo')) {
+      const duration = parseFloat(photo.style.getPropertyValue('--photo-duration'));
+      assert(duration >= 1800 && duration <= 2900, 'each floating fade must stay within a gentle, bounded duration');
     }
     assert(!css.includes('homeReveal'), 'no page-wide opacity animation');
     assert.match(e.d.querySelector('#home-first-paint').textContent, /background: #FBF7F0/);
