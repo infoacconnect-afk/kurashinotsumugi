@@ -718,3 +718,6 @@ section { padding: 100px 0; }
 @media(prefers-reduced-motion:reduce) {
   .wave-reveal { animation:none; clip-path:none; }
 }
+
+/* Keep linked FAQ answers below the fixed header. */
+.faq-item[id] { scroll-margin-top:110px; }

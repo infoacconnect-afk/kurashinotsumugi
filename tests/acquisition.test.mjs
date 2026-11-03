@@ -57,3 +57,60 @@ test('service links preselect the right consultation, without consent, events or
     } finally { dom.window.close(); }
   }
 });
+
+
+test('FAQ answers and stable fragment URLs derive from visible copy without duplicating FAQ markup on service pages', () => {
+  const company = new JSDOM(read('company.html'));
+  const organization = readOrganization(company.window.document, origin);
+  const dom = new JSDOM(read('faq.html'), { url: origin + '/faq.html' });
+  try {
+    enrichSearch(dom.window.document, { origin, organization });
+    const d = dom.window.document;
+    const graph = () => JSON.parse(d.querySelector('[data-search-graph]').textContent)['@graph'];
+    const questions = graph().find(n => Array.isArray(n['@type']) && n['@type'].includes('FAQPage')).mainEntity;
+    assert.equal(questions.length, d.querySelectorAll('.faq-item').length);
+    const text = el => { const c = el.cloneNode(true); c.querySelectorAll('br').forEach(b => b.replaceWith(' ')); return c.textContent.replace(/\s+/g, ' ').trim(); };
+    for (const q of questions) {
+      const item = d.getElementById(new URL(q.url).hash.slice(1));
+      assert(item);
+      assert.equal(q.name, text(item.querySelector('.q-text')));
+      assert.equal(q.acceptedAnswer.text, text(item.querySelector('.faq-a-inner')));
+    }
+    const ids = questions.map(q => q['@id']);
+    d.querySelector('.faq-item').before(d.querySelector('.faq-item').cloneNode(true));
+    d.querySelector('.faq-item').remove();
+    enrichSearch(d, { origin, organization });
+    assert.deepEqual(graph().find(n => n.mainEntity?.[0]?.['@type'] === 'Question').mainEntity.map(q => q['@id']), ids);
+    const service = new JSDOM(read('sorekara.html'));
+    enrichSearch(service.window.document, { origin, organization });
+    assert(!service.window.document.querySelector('[data-search-graph]').textContent.includes('FAQPage'));
+    service.window.close();
+  } finally { company.window.close(); dom.window.close(); }
+});
+
+test('direct FAQ links reveal the matching category and answer without a click or network request', async () => {
+  const dom = new JSDOM(read('faq.html'), { url: origin + '/faq.html#linked-answer', runScripts: 'outside-only' });
+  const w = dom.window, d = w.document;
+  try {
+    await new Promise(resolve => d.addEventListener('DOMContentLoaded', resolve, { once: true }));
+    const item = d.querySelectorAll('.faq-group')[3].querySelector('.faq-item');
+    item.id = 'linked-answer';
+    let scrolled = false;
+    item.scrollIntoView = () => { scrolled = true; };
+    w.requestAnimationFrame = fn => fn();
+    w.IntersectionObserver = class { observe() {} };
+    const script = read('assets/common.js').split('/* v7:')[0];
+    w.eval(script);
+    w.dispatchEvent(new w.HashChangeEvent('hashchange'));
+    await Promise.resolve();
+    assert(item.classList.contains('open'));
+    assert(item.closest('.faq-group').classList.contains('active'));
+    assert.equal(d.querySelectorAll('.faq-group.active').length, 1);
+    assert.equal(d.querySelector('.faq-tab.active').dataset.cat, item.closest('.faq-group').dataset.cat);
+    assert.equal(item.querySelector('.faq-q').getAttribute('aria-expanded'), 'true');
+    assert.equal(item.querySelector('.faq-a').getAttribute('aria-hidden'), 'false');
+    assert(scrolled);
+    item.querySelector('.faq-q').click();
+    assert.equal(item.querySelector('.faq-q').getAttribute('aria-expanded'), 'false');
+  } finally { dom.window.close(); }
+});

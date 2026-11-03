@@ -46,7 +46,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   const articlesBySlug = new Map(data.articles.map(a => [a.slug, a]));
   const urls = [];
   const excluded = new Set(['.git', 'node_modules', 'dist', 'build', 'tests',
-    'package.json', 'package-lock.json', 'netlify.toml', 'fetch-lab.mjs', '.gitignore', 'AGENTS.md', 'docs']);
+    'package.json', 'package-lock.json', 'netlify.toml', 'fetch-lab.mjs', '.gitignore', 'AGENTS.md', 'docs', '.openai']);
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   for (const entry of readdirSync(root)) {
@@ -94,7 +94,9 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
     if (preview) metadata(d, 'meta[name="robots"]', 'meta', { name: 'robots', content: 'noindex, nofollow' });
     // Existing animations are kept for JS users; text remains readable without JS.
     const noscript = d.createElement('noscript');
-    noscript.innerHTML = '<style>.fade-up{opacity:1!important;transform:none!important}.hero-brand,.hero-logo-mark,.hero-buttons{opacity:1!important;transform:none!important}</style>';
+    const fallbackStyle = d.createElement('style');
+    fallbackStyle.textContent = '.fade-up{opacity:1!important;transform:none!important}.hero-brand,.hero-logo-mark,.hero-buttons{opacity:1!important;transform:none!important}.faq-group{display:block!important}.faq-a{max-height:none!important;overflow:visible!important}.faq-tabs-wrap,.faq-q .q-toggle{display:none!important}';
+    noscript.append(fallbackStyle);
     d.body.append(noscript);
     return dom.serialize();
   }
@@ -121,9 +123,10 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
       d.documentElement.dataset.prerenderedArticle = article.slug;
       // The loader is intentionally skipped on these pages: no second body replacement.
       const schema = {
-        '@context': 'https://schema.org', '@type': 'Article', headline: article.title,
+        '@context': 'https://schema.org', '@type': 'Article', '@id': url + '#article', headline: article.title,
+        url, inLanguage: 'ja', isPartOf: { '@id': ORIGIN + '/#website' },
         description, mainEntityOfPage: url,
-        publisher: { '@type': 'Organization', name: 'Ac・Connect株式会社', url: ORIGIN + '/company.html' }
+        publisher: { '@id': ORIGIN + '/#organization', '@type': 'Organization', name: 'Ac・Connect株式会社', url: ORIGIN + '/company.html' }
       };
       if (article.publishedAt) schema.datePublished = article.publishedAt;
       if (article.updatedAt) schema.dateModified = article.updatedAt;
@@ -148,8 +151,11 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
         await dom.window.eval(read(join(root, 'assets/lab-render.js')));
         // Pagination requires JS. Provide all published links to readers without JS.
         const noscript = dom.window.document.createElement('noscript');
-        noscript.innerHTML = '<div class="container"><ul>' + data.articles.map(a =>
-          `<li><a href="lab-article.html?id=${xml(a.slug)}">${xml(a.title)}</a></li>`).join('') + '</ul></div>';
+        const fallbackList = dom.window.document.createElement('div');
+        fallbackList.className = 'container';
+        fallbackList.innerHTML = '<ul>' + data.articles.map(a =>
+          `<li><a href="lab-article.html?id=${xml(a.slug)}">${xml(a.title)}</a></li>`).join('') + '</ul>';
+        noscript.append(fallbackList);
         dom.window.document.querySelector('.article-list-sec')?.append(noscript);
       }
       const d = dom.window.document;
@@ -171,7 +177,7 @@ export async function renderSeo({ root, context = process.env.CONTEXT || 'produc
   writeFileSync(join(out, '_redirects'), redirects.join('\n') + '\n');
   const unique = [...new Map(urls.map(item => [item.url, item])).values()];
   writeFileSync(join(out, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + unique.map(item =>
-    `  <url><loc>${xml(item.url)}</loc>${/^\d{4}-\d{2}-\d{2}$/.test(item.lastmod || '') ? `<lastmod>${item.lastmod}</lastmod>` : ''}</url>`).join('\n') + '\n</urlset>\n');
+    `  <url><loc>${xml(item.url)}</loc>${/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(item.lastmod || '') && Number.isFinite(Date.parse(item.lastmod)) ? `<lastmod>${item.lastmod}</lastmod>` : ''}</url>`).join('\n') + '\n</urlset>\n');
   writeFileSync(join(out, 'robots.txt'), preview
     ? 'User-agent: *\nDisallow: /\n'
     : 'User-agent: *\nAllow: /\n\nSitemap: ' + ORIGIN + '/sitemap.xml\n');
