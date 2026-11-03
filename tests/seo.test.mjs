@@ -9,7 +9,7 @@ import { renderSeo, validateArticles } from '../build/render-seo.mjs';
 const source = new URL('../', import.meta.url);
 const article = { slug: 'sample_1', title: '実家の「これから」 & 暮らし', excerpt: '見守りの説明「全文」。',
   body: '<h2>確認すること</h2><p>確定済みの本文 &amp; 写真を変えません。</p><img src="assets/sample.webp" alt="写真">',
-  category: 'akiya', publishedAt: '2026-10-22', updatedAt: '2026-10-25', author: 'くらしのつむぎ編集部' };
+  category: 'akiya', publishedAt: '2026-10-22', updatedAt: '2026-10-25T12:34:56.000Z', author: 'くらしのつむぎ編集部' };
 
 function fixture() {
   const root = mkdtempSync(join(tmpdir(), 'tsumugi-seo-test-'));
@@ -57,6 +57,18 @@ test('published HTML contains article text without JS, preserves URLs and exclud
     assert(locations.includes('https://kurashinotsumugi.com/lab-article.html?id=sample_1'));
     assert(!locations.some(u => /measurement-settings|google447|lab-rendered|%20/.test(u)));
     assert.equal(locations.length, new Set(locations).size);
+    assert(sitemap.includes('<lastmod>2026-10-25T12:34:56.000Z</lastmod>'));
+    const faq = readFileSync(join(root, 'dist/faq.html'), 'utf8');
+    assert(faq.includes('.faq-group{display:block!important}'));
+    assert(faq.includes('.faq-a{max-height:none!important'));
+    assert(faq.includes('FAQPage'));
+    const faqWithoutJs = new JSDOM(faq);
+    assert(faqWithoutJs.window.document.querySelector('noscript style'), 'fallback must be a real style element, not escaped markup');
+    faqWithoutJs.window.close();
+    const labWithoutJs = new JSDOM(readFileSync(join(root, 'dist/lab.html'), 'utf8'));
+    assert(labWithoutJs.window.document.querySelector('noscript a[href="lab-article.html?id=sample_1"]'), 'all-article fallback must contain crawlable links');
+    labWithoutJs.window.close();
+    assert.equal(JSON.parse(d.querySelector('script[type="application/ld+json"]').textContent).publisher['@id'], 'https://kurashinotsumugi.com/#organization');
     xml.window.close();
     assert.match(readFileSync(join(root, 'dist/_redirects'), 'utf8'), /\/lab-article\.html id=sample_1 \/lab-rendered\/sample_1\.html 200!/);
     assert.match(readFileSync(join(root, 'dist/_redirects'), 'utf8'), /id=:id \/404\.html 404!/);

@@ -38,6 +38,24 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
 
+  const openLinkedAnswer = () => {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const item = id && document.getElementById(id);
+    if (!item?.matches('.faq-item')) return;
+    const group = item.closest('.faq-group');
+    if (group) {
+      document.querySelectorAll('.faq-group').forEach(g => g.classList.toggle('active', g === group));
+      document.querySelectorAll('.faq-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === group.dataset.cat));
+    }
+    item.classList.add('open');
+    item.querySelector('.faq-q')?.setAttribute('aria-expanded', 'true');
+    item.querySelector('.faq-a')?.setAttribute('aria-hidden', 'false');
+    Promise.resolve(window.KurashiReading?.ready).then(() => requestAnimationFrame(() => item.scrollIntoView({ block: 'start' })));
+  };
+  window.addEventListener('hashchange', openLinkedAnswer);
+  document.addEventListener('DOMContentLoaded', openLinkedAnswer, { once: true });
+
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach((item, index) => {
     const q = item.querySelector('.faq-q');
