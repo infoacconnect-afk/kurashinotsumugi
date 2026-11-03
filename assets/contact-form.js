@@ -122,6 +122,27 @@
     if (field) field.checked = true;
   }
 
+  const transfer = window.tsumugiDiagnosisTransfer;
+  const attachmentBox = document.getElementById('diagnosisAttachment');
+  const attachmentStatus = document.getElementById('diagnosisAttachmentStatus');
+  let attachment = new URLSearchParams(window.location.search).get('diagnosis') === '1' ? transfer?.read() : null;
+  function removeAttachment(message = '') {
+    attachment = null;
+    transfer?.clear();
+    attachmentBox.hidden = true;
+    document.getElementById('diagnosisAttachmentText').textContent = '';
+    attachmentStatus.textContent = message;
+    attachmentStatus.hidden = !message;
+  }
+  if (attachment) {
+    document.getElementById('diagnosisAttachmentText').textContent = attachment.text;
+    attachmentBox.hidden = false;
+  } else if (new URLSearchParams(window.location.search).get('diagnosis') === '1') {
+    attachmentStatus.textContent = '診断結果を引き継げませんでした（有効期限は30分です）。添付する場合は、もう一度診断してください。添付なしでもお問い合わせできます。';
+    attachmentStatus.hidden = false;
+  }
+  document.getElementById('removeDiagnosis').addEventListener('click', () => removeAttachment('診断結果を取り外しました。診断結果は送信されません。'));
+
   // 初期表示 & チェック変更時
   updateAppliedTerms();
   form.querySelectorAll('input[name="inquiry"]').forEach(el => {
@@ -155,7 +176,7 @@
     if (!data.furigana || !data.furigana.trim()) return 'ふりがなをご入力ください';
     if (!data.email || !isValidEmail(data.email)) return 'メールアドレスの形式が正しくありません';
     if (data.tel && !/^[\d\-\+\(\)\s]+$/.test(data.tel)) return '電話番号の形式が正しくありません';
-    if (data.message && data.message.length > 5000) return 'ご相談内容は5000文字以内でご入力ください';
+    if (data.message && data.message.length > 5000) return 'ご相談内容は、添付する診断結果と合わせて5000文字以内にしてください';
     if (!data.agreeTerms) return '利用規約への同意が必要です';
     if (!data.agreePrivacy) return '個人情報の取扱いへの同意が必要です';
     return null;
@@ -168,6 +189,14 @@
     if (submitBtn.disabled || form.hidden) return;
     clearError();
 
+    if (attachment) {
+      const saved = transfer?.read();
+      if (!saved || saved.createdAt !== attachment.createdAt || saved.text !== attachment.text) {
+        removeAttachment('診断結果の有効期限が切れたか、内容が更新されました。添付する場合はもう一度診断してください。');
+        showError('診断結果の添付を解除しました。内容を確認し、添付なしで送る場合はもう一度送信してください。');
+        return;
+      }
+    }
     // フォームデータを収集
     const fd = new FormData(form);
     const inquiryTypes = fd.getAll('inquiry');
@@ -184,7 +213,7 @@
       tel: fd.get('tel'),
       // Keep existing service codes; send the new service as a readable label for the current receiver.
       inquiryTypes: inquiryTypes.map(type => type === 'tsuginoakari' ? 'つぎの明かり（空き家の見守り）' : type),
-      message: fd.get('message'),
+      message: [fd.get('message'), attachment?.text].filter(Boolean).join('\n\n'),
       website: fd.get('website'), // honeypot
       // 同意情報
       agreeTerms: !!fd.get('agreeTerms'),
@@ -230,6 +259,8 @@
       if (!res.ok || !result || result.ok !== true) {
         throw new Error((result && result.error) || 'サーバーエラーが発生しました');
       }
+
+      removeAttachment();
 
       // 成功 → サンクス表示
       form.hidden = true;
@@ -277,6 +308,7 @@
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       form.reset();
+      removeAttachment();
       updateAppliedTerms();
       form.hidden = false;
       thanksView.hidden = true;
