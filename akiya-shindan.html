@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>空き家の維持負担と活用方法を整理｜無料の空き家負担ゼロ診断</title>
-<meta name="description" content="空き家や実家を持ち続ける負担と、今後の活用を考える無料診断。約30秒の質問で、その家に合う選択肢と負担軽減策を整理します。診断後のご相談も承ります。">
+<meta name="description" content="空き家や実家を持ち続ける負担と、今後の活用を考える無料診断。約30秒の質問で、お宅の状況とご希望を整理し、負担ゼロを目指すための確認事項をご案内します。診断後のご相談も承ります。">
 <link rel="icon" href="assets/logo-white.png">
 
 <link rel="stylesheet" href="assets/fonts-local.css">
@@ -128,6 +128,9 @@
   margin-bottom: 36px;
   letter-spacing: 0.04em;
 }
+.question-help { margin: -20px 0 28px; color: var(--text-mute); font-size: 14px; line-height: 1.8; }
+.result-reason { margin-top: 20px; color: var(--text); line-height: 1.9; }
+.result-note { margin-top: 24px; color: var(--text-mute); font-size: 14px; line-height: 1.9; }
 .sim-options {
   display: grid;
   gap: 12px;
@@ -300,8 +303,8 @@
     <div class="lp-badge fade-up">FREE｜約30秒</div>
     <h1 class="fade-up d1">空き家の負担、<br><span class="accent">"ゼロ"に向けて</span>いっしょに考える。</h1>
     <p class="lp-sub fade-up d2">
-      5つの質問に答えるだけで、あなたの家に合う選択肢と<br>
-      負担軽減のヒントが見えてきます。
+      5つの質問で、お宅の状況とご希望を整理。<br>
+      負担をゼロに近づけるための確認事項をご案内します。
     </p>
     <div class="lp-features fade-up d3">
       <div class="lp-feature"><span class="check">✓</span>入力は約30秒</div>
@@ -317,7 +320,7 @@
     <div class="section-head center">
       <div class="section-eyebrow fade-up">DIAGNOSIS</div>
       <h2 class="section-title fade-up d1">30秒シミュレーター</h2>
-      <p class="section-lead center fade-up d2">気になる方の負担感でお答えください。診断は途中でやめても、記録は残りません。</p>
+      <p class="section-lead center fade-up d2">空き家やご実家など、気になっているお宅についてお答えください。分かる範囲で大丈夫です。診断は途中でやめても、記録は残りません。</p>
     </div>
 
     <div class="simulator fade-up">
@@ -328,7 +331,8 @@
           <span>質問 <span class="current" id="stepNum">1</span> / 5</span>
           <span id="stepName">所在地について</span>
         </div>
-        <h3 class="sim-question" id="simQuestion">その家は、どちらにありますか？</h3>
+        <h3 class="sim-question" id="simQuestion">気になっているお宅は、どちらにありますか？</h3>
+        <p id="questionHelp" class="question-help" hidden></p>
         <div class="sim-options" id="simOptions"></div>
         <div class="sim-nav">
           <button class="sim-back" id="simBack">← 戻る</button>
@@ -341,13 +345,15 @@
           <div class="result-emoji">🌱</div>
           <h3 id="resultTitle">診断結果</h3>
           <p class="result-lead" id="resultLead"></p>
+          <p class="result-reason" id="resultReason"></p>
         </div>
         <div class="result-suggestions">
-          <h4><span data-deco="leaf" style="display:flex"></span>あなたに合いそうな選択肢</h4>
+          <h4><span data-deco="leaf" style="display:flex"></span>負担ゼロを目指すために確認すること</h4>
           <ul id="resultSuggestions"></ul>
         </div>
+        <p class="result-note">この診断は費用や借上げ賃料を計算するものではありません。借上げの可否、費用の分担、負担をゼロにできるかは、調査と個別の条件確認を経て判断します。</p>
         <div class="result-actions">
-          <a href="contact.html?service=shindan" class="btn btn-primary btn-large">📩 くわしく相談する</a>
+          <a href="contact.html?service=shindan" class="btn btn-primary btn-large" id="resultConsult">📩 くわしく相談する</a>
           <div style="margin-top:20px"><button class="sim-back" id="restart" style="color:var(--orange-deep)">診断をもう一度やってみる ↻</button></div>
         </div>
       </div>
@@ -364,13 +370,13 @@
     <div class="discover-grid">
       <div class="discover-card fade-up d1">
         <div class="d-icon"><img class="hd-icon" src="assets/icons/magnify.webp" alt=""></div>
-        <h3>その家に合う選択肢</h3>
-        <p>売却、借上げ、賃貸活用、管理…7つのサービスから、その家に合いそうな道筋をお示しします。</p>
+        <h3>お宅に合う選択肢</h3>
+        <p>お宅の利用状況とご希望に合わせて、借上げの検討、維持管理、売却などの相談の方向性をご案内します。</p>
       </div>
       <div class="discover-card fade-up d2">
         <div class="d-icon"><img class="hd-icon" src="assets/icons/coins.webp" alt=""></div>
         <h3>負担軽減のヒント</h3>
-        <p>維持費、税金、時間、心理的な負担。どの負担を、どうやって軽くできそうかの方向性が見えます。</p>
+        <p>税金などの維持費や管理の手間。負担をゼロに近づけるために、何を確認すればよいかを整理します。</p>
       </div>
       <div class="discover-card fade-up d3">
         <div class="d-icon"><img class="hd-icon" src="assets/icons/compass.webp" alt=""></div>
@@ -410,7 +416,7 @@
       </div>
       <div class="merit-card fade-up d1">
         <div class="merit-num">02</div>
-        <div><h3>選択肢が"見える化"される</h3><p>売却か管理かの二択ではなく、7つの選択肢から複数の道筋をご提案します。</p></div>
+        <div><h3>選択肢が"見える化"される</h3><p>ご希望をもとに、負担軽減に向けた相談の方向性と、確認が必要な点を整理します。</p></div>
       </div>
       <div class="merit-card fade-up d2">
         <div class="merit-num">03</div>
@@ -432,7 +438,7 @@
     </div>
     <div class="faq-list">
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断結果は保存されますか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断結果はブラウザ内で表示するのみで、サーバーに送信・保存されません。個人情報の入力も不要です。</div></div></div>
-      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">結果と実際の状況にズレはありませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断はあくまで方向性を示すものです。実際のご相談では、家の状態やご家族のご意向を詳しく伺い、その家に合った選択肢を丁寧にご提案します。</div></div></div>
+      <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">結果と実際の状況にズレはありませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">診断はあくまで方向性を示すもので、負担がゼロになることや借上げの可否を判定するものではありません。実際のご相談では、家の状態やご家族のご意向を詳しく伺い、お宅に合った選択肢を丁寧にご提案します。</div></div></div>
       <div class="faq-item fade-up"><div class="faq-q"><span class="q-mark">Q</span><span class="q-text">診断後、必ず相談しないといけませんか？</span><span class="q-toggle">+</span></div><div class="faq-a"><div class="faq-a-inner">いいえ、まったくそのようなことはありません。診断だけをお試しいただき、必要なタイミングでお問い合わせください。</div></div></div>
     </div>
   </div>
@@ -441,7 +447,7 @@
 <section class="contact-cta">
   <div class="container">
     <div class="contact-cta-inner">
-      <h2 class="fade-up">その家の"未来"、いっしょに考えませんか。</h2>
+      <h2 class="fade-up">お宅の"未来"、いっしょに考えませんか。</h2>
       <p class="cta-sub fade-up d1">診断結果を見ながら、じっくりお話ししましょう。</p>
       <div class="contact-cta-buttons fade-up d2">
         <a href="contact.html?service=shindan" class="btn btn-primary btn-large">📩 相談のお申し込み</a>
@@ -459,167 +465,7 @@
 <script src="assets/partials.js"></script>
 <script src="assets/decorations.js"></script>
 <script src="assets/common.js"></script>
-<script>
-// ============ Simulator logic ============
-const questions = [
-  {
-    name: '所在地について',
-    q: 'その家は、どちらにありますか？',
-    options: [
-      { label: '首都圏（東京・神奈川・埼玉・千葉）', v: 'urban' },
-      { label: '関西圏（大阪・京都・兵庫・奈良）', v: 'urban' },
-      { label: '地方都市（各県の主要都市）', v: 'suburb' },
-      { label: '郊外・地方部', v: 'rural' },
-    ]
-  },
-  {
-    name: '建物の状態',
-    q: '建物の状態は、どのくらいですか？',
-    options: [
-      { label: '築浅／リフォーム済で、すぐに住める', v: 'good' },
-      { label: '古いが、住める状態は保っている', v: 'fair' },
-      { label: '手入れが必要／傷みが気になる', v: 'poor' },
-      { label: '正直、よくわからない', v: 'unknown' },
-    ]
-  },
-  {
-    name: '利用状況',
-    q: '今、家はどのように使われていますか？',
-    options: [
-      { label: '誰も住んでいない（空き家）', v: 'vacant' },
-      { label: 'ときどき帰省で利用している', v: 'sometimes' },
-      { label: '賃貸で貸している', v: 'rent' },
-      { label: '将来的に住むかもしれない', v: 'future' },
-    ]
-  },
-  {
-    name: '維持負担感',
-    q: '維持や管理の負担は、どのくらい感じていますか？',
-    options: [
-      { label: 'かなり負担に感じている', v: 'heavy' },
-      { label: 'すこし気になっている', v: 'medium' },
-      { label: 'あまり感じていない', v: 'light' },
-      { label: '負担かどうかもわからない', v: 'unknown' },
-    ]
-  },
-  {
-    name: '今後の希望',
-    q: 'その家、今後どうしていきたいですか？',
-    options: [
-      { label: '手放すことも含めて整理したい', v: 'sell' },
-      { label: 'できれば持ち続けたい', v: 'keep' },
-      { label: '誰かに使ってほしい', v: 'utilize' },
-      { label: 'まだ決められない', v: 'undecided' },
-    ]
-  },
-];
-
-let current = 0;
-let answers = {};
-let transitionTimer = null;
-
-const simQuestion = document.getElementById('simQuestion');
-const simOptions = document.getElementById('simOptions');
-const stepNum = document.getElementById('stepNum');
-const stepName = document.getElementById('stepName');
-const progressBar = document.getElementById('progressBar');
-const simBody = document.getElementById('simBody');
-const simResult = document.getElementById('simResult');
-const simBack = document.getElementById('simBack');
-
-function renderStep() {
-  const q = questions[current];
-  simQuestion.textContent = q.q;
-  stepNum.textContent = current + 1;
-  stepName.textContent = q.name;
-  progressBar.style.width = ((current + 1) / questions.length * 100) + '%';
-  simOptions.innerHTML = '';
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'sim-option';
-    if (answers[current] === i) btn.classList.add('selected');
-    btn.innerHTML = `<span class="opt-num">${String.fromCharCode(65 + i)}</span><span>${opt.label}</span>`;
-    btn.addEventListener('click', () => {
-      if (transitionTimer !== null) return;
-      answers[current] = i;
-      transitionTimer = setTimeout(() => {
-        transitionTimer = null;
-        if (current < questions.length - 1) {
-          current++;
-          renderStep();
-        } else {
-          showResult();
-        }
-      }, 260);
-      btn.classList.add('selected');
-    });
-    simOptions.appendChild(btn);
-  });
-  simBack.disabled = current === 0;
-}
-
-simBack.addEventListener('click', () => {
-  if (transitionTimer !== null) return;
-  if (current > 0) { current--; renderStep(); }
-});
-
-function showResult() {
-  simBody.style.display = 'none';
-  simResult.classList.add('active');
-  progressBar.style.width = '100%';
-
-  // Analyze
-  const vals = questions.map((q,i) => q.options[answers[i]].v);
-  const [loc, cond, use, burden, future] = vals;
-
-  let emoji = '🌱', title = 'あなたに合う選択肢が見えてきました', lead = '', suggestions = [];
-
-  if (future === 'keep' && burden !== 'heavy') {
-    emoji = '🏠';
-    title = '"持ち続ける"を、もっとラクに';
-    lead = '大切な家を、負担少なく持ち続ける道が見えてきました。維持と活用の両立を、いっしょに考えてみませんか。';
-    suggestions = ['管理（定期巡回・通風）で家をきれいに保つ', '維持負担軽減の見直し（保険・光熱費・税金）', '将来の活用も見据えた計画づくり'];
-  } else if (future === 'utilize' || (use === 'vacant' && cond !== 'poor')) {
-    emoji = '🌿';
-    title = '"誰かに使ってもらう"道があります';
-    lead = 'その家に人が戻ってくる選択肢が見えてきました。売却しなくても、家を活かせる方法をご提案できます。';
-    suggestions = ['借上げ・転貸で入居者を迎える', '改修・賃貸活用の可能性を検討', '管理サービスで負担を軽くしながら準備'];
-  } else if (future === 'sell' || (burden === 'heavy' && cond === 'poor')) {
-    emoji = '📖';
-    title = '"整理"を、丁寧にお手伝い';
-    lead = '売却も含めた整理の方向で、選択肢が見えてきました。急がず、後悔のない道筋を、いっしょに整えていきましょう。';
-    suggestions = ['売却の見通しと相場感の整理', '解体・駐車場活用など次の活用', '相続手続き・家財整理のサポート'];
-  } else if (cond === 'poor' || cond === 'unknown') {
-    emoji = '🔧';
-    title = 'まずは"家の状態を知る"ところから';
-    lead = 'その家の"今"を丁寧に見ることから、今後の選択肢が見えてきます。負担なく現状を把握する方法があります。';
-    suggestions = ['現地確認・簡易診断のご案内', '改修 or 解体の判断材料をご提供', '状況を見てから複数の選択肢を比較'];
-  } else {
-    emoji = '💬';
-    title = 'まずは、ゆっくりお話ししませんか';
-    lead = 'いろいろな選択肢が見えてきました。ひとつに絞る前に、それぞれの道の"良いところ・気をつけるところ"をお伝えします。';
-    suggestions = ['7つのサービスの中から候補をご提示', '維持・活用・売却の比較整理', 'ご家族での話し合いのサポート'];
-  }
-
-  document.getElementById('resultTitle').textContent = title;
-  document.getElementById('resultLead').textContent = lead;
-  const ul = document.getElementById('resultSuggestions');
-  ul.innerHTML = suggestions.map(s => `<li>${s}</li>`).join('');
-  simResult.scrollIntoView && (simResult.parentElement.scrollTop = simResult.parentElement.scrollTop);
-}
-
-document.getElementById('restart').addEventListener('click', () => {
-  clearTimeout(transitionTimer);
-  transitionTimer = null;
-  current = 0;
-  answers = {};
-  simResult.classList.remove('active');
-  simBody.style.display = 'block';
-  renderStep();
-});
-
-renderStep();
-</script>
+<script src="assets/diagnosis.js"></script>
 </body>
 </html>
 
