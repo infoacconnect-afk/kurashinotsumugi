@@ -57,7 +57,7 @@
   const thumbHtml = (article) => {
     if (article.eyecatch) {
       const alt = article.eyecatchAlt || article.title;
-      return `<img src="${escapeHtml(window.KurashiArticleImage(article.eyecatch))}" alt="${escapeHtml(alt)}" loading="lazy">`;
+      return `<img src="${escapeHtml(window.KurashiArticleImage(article.eyecatch, 800))}" alt="${escapeHtml(alt)}" loading="lazy">`;
     }
     return fallbackThumb(article);
   };

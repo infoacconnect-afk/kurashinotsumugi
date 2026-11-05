@@ -18,6 +18,7 @@
   }
   function mode() {
     if (settingsPage) return 'settings';
+    if (new URL(window.location.href).searchParams.get('analytics') === 'off') return 'audit';
     if (stored('sessionStorage', testKey)) return 'test';
     if (stored('localStorage', internalKey)) return 'internal';
     return production ? 'external' : 'preview';
@@ -131,7 +132,7 @@
   });
 
   function showBanner() {
-    if (!muted || settingsPage || document.getElementById('tsumugi-measurement-banner')) return;
+    if (!muted || settingsPage || mode() === 'audit' || document.getElementById('tsumugi-measurement-banner')) return;
     var banner = document.createElement('aside');
     banner.id = 'tsumugi-measurement-banner';
     banner.setAttribute('aria-label', '計測確認モード');
