@@ -42,7 +42,7 @@
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     const item = id && document.getElementById(id);
-    if (!item?.matches('.faq-item')) return;
+    if (!item || !item.matches('.faq-item')) return;
     const group = item.closest('.faq-group');
     if (group) {
       document.querySelectorAll('.faq-group').forEach(g => g.classList.toggle('active', g === group));
@@ -435,7 +435,19 @@
     "assets/article-media/065434777fc9650445e5.webp"
   ]
 ]);
-  window.KurashiArticleImage = url => images.get(url) || url;
+  window.KurashiArticleImage = (url, width) => {
+    if (images.has(url)) return images.get(url);
+    try {
+      const image = new URL(url);
+      // Deliver the same CMS image without cropping or altering its source.
+      if (image.hostname !== 'images.microcms-assets.io' ||
+          !/\.(png|jpe?g|webp)$/i.test(image.pathname)) return url;
+      image.searchParams.set('fm', 'webp');
+      image.searchParams.set('q', '85');
+      if (width) image.searchParams.set('w', String(width));
+      return image.href;
+    } catch { return url; }
+  };
 })();
 
 /* Desktop mouse only; native cursors remain available for editing and touch. */
