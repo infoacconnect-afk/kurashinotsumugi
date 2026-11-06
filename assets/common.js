@@ -20,10 +20,12 @@
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('open');
       nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(nav.classList.contains('open')));
     });
     nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       navToggle.classList.remove('open');
       nav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
     }));
   }
 

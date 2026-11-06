@@ -8,10 +8,10 @@
         <a href="index.html" class="site-logo" aria-label="くらしのつむぎ トップへ">
           <img src="assets/logo-header-tm.svg" alt="くらしのつむぎ">
         </a>
-        <button class="nav-toggle" aria-label="メニュー">
+        <button class="nav-toggle" aria-label="メニュー" aria-expanded="false" aria-controls="site-navigation">
           <span></span><span></span><span></span>
         </button>
-        <nav class="site-nav" aria-label="メインナビゲーション">
+        <nav id="site-navigation" class="site-nav" aria-label="メインナビゲーション">
           <a href="korekara.html">これからのすまい</a>
           <a href="sorekara.html">それからのすまい</a>
           <a href="lab.html">住資産再生ラボ</a>
@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="footer-col">
-            <h4>サービス</h4>
+            <h2 class="footer-heading">サービス</h2>
             <ul>
               <li><a href="korekara.html">これからのすまい</a></li>
               <li><a href="mieruka-plan.html">家づくり見える化プラン</a></li>
@@ -49,7 +49,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>会社情報</h4>
+            <h2 class="footer-heading">会社情報</h2>
             <ul>
               <li><a href="company.html">会社概要</a></li>
               <li><a href="faq.html">よくある質問</a></li>
@@ -59,7 +59,7 @@
             </ul>
           </div>
           <div class="footer-col">
-            <h4>規約</h4>
+            <h2 class="footer-heading">規約</h2>
             <ul>
               <li><a href="terms.html">利用規約・各種規定</a></li>
               <li><a href="privacy.html">プライバシーポリシー</a></li>
