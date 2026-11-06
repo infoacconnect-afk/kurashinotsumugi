@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style id="home-first-paint">html, body { background: #FBF7F0; }</style>
+<link rel="preload" href="assets/fonts/fast/003b39cf968bc1b4e527.woff2" as="font" type="font/woff2" crossorigin>
 <script src="assets/analytics.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,10 @@
 (function () {
   const root = document.documentElement;
   const reveal = () => root.classList.remove('home-intro-pending');
+  const revealPhotos = () => root.classList.remove('home-photos-pending');
   // Loading failures must not leave the introduction transparent indefinitely.
-  const deadline = window.setTimeout(reveal, 2500);
-  root.classList.add('home-intro-pending');
+  const deadline = window.setTimeout(() => { reveal(); revealPhotos(); }, 2500);
+  root.classList.add('home-intro-pending', 'home-photos-pending');
   document.addEventListener('DOMContentLoaded', () => {
     // Shuffle only while paused so a late DOM cannot restart visible decorations.
     if (root.classList.contains('home-intro-pending')) {
@@ -45,10 +47,9 @@
     const reading = window.KurashiReading?.ready || Promise.resolve();
     const images = [...document.querySelectorAll('.hero-photo img')].map(img =>
       typeof img.decode === 'function' ? img.decode() : Promise.resolve());
-    Promise.allSettled([fonts, reading, ...images]).then(() => {
-      window.clearTimeout(deadline);
-      reveal();
-    });
+    const textReady = Promise.allSettled([fonts, reading]).then(reveal);
+    const photosReady = Promise.allSettled([fonts, reading, ...images]).then(revealPhotos);
+    Promise.allSettled([textReady, photosReady]).then(() => window.clearTimeout(deadline));
   }, { once: true });
 })();
 </script>
@@ -76,7 +77,7 @@ body[data-page="home"] { background: var(--ivory); }
 .hero-brand.hero-intro-item,
 .hero-catch.hero-intro-item { animation-delay: 0.4s; }
 html.home-intro-pending .hero-intro-item,
-html.home-intro-pending .hero-photo {
+html.home-photos-pending .hero-photo {
   animation-play-state: paused;
 }
 @keyframes heroIntroReveal {
@@ -393,7 +394,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
   flex-shrink: 0;
 }
 .free-service-item .fs-icon img { max-width: 100%; max-height: 100%; }
-.free-service-item .fs-text h4 {
+.free-service-item .fs-text h3 {
   font-size: 16px;
   margin-bottom: 2px;
   color: var(--brown-deep);
@@ -638,12 +639,12 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
 }
 .article-meta .cat {
   background: var(--green-soft);
-  color: var(--green-deep);
+  color: #415332;
   padding: 3px 10px;
   border-radius: 6px;
   font-weight: 600;
 }
-.article-meta .date { color: var(--text-mute); }
+.article-meta .date { color: #716457; }
 .article-title {
   font-size: 17px;
   line-height: 1.7;
@@ -817,7 +818,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(232,155,91,0.28);
 }
-.flow-step h4 {
+.flow-step h3 {
   font-size: 17px;
   color: var(--brown-deep);
   margin-bottom: 10px;
@@ -929,6 +930,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
 <body data-page="home">
 
 <div id="site-header-host"></div>
+<main id="main-content">
 
 <!-- ========== 02 Hero ========== -->
 <section class="hero">
@@ -1034,27 +1036,27 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
     <div class="free-services">
       <div class="free-service-item fade-up d1">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/wallet.webp" alt=""></div>
-        <div class="fs-text"><h4>予算整理</h4><p>無理のない予算をいっしょに考えます</p></div>
+        <div class="fs-text"><h3>予算整理</h3><p>無理のない予算をいっしょに考えます</p></div>
       </div>
       <div class="free-service-item fade-up d1">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/bank.webp" alt=""></div>
-        <div class="fs-text"><h4>住宅ローン相談</h4><p>各社の条件をわかりやすく比較</p></div>
+        <div class="fs-text"><h3>住宅ローン相談</h3><p>各社の条件をわかりやすく比較</p></div>
       </div>
       <div class="free-service-item fade-up d2">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/checklist.webp" alt=""></div>
-        <div class="fs-text"><h4>希望条件・優先順位の整理</h4><p>暮らしのイメージを言葉に</p></div>
+        <div class="fs-text"><h3>希望条件・優先順位の整理</h3><p>暮らしのイメージを言葉に</p></div>
       </div>
       <div class="free-service-item fade-up d2">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/map.webp" alt=""></div>
-        <div class="fs-text"><h4>土地探し・候補地相談</h4><p>候補地の見え方を丁寧に整理</p></div>
+        <div class="fs-text"><h3>土地探し・候補地相談</h3><p>候補地の見え方を丁寧に整理</p></div>
       </div>
       <div class="free-service-item fade-up d3">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/scale.webp" alt=""></div>
-        <div class="fs-text"><h4>住宅会社の比較整理</h4><p>特徴と違いをフラットに解説</p></div>
+        <div class="fs-text"><h3>住宅会社の比較整理</h3><p>特徴と違いをフラットに解説</p></div>
       </div>
       <div class="free-service-item fade-up d3">
         <div class="fs-icon"><img class="hd-icon" src="assets/icons/handshake.webp" alt=""></div>
-        <div class="fs-text"><h4>住宅会社紹介</h4><p>ご希望に合う会社をご紹介</p></div>
+        <div class="fs-text"><h3>住宅会社紹介</h3><p>ご希望に合う会社をご紹介</p></div>
       </div>
     </div>
 
@@ -1260,7 +1262,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
     <div class="flow-steps">
       <div class="flow-step fade-up d1">
         <div class="flow-num">1</div>
-        <h4>お問い合わせ</h4>
+        <h3>お問い合わせ</h3>
         <p>フォームまたはお電話で、まずはご連絡ください</p>
         <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
           <path d="M2 12 Q10 4 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
@@ -1269,7 +1271,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
       </div>
       <div class="flow-step fade-up d2">
         <div class="flow-num">2</div>
-        <h4>ヒアリング</h4>
+        <h3>ヒアリング</h3>
         <p>お悩みやご希望をゆっくり伺います</p>
         <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
           <path d="M2 12 Q10 20 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
@@ -1278,7 +1280,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
       </div>
       <div class="flow-step fade-up d3">
         <div class="flow-num">3</div>
-        <h4>ご提案・情報整理</h4>
+        <h3>ご提案・情報整理</h3>
         <p>選択肢を整理してご提案します</p>
         <svg class="flow-arrow" width="36" height="24" viewBox="0 0 36 24">
           <path d="M2 12 Q10 4 18 12 T34 12" fill="none" stroke="#E89B5B" stroke-width="2" stroke-linecap="round"/>
@@ -1287,7 +1289,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
       </div>
       <div class="flow-step fade-up d4">
         <div class="flow-num">4</div>
-        <h4>ご相談の継続 or ご案内</h4>
+        <h3>ご相談の継続 or ご案内</h3>
         <p>必要なサービスへつないでいきます</p>
       </div>
     </div>
@@ -1353,6 +1355,7 @@ html.home-intro-pending .wave-reveal { animation-play-state:paused; }
   </div>
 </section>
 
+</main>
 <div id="site-footer-host"></div>
 
 <script src="assets/partials.js"></script>

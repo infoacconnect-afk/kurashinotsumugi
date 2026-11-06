@@ -32,11 +32,11 @@ async function entrance() {
   return { dom, d, fonts, image, reading, pending, catchcopy, deadline, duration, cleared: () => cleared };
 }
 
-test('the text and six circles wait for fonts, photo images and line breaking without rewriting text', async () => {
+test('text and six circles preserve their font, line-breaking and separate image readiness', async () => {
   const e = await entrance();
   try {
     e.fonts.resolve(); await flush();
-    assert(e.pending(), 'fonts alone must not reveal incomplete imagery');
+    assert(e.pending(), 'fonts alone must not reveal text before line breaking');
     e.image.resolve(); await flush();
     assert(e.pending(), 'the initial line-breaking pass must settle before revealing');
     e.reading.resolve(); await flush();
@@ -45,7 +45,7 @@ test('the text and six circles wait for fonts, photo images and line breaking wi
     assert.equal(e.d.querySelector('.home-opening'), null, 'no partial-page animation wrapper');
     const css = [...e.d.querySelectorAll('style')].map(el => el.textContent).join('\n');
     assert.match(css, /\.hero-intro-item\s*\{\s*animation: heroIntroReveal 2s linear backwards;/);
-    assert.match(css, /html\.home-intro-pending \.hero-intro-item,\s*html\.home-intro-pending \.hero-photo\s*\{\s*animation-play-state: paused;\s*\}/);
+    assert.match(css, /html\.home-intro-pending \.hero-intro-item,\s*html\.home-photos-pending \.hero-photo\s*\{\s*animation-play-state: paused;\s*\}/);
     assert.deepEqual([...e.d.querySelectorAll('.hero-intro-item')].map(el => el.id), ['heroBrand', 'heroCatch']);
     assert(!e.d.querySelector('#heroButtons').closest('.hero-intro-item'));
     const delays = [...e.d.querySelectorAll('.hero-photo')]
